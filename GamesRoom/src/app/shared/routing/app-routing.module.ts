@@ -9,8 +9,9 @@ import { ForgotPasswordComponent } from '../../components/forgot-password/forgot
 import { VerifyEmailComponent } from '../../components/verify-email/verify-email.component';
 
 // Import canActivate guard services
-import { AuthGuard } from "../../shared/guard/auth.guard";
-import { SecureInnerPagesGuard } from "../../shared/guard/secure-inner-pages.guard";
+import { AuthGuard } from '../../shared/guard/auth.guard';
+import { SecureInnerPagesGuard } from '../../shared/guard/secure-inner-pages.guard';
+import { BoardComponent } from 'src/app/components/board/board.component';
 
 // Include route guard in routes array
 const routes: Routes = [
@@ -19,7 +20,9 @@ const routes: Routes = [
   { path: 'register-user', component: SignUpComponent, canActivate: [SecureInnerPagesGuard]},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [SecureInnerPagesGuard] },
-  { path: 'verify-email-address', component: VerifyEmailComponent, canActivate: [SecureInnerPagesGuard] }
+  { path: 'verify-email-address', component: VerifyEmailComponent, canActivate: [SecureInnerPagesGuard] },
+  { path: 'board', component: BoardComponent, canActivate: [SecureInnerPagesGuard] },
+
 ];
 
 @NgModule({

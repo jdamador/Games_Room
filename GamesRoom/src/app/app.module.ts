@@ -25,6 +25,7 @@ import { environment } from '../environments/environment';
 
 // Auth service
 import { AuthService } from "./shared/services/auth.service";
+import { BoardComponent } from './components/board/board.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { AuthService } from "./shared/services/auth.service";
     ForgotPasswordComponent,
     VerifyEmailComponent,
     HomeComponent,
-    ProfileComponent
+    ProfileComponent,
+    BoardComponent
   ],
   imports: [
     BrowserModule,
