@@ -29,6 +29,7 @@ import { environment } from '../environments/environment';
 import { AuthService } from "./shared/services/auth.service";
 import { from } from 'rxjs';
 import { SignInComponent } from './components/sign-in/sign-in.component';
+import { BoardComponent } from './components/board/board.component';
 
 
 @NgModule({
@@ -41,6 +42,9 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
     ProfileComponent,
     ForgotPasswordComponent,
     VerifyEmailComponent,
+    HomeComponent,
+    ProfileComponent,
+    BoardComponent
   ],
   imports: [
     BrowserModule,
