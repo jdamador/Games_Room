@@ -7,4 +7,5 @@ export interface User {
    wins: number;
    defeats: number;
    draws: number;
+   status: string;
 }

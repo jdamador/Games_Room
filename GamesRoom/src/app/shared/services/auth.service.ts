@@ -113,7 +113,8 @@ export class AuthService {
       emailVerified: user.emailVerified,
       wins: 0,
       defeats: 0,
-      draws: 0
+      draws: 0,
+      status: "Desconocido"
     }
     return userRef.set(userData, {
       merge: true
@@ -126,6 +127,11 @@ export class AuthService {
       localStorage.removeItem('user');
       this.router.navigate(['sign-in']);
     })
+  }
+
+  // Home
+  Home() { 
+    return this.router.navigate(['home']);
   }
 
 }
