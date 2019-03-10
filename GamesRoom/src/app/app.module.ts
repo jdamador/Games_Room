@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MatCardModule} from '@angular/material/card';
-import { MatButtonModule } from '@angular/material'
+import { MatButtonModule, MatToolbarModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material'
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 // Reactive Form
@@ -12,11 +12,9 @@ import { AppRoutingModule } from './shared/routing/app-routing.module';
 
 // App components
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SignUpComponent} from './components/sign-up/sign-up.component';
-import { ForgotPasswordComponent} from './components/forgot-password/forgot-password.component';
 import { VerifyEmailComponent} from './components/verify-email/verify-email.component';
 
 // Firebase services + enviorment module
@@ -29,22 +27,21 @@ import { environment } from '../environments/environment';
 import { AuthService } from "./shared/services/auth.service";
 import { from } from 'rxjs';
 import { SignInComponent } from './components/sign-in/sign-in.component';
-import { BoardComponent } from './components/board/board.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { SavedGamesComponent } from './components/saved-games/saved-games.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    MenuComponent,
     SignInComponent,
     SignUpComponent,
-    DashboardComponent,
     HomeComponent,
     ProfileComponent,
-    ForgotPasswordComponent,
     VerifyEmailComponent,
-    HomeComponent,
-    ProfileComponent,
-    BoardComponent
+    SavedGamesComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,7 +60,12 @@ import { BoardComponent } from './components/board/board.component';
     }),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

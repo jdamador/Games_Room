@@ -37,7 +37,7 @@ export class AuthService {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['home']);
         });
         this.SetUserData(result.user);
       }).catch((error) => {
@@ -92,7 +92,7 @@ export class AuthService {
     return this.afAuth.auth.signInWithPopup(provider)
     .then((result) => {
        this.ngZone.run(() => {
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['home']);
         })
       this.SetUserData(result.user);
     }).catch((error) => {
@@ -111,11 +111,12 @@ export class AuthService {
       displayName: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
-      wins: 0,
-      defeats: 0,
-      draws: 0,
+      wins: 10,
+      defeats: 10,   
+      draws: 10,
       status: "Desconocido"
     }
+    console.log(this.getPeople())
     return userRef.set(userData, {
       merge: true
     })
@@ -134,4 +135,23 @@ export class AuthService {
     return this.router.navigate(['home']);
   }
 
+
+  //Saves Games View
+  SavedGames() { 
+    return this.router.navigate(['saveGames']);
+  }
+
+  //Saves Games View
+  MyProfile() { 
+    return this.router.navigate(['myProfile']);
+  }
+  
+  getPeople(){
+    return new Promise<any>((resolve, reject) => {
+      this.afs.collection('/users').snapshotChanges()
+      .subscribe(snapshots => {
+        resolve(snapshots)
+      })
+    })
+  }
 }
