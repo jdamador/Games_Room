@@ -11,7 +11,9 @@ import { User } from 'src/app/shared/user-service/user.model';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-
+  wins=0;
+  defeats=0;
+  draws=0;
   users: User[];
   constructor(private userService: UserService,
     public authService: AuthService) { }
@@ -24,9 +26,23 @@ export class ProfileComponent implements OnInit {
           ...e.payload.doc.data()
         } as User;
       })
+      this.iniciar();
     });
-
     
+  }
+
+  iniciar(){
+    var id= this.authService.userData['uid'];
+    console.log(this.users);
+    for (let elemento of this.users) 
+    {
+      console.log("pep")
+      if(elemento.uid==id){
+        this.wins= elemento.wins;
+        this.defeats= elemento.defeats;
+        this.draws= elemento.draws;
+      }
+    }
   }
  
 

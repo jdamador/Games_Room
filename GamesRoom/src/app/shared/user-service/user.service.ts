@@ -1,17 +1,22 @@
-import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { Injectable, NgZone  } from '@angular/core';
 import { User } from 'src/app/shared/user-service/user.model';
 import { firestore } from 'firebase';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { AuthService } from "../../shared/services/auth.service";
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private firestore: AngularFirestore) { }
-
+  constructor(  public afs: AngularFirestore,  
+    public ngZone: NgZone,
+    public authService: AuthService
+    ) { }
+  
   getUsers() {
-    console.log(this.firestore.doc('users/fxTkUsDtKCcAEYBwjShBphOp4jG3').ref['id']);
-    return this.firestore.collection('users').snapshotChanges();
+
+    return this.afs.collection('users').snapshotChanges();
   }
 }

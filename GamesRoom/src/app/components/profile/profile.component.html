@@ -5,12 +5,12 @@
             <div *ngIf="authService.userData as user">                      
                 <h5>Player: {{user.email}}</h5>
             </div>
-            <div class="row" *ngFor="let user of users">
+            <div class="row">
                 <div>
                   <h4>Statistics</h4>
-                  <h5>Wins: {{user.wins}}</h5>
-                  <h5>Defeats: {{user.defeats}}</h5>
-                  <h5>Draws: {{user.draws}}</h5>
+                  <h5>Wins: {{wins}}</h5>
+                  <h5>Defeats: {{defeats}}</h5>
+                  <h5>Draws: {{draws}}</h5>
                 </div>
                 <div>
                   <h4>Division</h4>

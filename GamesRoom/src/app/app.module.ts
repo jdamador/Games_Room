@@ -25,6 +25,7 @@ import { environment } from '../environments/environment';
 
 // Auth service
 import { AuthService } from "./shared/services/auth.service";
+import { UserService } from "./shared/user-service/user.service"; 
 import { from } from 'rxjs';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { MenuComponent } from './components/menu/menu.component';
@@ -60,7 +61,7 @@ import { SavedGamesComponent } from './components/saved-games/saved-games.compon
     MatIconModule,
     MatListModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, UserService],
   bootstrap: [AppComponent]
 })
 
