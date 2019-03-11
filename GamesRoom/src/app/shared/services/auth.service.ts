@@ -11,7 +11,7 @@ import { Router } from "@angular/router";
 
 export class AuthService {
   userData: any; // Save logged in user data
-
+  
   constructor(
     public afs: AngularFirestore,   // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
@@ -37,7 +37,7 @@ export class AuthService {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['home']);
         });
         this.SetUserData(result.user);
       }).catch((error) => {
@@ -92,7 +92,7 @@ export class AuthService {
     return this.afAuth.auth.signInWithPopup(provider)
     .then((result) => {
        this.ngZone.run(() => {
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['home']);
         })
       this.SetUserData(result.user);
     }).catch((error) => {
@@ -111,9 +111,10 @@ export class AuthService {
       displayName: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
-      wins: 0,
-      defeats: 0,
-      draws: 0
+      wins: 10,
+      defeats: 10,   
+      draws: 10,
+      status: "Desconocido"
     }
     return userRef.set(userData, {
       merge: true
@@ -128,4 +129,23 @@ export class AuthService {
     })
   }
 
+  // Home
+  Home() { 
+    return this.router.navigate(['home']);
+  }
+
+
+  //Saves Games View
+  SavedGames() { 
+    return this.router.navigate(['saveGames']);
+  }
+
+  //Saves Games View
+  MyProfile() { 
+    return this.router.navigate(['myProfile']);
+  }
+  
+  getPeople(){
+    return this.afAuth.auth;
+  }
 }

@@ -1,5 +1,5 @@
-export interface User {
-   uid: string;
+export class User {
+    uid: string;
    email: string;
    displayName: string;
    photoURL: string;
@@ -9,3 +9,4 @@ export interface User {
    draws: number;
    status: string;
 }
+
