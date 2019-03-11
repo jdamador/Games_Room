@@ -11,6 +11,7 @@ import { Router } from "@angular/router";
 
 export class AuthService {
   userData: any; // Save logged in user data
+  userUID: any
 
   constructor(
     public afs: AngularFirestore,   // Inject Firestore service
@@ -116,7 +117,6 @@ export class AuthService {
       draws: 10,
       status: "Desconocido"
     }
-    console.log(this.getPeople())
     return userRef.set(userData, {
       merge: true
     })
@@ -147,11 +147,6 @@ export class AuthService {
   }
   
   getPeople(){
-    return new Promise<any>((resolve, reject) => {
-      this.afs.collection('/users').snapshotChanges()
-      .subscribe(snapshots => {
-        resolve(snapshots)
-      })
-    })
+    return this.afAuth.auth;
   }
 }

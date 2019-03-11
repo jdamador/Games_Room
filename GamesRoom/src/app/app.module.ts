@@ -50,14 +50,7 @@ import { SavedGamesComponent } from './components/saved-games/saved-games.compon
     FormsModule,
     MatCardModule,
     MatButtonModule,
-    AngularFireModule.initializeApp({
-      apiKey: "AIzaSyA5P5GimK9Sy7zhWUCFgoWHe-0LNLtnsfA",
-      authDomain: "proyect1design.firebaseapp.com",
-      databaseURL: "https://proyect1design.firebaseio.com",
-      projectId: "proyect1design",
-      storageBucket: "proyect1design.appspot.com",
-      messagingSenderId: "965759997972"
-    }),
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
     ReactiveFormsModule,
