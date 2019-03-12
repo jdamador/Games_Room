@@ -11,6 +11,13 @@ import { User } from 'src/app/shared/user-service/user.model';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  image= "";
+  iron= require("./images/iron.png");
+  bronze= require("./images/bronze.png");
+  silver= require("./images/silver.png");
+  gold= require("./images/gold.png");
+  platinum= require("./images/platinum.png");
+  diamond= require("./images/diamond.png");
   wins=0;
   defeats=0;
   draws=0;
@@ -33,16 +40,15 @@ export class ProfileComponent implements OnInit {
 
   iniciar(){
     var id= this.authService.userData['uid'];
-    console.log(this.users);
-    for (let elemento of this.users) 
+    for (let elemento of this.users)
     {
-      console.log("pep")
       if(elemento.uid==id){
         this.wins= elemento.wins;
         this.defeats= elemento.defeats;
         this.draws= elemento.draws;
       }
     }
+    this.image= this.silver;
   }
  
 
