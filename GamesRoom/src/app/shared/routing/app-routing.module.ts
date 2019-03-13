@@ -10,8 +10,9 @@ import { HomeComponent } from '../../components/home/home.component';
 // Import canActivate guard services
 import { AuthGuard } from '../../shared/guard/auth.guard';
 import { SecureInnerPagesGuard } from '../../shared/guard/secure-inner-pages.guard';
-import { SavedGamesComponent } from 'src/app/components/saved-games/saved-games.component';
+
 import { ProfileComponent } from 'src/app/components/profile/profile.component';
+import { SaveListComponent } from 'src/app/components/save-list/save-list.component';
 
 // Include route guard in routes array
 const routes: Routes = [
@@ -20,7 +21,7 @@ const routes: Routes = [
   { path: 'register-user', component: SignUpComponent, canActivate: [SecureInnerPagesGuard]},
   { path: 'verify-email-address', component: VerifyEmailComponent, canActivate: [SecureInnerPagesGuard] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'saveGames', component: SavedGamesComponent, canActivate: [AuthGuard] },
+  { path: 'saveGames', component: SaveListComponent, canActivate: [AuthGuard] },
   { path: 'myProfile', component: ProfileComponent, canActivate: [AuthGuard] },
 ];
 

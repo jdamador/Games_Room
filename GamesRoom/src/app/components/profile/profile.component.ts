@@ -10,14 +10,17 @@ import { User } from 'src/app/shared/user-service/user.model';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
+
 export class ProfileComponent implements OnInit {
-  image= "";
-  iron= require("./images/iron.png");
-  bronze= require("./images/bronze.png");
-  silver= require("./images/silver.png");
-  gold= require("./images/gold.png");
-  platinum= require("./images/platinum.png");
-  diamond= require("./images/diamond.png");
+  images={
+    silver: '../../assets/images/silver.png',
+    bronze: '../../assets/images/bronze.png',
+    iron: '../../assets/images/gold.png',
+    gold: '../../assets/images/gold.png',
+    platinum: '../../assets/images/platinum.png',
+    diamond: '../../assets/images/diamond.png'
+  }
+  resulImage="";
   wins=0;
   defeats=0;
   draws=0;
@@ -39,6 +42,7 @@ export class ProfileComponent implements OnInit {
   }
 
   iniciar(){
+    var total=50;
     var id= this.authService.userData['uid'];
     for (let elemento of this.users)
     {
@@ -46,9 +50,31 @@ export class ProfileComponent implements OnInit {
         this.wins= elemento.wins;
         this.defeats= elemento.defeats;
         this.draws= elemento.draws;
+        total= total+this.wins*5;
+        total= total-this.defeats*8;
+        total= total +this.draws*2;
+        console.log(total);
+        if(total<15){
+          this.resulImage= this.images.iron;
+        }
+        else if(total<40){
+          this.resulImage= this.images.bronze;
+        }
+        else if(total<55){
+          this.resulImage= this.images.silver;
+        }
+        else if(total<70){
+          this.resulImage= this.images.gold;
+        }
+        else if(total <85){
+          this.resulImage= this.images.platinum;
+        }
+        else{
+          this.resulImage= this.images.diamond;0
+        }
       }
     }
-    this.image= this.silver;
+
   }
  
 
