@@ -1,24 +1,21 @@
 <app-menu>
-  
 <div class="main-div">
         <mat-card class="z-depth center" flex="50" >
-            <div *ngIf="authService.userData as user">                      
-                <h5>Player: {{user.email}}</h5>
+            <div class="title" *ngIf="authService.userData as user">                      
+                <h3>Player: {{user.email}}</h3>
             </div>
             <div class="row">
-                <div>
+                <div class="statistics">
                   <h4>Statistics</h4>
                   <h5>Wins: {{wins}}</h5>
                   <h5>Defeats: {{defeats}}</h5>
                   <h5>Draws: {{draws}}</h5>
                 </div>
-                <div>
+                <div class="division">
                   <h4>Division</h4>
+                  <img class="styleImage" [src]='resulImage' width="50%" height="50%">
                 </div>
             </div>
-        </mat-card>
+        </mat-card>     
       </div>
-  
- 
-    
-  </app-menu>
+</app-menu>

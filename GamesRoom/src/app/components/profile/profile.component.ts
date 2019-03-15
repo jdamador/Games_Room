@@ -10,7 +10,17 @@ import { User } from 'src/app/shared/user-service/user.model';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
+
 export class ProfileComponent implements OnInit {
+  images={
+    silver: '../../assets/images/silver.png',
+    bronze: '../../assets/images/bronze.png',
+    iron: '../../assets/images/gold.png',
+    gold: '../../assets/images/gold.png',
+    platinum: '../../assets/images/platinum.png',
+    diamond: '../../assets/images/diamond.png'
+  }
+  resulImage="";
   wins=0;
   defeats=0;
   draws=0;
@@ -32,17 +42,39 @@ export class ProfileComponent implements OnInit {
   }
 
   iniciar(){
+    var total=50;
     var id= this.authService.userData['uid'];
-    console.log(this.users);
-    for (let elemento of this.users) 
+    for (let elemento of this.users)
     {
-      console.log("pep")
       if(elemento.uid==id){
         this.wins= elemento.wins;
         this.defeats= elemento.defeats;
         this.draws= elemento.draws;
+        total= total+this.wins*5;
+        total= total-this.defeats*8;
+        total= total +this.draws*2;
+        console.log(total);
+        if(total<15){
+          this.resulImage= this.images.iron;
+        }
+        else if(total<40){
+          this.resulImage= this.images.bronze;
+        }
+        else if(total<55){
+          this.resulImage= this.images.silver;
+        }
+        else if(total<70){
+          this.resulImage= this.images.gold;
+        }
+        else if(total <85){
+          this.resulImage= this.images.platinum;
+        }
+        else{
+          this.resulImage= this.images.diamond;0
+        }
       }
     }
+
   }
  
 
