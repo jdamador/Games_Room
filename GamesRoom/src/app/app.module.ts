@@ -1,7 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MatCardModule} from '@angular/material/card';
-import { MatButtonModule, MatToolbarModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material'
+import { 
+  MatButtonModule,
+  MatToolbarModule,
+  MatSidenavModule,
+  MatIconModule,
+  MatListModule,
+  MatTableModule, MatPaginatorModule, MatSortModule
+ } from '@angular/material'
+
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 // Reactive Form
@@ -30,7 +38,7 @@ import { from } from 'rxjs';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { SavedGamesComponent } from './components/saved-games/saved-games.component';
+import { SaveListComponent } from './components/save-list/save-list.component';
 
 
 @NgModule({
@@ -42,7 +50,7 @@ import { SavedGamesComponent } from './components/saved-games/saved-games.compon
     HomeComponent,
     ProfileComponent,
     VerifyEmailComponent,
-    SavedGamesComponent,
+    SaveListComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,7 +67,10 @@ import { SavedGamesComponent } from './components/saved-games/saved-games.compon
     MatToolbarModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [AuthService, UserService],
   bootstrap: [AppComponent]

@@ -1,15 +1,50 @@
 .center{
     width: 75%;
+    height: 65%;
     margin: 10px auto;
   }
 
 .space{
-    height: 20px;
+    height: 10%;
 }
   
-  .main-div{
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.main-div{
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: grey;
+}
+
+.statistics{
+  width: 50%;
+  text-align: center;
+  height: 30%;
+  
+}
+
+h4{
+  line-height: 300%; 
+}
+
+h5{
+  line-height: 200%;
+}
+
+.title{
+  width: 100%;
+  text-align: center;
+  height: 25%;
+}
+
+.division{
+  text-align: center;
+  width: 50%;
+}
+
+.name{
+  height: 10%
+}
+
+
+  
