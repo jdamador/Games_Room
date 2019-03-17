@@ -8,22 +8,32 @@ import { Component, OnInit } from '@angular/core';
 export class MemoryBoardComponent implements OnInit {
   // Game's imagenes.
   private images = [
-    { id: 1, url: '/assets/images/10.png' },
-    { id: 2, url: '/assets/images/J.png' },
-    { id: 3, url: '/assets/images/K.png' },
-    { id: 4, url: '/assets/images/Q.png' }
+    { id: 1, url: '/assets/images/Animals/cat.png' },
+    { id: 2, url: '/assets/images/Animals/crab.png' },
+    { id: 3, url: '/assets/images/Animals/fish.png' },
+    { id: 4, url: '/assets/images/Animals/turtle.png' },
+    { id: 5, url: '/assets/images/Animals/bird.png' },
+    { id: 6, url: '/assets/images/Animals/dino.png' },
+    { id: 7, url: '/assets/images/Animals/fox.png' },
+    { id: 8, url: '/assets/images/Animals/giraffe.png' },
+    { id: 9, url: '/assets/images/Animals/sheep.png' },
+    { id: 10, url: '/assets/images/Animals/hamtaro.png' }
   ];
   // Image that is show when the cards aren't flipped.
   public images_inact = '/assets/images/poker.png';
   public cards = [];
-  //
+  // Fist card picked.
   private last_select_id = null;
   // Quantity of possible matches.
   // TODO: Add more elements.
-  private hits = 4;
+  private hits = 10;
   // Quantity of matches found.
   private count_aciertos = 0;
-
+  // Active player.
+  private activePlayer = true;
+  private scorePlayer1 = 0;
+  private scorePlayer2 = 0;
+  private player;
   constructor() {}
 
   // When the component is init create a logic board.
@@ -39,13 +49,14 @@ export class MemoryBoardComponent implements OnInit {
         id: img.id,
         url: img.url,
         visible: false, // It's visible.
-        active: true    // It's possible select it.
+        active: true // It's possible select it.
       });
 
       count_index++;
     }
     // Call a method that shuffle.
     this.RandomArray(this.cards);
+    this.player = 'Player 1';
   }
   // Method that is called when a card is selected.
   card_selected(idx: number) {
@@ -66,18 +77,29 @@ export class MemoryBoardComponent implements OnInit {
       // If is the second pick, check if both are equal.
       if (this.cards[this.last_select_id].id === this.cards[idx].id) {
         // Increase the hits for the active player.
-        this.count_aciertos++;
+        if (this.activePlayer) {
+          this.scorePlayer1++;
+        } else {
+          this.scorePlayer2++;
+        }
         // Reset the state for game variables.
         this.cards[idx].visible = true;
         this.cards[idx].active = false;
         this.last_select_id = null;
       } else {
         // If don't do match.
+        if (this.activePlayer) {
+          this.activePlayer = false;
+          this.player = 'Player 2';
+        } else {
+          this.activePlayer = true;
+          this.player = 'Player 1';
+        }
         const _this = this;
         // Show the animation that appears when a card is flipped.
         setTimeout(function() {
           _this.cards[_this.last_select_id].visible = false; // Hide.
-          _this.cards[_this.last_select_id].active = true;   // Active.
+          _this.cards[_this.last_select_id].active = true; // Active.
           _this.cards[idx].visible = false;
           _this.last_select_id = null;
         }, 0.2 * 1000);
