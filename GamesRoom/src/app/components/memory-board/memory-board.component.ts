@@ -87,7 +87,6 @@ export class MemoryBoardComponent implements OnInit {
     if (this.hits === this.count_aciertos) {
       alert('Juego Terminado');
       // Refresh the page.
-      window.location.reload();
     }
   }
   // Shuffle the array to set all images.
