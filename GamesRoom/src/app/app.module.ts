@@ -45,6 +45,14 @@ import { MemoryBoardComponent } from './components/memory-board/memory-board.com
 
 // Services
 import { CardService } from './shared/services/card.service';
+import { CheckersBoardComponent } from './components/checkers-board/checkers-board.component';
+import { ChatBoardComponent } from './components/chat-board/chat-board.component';
+
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { ChatService } from './shared/services/chat-service/chat.service';
+
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +63,9 @@ import { CardService } from './shared/services/card.service';
     ProfileComponent,
     VerifyEmailComponent,
     SaveListComponent,
-    MemoryBoardComponent
+    MemoryBoardComponent,
+    CheckersBoardComponent,
+    ChatBoardComponent
   ],
   imports: [
     BrowserModule,
@@ -75,9 +85,10 @@ import { CardService } from './shared/services/card.service';
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    SocketIoModule.forRoot(config)
   ],
-  providers: [AuthService, UserService, CardService],
+  providers: [AuthService, UserService, CardService, ChatService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
