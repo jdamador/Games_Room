@@ -9,7 +9,8 @@ import {
   MatListModule,
   MatTableModule,
   MatPaginatorModule,
-  MatSortModule
+  MatSortModule,
+  MatRadioModule
 } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -75,7 +76,8 @@ import { CardService } from './shared/services/card.service';
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatRadioModule
   ],
   providers: [AuthService, UserService, CardService],
   bootstrap: [AppComponent]

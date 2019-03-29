@@ -9,7 +9,9 @@ import { Router } from "@angular/router";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
+  checkers_levels: any;
+  memory_levels: any;
+  
   constructor(
     public authService: AuthService,
     public router: Router,

@@ -9,6 +9,18 @@
         <p>
         Welcome to the best Checkers Master Game! XD
         </p>
+
+        <div>
+            <P class="level_titlte">Difficulty level:</P>
+            <section class="section">
+              <mat-radio-group [(ngModel)]="checkers_levels">
+                <mat-radio-button class="margin" value="easy">Easy</mat-radio-button>
+                <mat-radio-button class="margin" value="medium">Medium</mat-radio-button>
+                <mat-radio-button class="margin" value="hard">Hard</mat-radio-button>
+              </mat-radio-group>
+            </section>
+        </div>
+
     </mat-card-content>
     <mat-card-actions>
         <button mat-button>1 Player</button>
@@ -27,6 +39,18 @@
             <p>
             Welcome to the best Memory Game! XD
             </p>
+
+            <div>
+                <P class="level_titlte">Difficulty level:</P>
+                <section class="section">
+                  <mat-radio-group [(ngModel)]="memory_levels">
+                    <mat-radio-button class="margin" value="easy">Easy</mat-radio-button>
+                    <mat-radio-button class="margin" value="medium">Medium</mat-radio-button>
+                    <mat-radio-button class="margin" value="hard">Hard</mat-radio-button>
+                  </mat-radio-group>
+                </section>
+            </div>
+
         </mat-card-content>
         <mat-card-actions>
             <button mat-button>1 Player</button>
