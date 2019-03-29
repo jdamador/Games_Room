@@ -10,7 +10,9 @@ import {
   MatTableModule,
   MatPaginatorModule,
   MatSortModule,
-  MatRadioModule
+  MatRadioModule,
+  MatDialogModule,
+  MatFormFieldModule
 } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -46,6 +48,8 @@ import { MemoryBoardComponent } from './components/memory-board/memory-board.com
 
 // Services
 import { CardService } from './shared/services/card.service';
+import { ConfigGameIAComponent } from './components/config-game-ia/config-game-ia.component';
+import { ConfigGamePlayersComponent } from './components/config-game-players/config-game-players.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +60,9 @@ import { CardService } from './shared/services/card.service';
     ProfileComponent,
     VerifyEmailComponent,
     SaveListComponent,
-    MemoryBoardComponent
+    MemoryBoardComponent,
+    ConfigGameIAComponent,
+    ConfigGamePlayersComponent
   ],
   imports: [
     BrowserModule,
@@ -77,9 +83,12 @@ import { CardService } from './shared/services/card.service';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatRadioModule
+    MatRadioModule,
+    MatDialogModule,
+    MatFormFieldModule
   ],
   providers: [AuthService, UserService, CardService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ConfigGameIAComponent, ConfigGamePlayersComponent]
 })
 export class AppModule {}
