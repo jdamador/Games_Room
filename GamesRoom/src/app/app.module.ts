@@ -11,7 +11,9 @@ import {
   MatPaginatorModule,
   MatSortModule,
   MatRadioModule,
-  MatGridListModule
+  MatGridListModule,
+  MatDialogModule,
+  MatFormFieldModule
 } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -28,6 +30,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { CheckersBoardComponent } from './components/checkers-board/checkers-board.component';
 
 // Firebase services + enviorment module
 import { AngularFireModule } from '@angular/fire';
@@ -47,7 +50,8 @@ import { MemoryBoardComponent } from './components/memory-board/memory-board.com
 
 // Services
 import { CardService } from './shared/services/card.service';
-import { CheckersBoardComponent } from './components/checkers-board/checkers-board.component';
+import { ConfigGameIAComponent } from './components/config-game-ia/config-game-ia.component';
+import { ConfigGamePlayersComponent } from './components/config-game-players/config-game-players.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +63,9 @@ import { CheckersBoardComponent } from './components/checkers-board/checkers-boa
     VerifyEmailComponent,
     SaveListComponent,
     MemoryBoardComponent,
-    CheckersBoardComponent
+    CheckersBoardComponent,
+    ConfigGameIAComponent,
+    ConfigGamePlayersComponent
   ],
   imports: [
     BrowserModule,
@@ -81,9 +87,12 @@ import { CheckersBoardComponent } from './components/checkers-board/checkers-boa
     MatPaginatorModule,
     MatSortModule,
     MatRadioModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDialogModule,
+    MatFormFieldModule
   ],
   providers: [AuthService, UserService, CardService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ConfigGameIAComponent, ConfigGamePlayersComponent]
 })
 export class AppModule {}
