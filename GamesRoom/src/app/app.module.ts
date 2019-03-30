@@ -10,7 +10,8 @@ import {
   MatTableModule,
   MatPaginatorModule,
   MatSortModule,
-  MatRadioModule
+  MatRadioModule,
+  MatGridListModule
 } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -46,6 +47,7 @@ import { MemoryBoardComponent } from './components/memory-board/memory-board.com
 
 // Services
 import { CardService } from './shared/services/card.service';
+import { CheckersBoardComponent } from './components/checkers-board/checkers-board.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +58,8 @@ import { CardService } from './shared/services/card.service';
     ProfileComponent,
     VerifyEmailComponent,
     SaveListComponent,
-    MemoryBoardComponent
+    MemoryBoardComponent,
+    CheckersBoardComponent
   ],
   imports: [
     BrowserModule,
@@ -77,7 +80,8 @@ import { CardService } from './shared/services/card.service';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatRadioModule
+    MatRadioModule,
+    MatGridListModule
   ],
   providers: [AuthService, UserService, CardService],
   bootstrap: [AppComponent]

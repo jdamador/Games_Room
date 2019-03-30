@@ -6,6 +6,7 @@ import { SignInComponent } from '../../components/sign-in/sign-in.component';
 import { SignUpComponent } from '../../components/sign-up/sign-up.component';
 import { VerifyEmailComponent } from '../../components/verify-email/verify-email.component';
 import { HomeComponent } from '../../components/home/home.component';
+import { CheckersBoardComponent } from '../../components/checkers-board/checkers-board.component';
 
 // Import canActivate guard services
 import { AuthGuard } from '../../shared/guard/auth.guard';
@@ -13,6 +14,7 @@ import { SecureInnerPagesGuard } from '../../shared/guard/secure-inner-pages.gua
 
 import { ProfileComponent } from 'src/app/components/profile/profile.component';
 import { SaveListComponent } from 'src/app/components/save-list/save-list.component';
+
 
 // Include route guard in routes array
 const routes: Routes = [
@@ -23,6 +25,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'saveGames', component: SaveListComponent, canActivate: [AuthGuard] },
   { path: 'myProfile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'checkers', component: CheckersBoardComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

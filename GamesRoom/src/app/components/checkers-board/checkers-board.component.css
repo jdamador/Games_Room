@@ -1,0 +1,28 @@
+mat-grid-list {
+  width: 40%;
+  height: 40%;
+  margin-left: 5%;
+  margin-top: 5%;
+  //border: 2px solid blue;
+}
+
+.WhiteBox{
+  background-color: white;
+}
+
+.BlackBox{
+  background-color: black;
+}
+
+.pieceRed{
+  background: url('../../../assets/fichaRoja.png');
+}
+
+.pieceWhite{
+  background: url('../../../assets/fichaBlanca.png');
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+}
