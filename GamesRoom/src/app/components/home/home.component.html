@@ -1,36 +1,19 @@
-<app-menu>
-<mat-card class="card">
-    <mat-card-header>
-        <div mat-card-avatar class="header-image"></div>
-        <mat-card-title>Checkers Master Game</mat-card-title>
-    </mat-card-header>
-    <img mat-card-image src="" alt="">
-    <mat-card-content>
-        <p>
-        Welcome to the best Checkers Master Game! XD
-        </p>
-    </mat-card-content>
-    <mat-card-actions>
-        <button mat-button>1 Player</button>
-        <button mat-button>2 Players</button>
-    </mat-card-actions>
-</mat-card>
-
-
-<mat-card class="card">
-        <mat-card-header>
-            <div mat-card-avatar class="header-image"></div>
-            <mat-card-title>Memory Game</mat-card-title>
-        </mat-card-header>
-        <img mat-card-image src="" alt="">
-        <mat-card-content>
-            <p>
-            Welcome to the best Memory Game! XD
-            </p>
-        </mat-card-content>
+<div class="content">
+    <app-menu>
+      <mat-card class="checkers">
+        <img mat-card-image src="../../../assets/images/memory.png" />
         <mat-card-actions>
-            <button mat-button>1 Player</button>
-            <button mat-button>2 Players</button>
+          <button mat-button (click)="openSettingPlayers()">Player vs Player</button>
+          <button mat-button (click)="openSettingsIA()">Player vs IA</button>
         </mat-card-actions>
-    </mat-card>
-</app-menu>
+      </mat-card>
+      
+      <mat-card class="memory">
+        <img mat-card-image src="../../../assets/images/checkers.png" />
+        <mat-card-actions>
+            <button mat-button (click)="openSettingPlayers()">Player vs Player</button>
+            <button mat-button (click)="openSettingsIA()">Player vs IA</button>
+          </mat-card-actions>
+      </mat-card>
+    </app-menu>
+  </div>

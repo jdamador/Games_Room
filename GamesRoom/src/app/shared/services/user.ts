@@ -4,8 +4,4 @@ export interface User {
    displayName: string;
    photoURL: string;
    emailVerified: boolean;
-   wins: number;
-   defeats: number;
-   draws: number;
-   status: string;
 }

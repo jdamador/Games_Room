@@ -4,6 +4,8 @@ import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +13,14 @@ import { Router } from "@angular/router";
 
 export class AuthService {
   userData: any; // Save logged in user data
+  statisticsData: any;
   
   constructor(
     public afs: AngularFirestore,   // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,  
-    public ngZone: NgZone // NgZone service to remove outside scope warning
+    public ngZone: NgZone, // NgZone service to remove outside scope warning
+    private http: HttpClient
   ) {    
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
@@ -94,11 +98,12 @@ export class AuthService {
        this.ngZone.run(() => {
           this.router.navigate(['home']);
         })
-        console.log(result);
+        
       this.SetUserData(result.user);
     }).catch((error) => {
       window.alert(error)
     })
+    
   }
 
   /* Setting up user data when sign in with username/password, 
@@ -111,12 +116,9 @@ export class AuthService {
       email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL,
-      emailVerified: user.emailVerified,
-      wins: 10,
-      defeats: 10,   
-      draws: 10,
-      status: "Desconocido"
+      emailVerified: user.emailVerified
     }
+    this.CreateStatistics(user.uid);
     return userRef.set(userData, {
       merge: true
     })
@@ -129,6 +131,25 @@ export class AuthService {
       this.router.navigate(['sign-in']);
     })
   }
+
+  //Function for create statistics when user registered
+  CreateStatistics(idUser){
+    const config = {
+      uid: idUser
+    }
+    this.callCreateStatistics(config).subscribe(
+      data => {
+        this.statisticsData=data;
+      },
+      error => {
+        console.log('error de consulta '+error)
+      }
+    )
+  }
+  callCreateStatistics(config: any): Observable<any> {
+    return this.http.post('http://localhost:3000/estadisticas/agregar', config);
+  }
+
 
   // Home
   Home() { 

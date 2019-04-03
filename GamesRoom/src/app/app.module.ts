@@ -51,6 +51,9 @@ import { ChatBoardComponent } from './components/chat-board/chat-board.component
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { ChatService } from './shared/services/chat-service/chat.service';
 
+import { HttpClientModule } from '@angular/common/http'; 
+import { HttpModule } from '@angular/http';
+
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 @NgModule({
@@ -86,7 +89,9 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    SocketIoModule.forRoot(config)
+    SocketIoModule.forRoot(config),
+    HttpModule,
+    HttpClientModule
   ],
   providers: [AuthService, UserService, CardService, ChatService],
   bootstrap: [AppComponent]
