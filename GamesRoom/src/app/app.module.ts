@@ -9,7 +9,11 @@ import {
   MatListModule,
   MatTableModule,
   MatPaginatorModule,
-  MatSortModule
+  MatSortModule,
+  MatRadioModule,
+  MatGridListModule,
+  MatDialogModule,
+  MatFormFieldModule
 } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -26,6 +30,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { CheckersBoardComponent } from './components/checkers-board/checkers-board.component';
 
 // Firebase services + enviorment module
 import { AngularFireModule } from '@angular/fire';
@@ -45,7 +50,6 @@ import { MemoryBoardComponent } from './components/memory-board/memory-board.com
 
 // Services
 import { CardService } from './shared/services/card.service';
-import { CheckersBoardComponent } from './components/checkers-board/checkers-board.component';
 import { ChatBoardComponent } from './components/chat-board/chat-board.component';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
@@ -56,6 +60,8 @@ import { HttpModule } from '@angular/http';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
+import { ConfigGameIAComponent } from './components/config-game-ia/config-game-ia.component';
+import { ConfigGamePlayersComponent } from './components/config-game-players/config-game-players.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,7 +74,9 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     SaveListComponent,
     MemoryBoardComponent,
     CheckersBoardComponent,
-    ChatBoardComponent
+    ChatBoardComponent,
+    ConfigGameIAComponent,
+    ConfigGamePlayersComponent
   ],
   imports: [
     BrowserModule,
@@ -89,11 +97,16 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatRadioModule,
+    MatGridListModule,
+    MatDialogModule,
+    MatFormFieldModule,
     SocketIoModule.forRoot(config),
     HttpModule,
     HttpClientModule
   ],
-  providers: [AuthService, UserService, CardService, ChatService],
-  bootstrap: [AppComponent]
+  providers: [AuthService, UserService, CardService,ChatService],
+  bootstrap: [AppComponent],
+  entryComponents: [ConfigGameIAComponent, ConfigGamePlayersComponent]
 })
 export class AppModule {}

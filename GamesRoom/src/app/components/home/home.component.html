@@ -1,19 +1,19 @@
 <div class="content">
-    <app-menu>
-      <mat-card class="checkers">
-        <img mat-card-image src="../../../assets/images/memory.png" />
-        <mat-card-actions>
+  <app-menu>
+    <mat-card class="checkers">
+      <img mat-card-image src="../../../assets/images/memory.png" />
+      <mat-card-actions>
+        <button mat-button (click)="openSettingPlayers()">Player vs Player</button>
+        <button mat-button (click)="openSettingsIA()">Player vs IA</button>
+      </mat-card-actions>
+    </mat-card>
+    
+    <mat-card class="memory">
+      <img mat-card-image src="../../../assets/images/checkers.png" />
+      <mat-card-actions>
           <button mat-button (click)="openSettingPlayers()">Player vs Player</button>
           <button mat-button (click)="openSettingsIA()">Player vs IA</button>
         </mat-card-actions>
-      </mat-card>
-      
-      <mat-card class="memory">
-        <img mat-card-image src="../../../assets/images/checkers.png" />
-        <mat-card-actions>
-            <button mat-button (click)="openSettingPlayers()">Player vs Player</button>
-            <button mat-button (click)="openSettingsIA()">Player vs IA</button>
-          </mat-card-actions>
-      </mat-card>
-    </app-menu>
-  </div>
+    </mat-card>
+  </app-menu>
+</div>
