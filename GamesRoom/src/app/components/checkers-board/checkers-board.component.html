@@ -1,11 +1,23 @@
 <div class="content">
   <app-menu>
       <mat-grid-list cols="10">
-          <div *ngFor="let i of jsonTablero; let r = index">  
-            <mat-grid-tile (click)="click()" *ngFor="let j of i; let c = index" [ngClass]="{'BlackBox': (r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0), 
-            'WhiteBox': (r%2==0 && c%2 ==0) || (r%2!=0 && c%2 !=0)}"></mat-grid-tile>
-            <!--, 'pieceRed': (j === 'R'), 'pieceWhite': (j === 'B') Para imagen de fondo-->
+          <div *ngFor="let i of listaTablero; let r = index">  
+            <mat-grid-tile (click)="click()" 
+            *ngFor="let j of i; let c = index">
+              <img class="image" *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'V'" 
+              src="../../../assets/images/FondoNegro.png" alt="Fondo Negro">
+
+              <img class="image" *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'R'" 
+              src="../../../assets/images/FichaRoja.png" alt="Ficha Roja">
+
+              <img class="image" *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'B'" 
+              src="../../../assets/images/FichaBlanca.png" alt="Ficha Blanca">
+
+              <img class="image" *ngIf="((r%2==0 && c%2 ==0) || (r%2!=0 && c%2 !=0)) && j == 'V'" 
+              src="../../../assets/images/FondoBlanco.jpg" alt="Fondo Blanco">
+            </mat-grid-tile>
           </div>
       </mat-grid-list>
   </app-menu>
 </div>
+

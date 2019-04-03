@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppRoutingModule } from 'src/app/shared/routing/app-routing.module';
 
 @Component({
   selector: 'app-checkers-board',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CheckersBoardComponent implements OnInit {
 
-   jsonTablero = [
+   listaTablero = [
     [
         "V",
         "R",

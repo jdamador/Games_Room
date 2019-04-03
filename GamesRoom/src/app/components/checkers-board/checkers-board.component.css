@@ -3,23 +3,11 @@ mat-grid-list {
   height: 40%;
   margin-left: 5%;
   margin-top: 5%;
-  //border: 2px solid blue;
 }
 
-.WhiteBox{
-  background-color: white;
-}
-
-.BlackBox{
-  background-color: black;
-}
-
-.pieceRed{
-  background: url('../../../assets/fichaRoja.png');
-}
-
-.pieceWhite{
-  background: url('../../../assets/fichaBlanca.png');
+.image{
+  width: 50px;
+  height: 50px;
 }
 
 .content {
