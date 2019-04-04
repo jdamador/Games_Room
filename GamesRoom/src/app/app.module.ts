@@ -50,6 +50,16 @@ import { MemoryBoardComponent } from './components/memory-board/memory-board.com
 
 // Services
 import { CardService } from './shared/services/card.service';
+import { ChatBoardComponent } from './components/chat-board/chat-board.component';
+
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { ChatService } from './shared/services/chat-service/chat.service';
+
+import { HttpClientModule } from '@angular/common/http'; 
+import { HttpModule } from '@angular/http';
+
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+
 import { ConfigGameIAComponent } from './components/config-game-ia/config-game-ia.component';
 import { ConfigGamePlayersComponent } from './components/config-game-players/config-game-players.component';
 @NgModule({
@@ -64,6 +74,7 @@ import { ConfigGamePlayersComponent } from './components/config-game-players/con
     SaveListComponent,
     MemoryBoardComponent,
     CheckersBoardComponent,
+    ChatBoardComponent,
     ConfigGameIAComponent,
     ConfigGamePlayersComponent
   ],
@@ -89,9 +100,12 @@ import { ConfigGamePlayersComponent } from './components/config-game-players/con
     MatRadioModule,
     MatGridListModule,
     MatDialogModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    SocketIoModule.forRoot(config),
+    HttpModule,
+    HttpClientModule
   ],
-  providers: [AuthService, UserService, CardService],
+  providers: [AuthService, UserService, CardService,ChatService],
   bootstrap: [AppComponent],
   entryComponents: [ConfigGameIAComponent, ConfigGamePlayersComponent]
 })

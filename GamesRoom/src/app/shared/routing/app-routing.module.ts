@@ -14,6 +14,7 @@ import { SecureInnerPagesGuard } from '../../shared/guard/secure-inner-pages.gua
 
 import { ProfileComponent } from 'src/app/components/profile/profile.component';
 import { SaveListComponent } from 'src/app/components/save-list/save-list.component';
+import { ChatBoardComponent } from 'src/app/components/chat-board/chat-board.component';
 
 
 // Include route guard in routes array
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'saveGames', component: SaveListComponent, canActivate: [AuthGuard] },
   { path: 'myProfile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'checkers', component: CheckersBoardComponent, canActivate: [AuthGuard] },
+  { path: 'chat', component: ChatBoardComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
