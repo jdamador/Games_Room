@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AppRoutingModule } from 'src/app/shared/routing/app-routing.module';
+import { AppRoutingModule } from 'src/app/shared/routing/app-routing.module';   
 
 @Component({
   selector: 'app-checkers-board',
