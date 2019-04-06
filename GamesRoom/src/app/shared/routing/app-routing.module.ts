@@ -7,6 +7,7 @@ import { SignUpComponent } from '../../components/sign-up/sign-up.component';
 import { VerifyEmailComponent } from '../../components/verify-email/verify-email.component';
 import { HomeComponent } from '../../components/home/home.component';
 import { CheckersBoardComponent } from '../../components/checkers-board/checkers-board.component';
+import { MemoryBoardComponent } from '../../components/memory-board/memory-board.component';
 
 // Import canActivate guard services
 import { AuthGuard } from '../../shared/guard/auth.guard';
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'myProfile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'checkers', component: CheckersBoardComponent, canActivate: [AuthGuard] },
   { path: 'chat', component: ChatBoardComponent, canActivate: [AuthGuard] },
+  { path: 'memory', component: MemoryBoardComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

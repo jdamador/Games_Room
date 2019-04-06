@@ -24,7 +24,7 @@ export class CheckersService {
   public getTablero(){
     return Observable.create((observer)=>{
       this.socket.on('crearTableroDama', (data)=>{
-        console.log(data);
+        //console.log(data);
         observer.next(data);
       });
     });
@@ -39,7 +39,7 @@ export class CheckersService {
   public getPosiblesMovimientos(){
     return Observable.create((observer)=>{
       this.socket.on('validaMovimiento', (data)=>{
-        console.log(data);
+        //console.log(data);
         observer.next(data);
       })
     })

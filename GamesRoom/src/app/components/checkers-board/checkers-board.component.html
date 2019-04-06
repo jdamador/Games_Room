@@ -2,8 +2,8 @@
   <app-menu>
       <mat-grid-list cols="10">
           <div *ngFor="let i of tablero; let r = index">  
-            <mat-grid-tile (click)="click()" 
-            *ngFor="let j of i; let c = index" id="{{r}},{{c}}">
+            <mat-grid-tile  
+            *ngFor="let j of i; let c = index" id="{{r}},{{c}}" (click)="function(r,c)">
               <img class="image" *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'V'" 
               src="../../../assets/images/FondoNegro.png" alt="Fondo Negro">
 

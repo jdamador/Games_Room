@@ -11,8 +11,8 @@ export class CheckersBoardComponent implements OnInit {
     uidJugador1 = "jugador1";
     uidJugador2 = "jugador2";
     tablero = [];
-    x = "4";
-    y = "6";
+    x : string;
+    y : string;
     tableroUsuario = [];
 
 
@@ -24,7 +24,7 @@ export class CheckersBoardComponent implements OnInit {
       .subscribe((data) => {
         this.idSala = data.idSala;
         this.tablero = data.tablero;
-        console.log("Tablero:" + this.tablero)
+        //console.log("Tablero:" + this.tablero)
       });
     }
 
@@ -49,7 +49,11 @@ export class CheckersBoardComponent implements OnInit {
   }
   
 
-  click(){
-    alert('Hizo click...');
+  function(row , col){
+    //alert('Row: ' + row + ' Col: ' + col);
+    this.x = row;
+    this.y = col;
+    this.envioInfoVerficarPosibleMovimiento();
+    this.getPosiblesMovimientos();
   }
 }
