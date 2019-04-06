@@ -20,7 +20,7 @@ export class ChatBoardComponent implements OnInit {
   ngOnInit() {
     this.chatService.getMessages()
       .subscribe((data) => {
-        this.messages.push({"Author": data.author, "Text": data.text});
+        this.messages.push({"Author": data.Author, "Text": data.text});
       });
   }
 
@@ -28,7 +28,5 @@ export class ChatBoardComponent implements OnInit {
     this.chatService.envioInfo({"idSala":this.idSala, "author":this.author, "text":this.newMessage})
     this.newMessage= ""
   }
-
-  
 
 }
