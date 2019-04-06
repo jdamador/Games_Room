@@ -1,8 +1,5 @@
 <div class="container">
-  <div>
-    <h5>Player 1:{{ scorePlayer1  }}<br> Player 2:{{ scorePlayer2  }}</h5>
-  </div>
-  <div class="mesa-cartas">
+  <div class="cards_table">
     <span *ngFor="let card of cards; index as i">
       <img
         class="img-card"
@@ -11,5 +8,7 @@
       />
     </span>
   </div>
-  <h5>Actual turn: {{ player }}</h5>
+</div>
+<div *ngFor="let message of messages">
+  {{message}}
 </div>

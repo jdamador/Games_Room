@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MemoryService } from 'src/app/shared/services/memory/memory.service';
 
 @Component({
   selector: 'app-memory-board',
@@ -6,5 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./memory-board.component.css']
 })
 export class MemoryBoardComponent implements OnInit {
-  ngOnInit() {}
+  cards = [];
+  constructor(private memory: MemoryService) {}
+  ngOnInit() {
+    
+  }
 }

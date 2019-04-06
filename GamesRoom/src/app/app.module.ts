@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
+
 import {
   MatButtonModule,
   MatToolbarModule,
@@ -31,6 +32,11 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { CheckersBoardComponent } from './components/checkers-board/checkers-board.component';
+import { SaveListComponent } from './components/save-list/save-list.component';
+import { MemoryBoardComponent } from './components/memory-board/memory-board.component';
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { ChatBoardComponent } from './components/chat-board/chat-board.component';
 
 // Firebase services + enviorment module
 import { AngularFireModule } from '@angular/fire';
@@ -42,26 +48,19 @@ import { environment } from '../environments/environment';
 import { AuthService } from './shared/services/auth.service';
 import { UserService } from './shared/user-service/user.service';
 import { from } from 'rxjs';
-import { SignInComponent } from './components/sign-in/sign-in.component';
-import { MenuComponent } from './components/menu/menu.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { SaveListComponent } from './components/save-list/save-list.component';
-import { MemoryBoardComponent } from './components/memory-board/memory-board.component';
-
 // Services
 import { CardService } from './shared/services/card.service';
-import { ChatBoardComponent } from './components/chat-board/chat-board.component';
-
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { ChatService } from './shared/services/chat-service/chat.service';
-
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
+import { ConfigGameIAComponent } from './components/config-game-ia/config-game-ia.component';
+import { ConfigGamePlayersComponent } from './components/config-game-players/config-game-players.component';
+import { MemoryService } from './shared/services/memory/memory.service';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
-import { ConfigGameIAComponent } from './components/config-game-ia/config-game-ia.component';
-import { ConfigGamePlayersComponent } from './components/config-game-players/config-game-players.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -105,7 +104,7 @@ import { ConfigGamePlayersComponent } from './components/config-game-players/con
     HttpModule,
     HttpClientModule
   ],
-  providers: [AuthService, UserService, CardService,ChatService],
+  providers: [AuthService, UserService, CardService, ChatService, MemoryService],
   bootstrap: [AppComponent],
   entryComponents: [ConfigGameIAComponent, ConfigGamePlayersComponent]
 })
