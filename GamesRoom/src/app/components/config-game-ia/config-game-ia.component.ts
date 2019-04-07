@@ -8,12 +8,9 @@ import { MatDialogRef } from '@angular/material';
 })
 export class ConfigGameIAComponent implements OnInit {
   checkers_levels: any;
-  constructor(
-    public dialogRef: MatDialogRef<ConfigGameIAComponent>
-  ) { }
+  constructor(public dialogRef: MatDialogRef<ConfigGameIAComponent>) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
   onClose() {
     this.dialogRef.close();
   }
