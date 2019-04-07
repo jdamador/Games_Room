@@ -24,7 +24,6 @@ export class CheckersService {
   public getTablero(){
     return Observable.create((observer)=>{
       this.socket.on('crearTableroDama', (data)=>{
-        //console.log(data);
         observer.next(data);
       });
     });
@@ -39,7 +38,20 @@ export class CheckersService {
   public getPosiblesMovimientos(){
     return Observable.create((observer)=>{
       this.socket.on('validaMovimientoDama', (data)=>{
-        //console.log(data);
+        observer.next(data);
+      })
+    })
+  }
+
+  //Envia la información al API para verificar los posible movimientos de una ficha
+  public envioInfoActualizarTableroNuevoMovimiento = (data) =>{
+    this.socket.emit('actualizarTablaDama', data);
+  }
+
+  //Obtiene los posibles movimientos a partir de la informacion procesada por el API
+  public getTableroNuevoMovimiento(){
+    return Observable.create((observer)=>{
+      this.socket.on('actualizarTablaDama', (data)=>{
         observer.next(data);
       })
     })

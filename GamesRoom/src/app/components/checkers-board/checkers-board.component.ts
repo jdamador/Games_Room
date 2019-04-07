@@ -11,10 +11,10 @@ export class CheckersBoardComponent implements OnInit {
     uidJugador1 = "jugador1";
     uidJugador2 = "jugador2";
     tablero = [];
-    x : string;
-    y : string;
-    tableroUsuario = [];
-
+    xActual : string;
+    yActual : string;
+    ganador : string;
+    estado = "false";
 
   constructor(private checkersService: CheckersService) { }
 
@@ -24,7 +24,6 @@ export class CheckersBoardComponent implements OnInit {
       .subscribe((data) => {
         this.idSala = data.idSala;
         this.tablero = data.tablero;
-        //console.log("Tablero:" + this.tablero)
       });
     }
 
@@ -34,8 +33,8 @@ export class CheckersBoardComponent implements OnInit {
   }
 
   //Envia información hacia el servicio para verificar los posible movimientos de una ficha
-  envioInfoVerficarPosibleMovimiento(){
-    this.checkersService.envioInfoPosibleMovimiento({"jugador": this.uidJugador1, "idSala":this.idSala, "x": this.x, "y":this.y})
+  envioInfoVerficarPosiblesMovimiento(){
+    this.checkersService.envioInfoPosibleMovimiento({"jugador": this.uidJugador1, "idSala":this.idSala, "x": this.xActual, "y":this.yActual})
   }
 
   //Obtiene del servicio los posibles movimientos de una ficha
@@ -43,17 +42,47 @@ export class CheckersBoardComponent implements OnInit {
     this.checkersService.getPosiblesMovimientos()
     .subscribe((data)=>{
       this.idSala = data.idSala;
-      this.tableroUsuario = data.tablero;
-      console.log("Tablero Usuario:" + data.tablero)
+      this.tablero = data.tablero;
+      this.ganador = data.ganador;
+      console.log("Tablero Posibles Movimientos: " + this.tablero);
     })
   }
   
+  //Envia información hacia el servicio para actualizar la tabla con un nuevo movimiento
+  envioInfoActualizarTableroNuevoMovimiento(){
+    this.checkersService.envioInfoActualizarTableroNuevoMovimiento({"idSala": this.idSala, "x": this.xActual, "y":this.yActual})
+  }
+
+  //Obtiene del servicio los posibles movimientos de una ficha
+  getTableroNuevoMovimiento(){
+    this.checkersService.getTableroNuevoMovimiento()
+    .subscribe((data)=>{
+      this.idSala = data.idSala;
+      this.tablero = data.tablero;
+      this.ganador = data.ganador;
+      console.log("Tablero Nuevo Movimientos: " + this.tablero);
+    })
+    
+  }
 
   function(row , col){
-    //alert('Row: ' + row + ' Col: ' + col);
-    this.x = row;
-    this.y = col;
-    this.envioInfoVerficarPosibleMovimiento();
-    this.getPosiblesMovimientos();
+    this.xActual = row;
+    this.yActual = col;
+
+    if(this.estado == "false"){
+      this.envioInfoVerficarPosiblesMovimiento();
+      this.getPosiblesMovimientos();
+      this.estado = "true";
+    }
+
+    else if(this.estado == "true"){
+      this.envioInfoActualizarTableroNuevoMovimiento();
+      this.getTableroNuevoMovimiento();
+      this.estado = "false";
+      console.log("Entó al else");
+    }
   }
+
+
+
 }
