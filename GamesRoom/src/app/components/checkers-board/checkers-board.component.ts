@@ -13,7 +13,7 @@ export class CheckersBoardComponent implements OnInit {
     tablero = [];
     xActual : string;
     yActaul : string;
-
+    estadoPosibleMovimiento = "falso";
 
   constructor(private checkersService: CheckersService) { }
 
@@ -47,11 +47,26 @@ export class CheckersBoardComponent implements OnInit {
     })
   }
   
-
-  function(row , col){
+  mostrarPosibleMovimiento(row , col){
     this.xActual = row;
     this.yActaul = col;
     this.envioInfoVerficarPosiblesMovimiento();
     this.getPosiblesMovimientos();
+    this.estadoPosibleMovimiento = "verdadero";
+  }
+
+  function(row , col){
+    if(this.estadoPosibleMovimiento == "falso"){
+      this.mostrarPosibleMovimiento(row, col);
+    }
+    else if(this.estadoPosibleMovimiento == "verdadero"){
+      for(let i = 0; i<= this.tablero.length; i++){
+        for(let j = 0; j<= this.tablero.length; j++){
+          if(i == row && j == col){
+            
+          }
+        }
+      }
+    }
   }
 }
