@@ -12,8 +12,9 @@ export class CheckersBoardComponent implements OnInit {
     uidJugador2 = "jugador2";
     tablero = [];
     xActual : string;
-    yActaul : string;
-
+    yActual : string;
+    ganador : string;
+    estado = "false";
 
   constructor(private checkersService: CheckersService) { }
 
@@ -23,7 +24,6 @@ export class CheckersBoardComponent implements OnInit {
       .subscribe((data) => {
         this.idSala = data.idSala;
         this.tablero = data.tablero;
-        //console.log("Tablero:" + this.tablero)
       });
     }
 
@@ -34,7 +34,7 @@ export class CheckersBoardComponent implements OnInit {
 
   //Envia información hacia el servicio para verificar los posible movimientos de una ficha
   envioInfoVerficarPosiblesMovimiento(){
-    this.checkersService.envioInfoPosibleMovimiento({"jugador": this.uidJugador1, "idSala":this.idSala, "x": this.xActual, "y":this.yActaul})
+    this.checkersService.envioInfoPosibleMovimiento({"jugador": this.uidJugador1, "idSala":this.idSala, "x": this.xActual, "y":this.yActual})
   }
 
   //Obtiene del servicio los posibles movimientos de una ficha
@@ -43,15 +43,46 @@ export class CheckersBoardComponent implements OnInit {
     .subscribe((data)=>{
       this.idSala = data.idSala;
       this.tablero = data.tablero;
-      console.log("Tablero Nuevo:" + this.tablero)
+      this.ganador = data.ganador;
+      console.log("Tablero Posibles Movimientos: " + this.tablero);
     })
   }
   
+  //Envia información hacia el servicio para actualizar la tabla con un nuevo movimiento
+  envioInfoActualizarTableroNuevoMovimiento(){
+    this.checkersService.envioInfoActualizarTableroNuevoMovimiento({"idSala": this.idSala, "x": this.xActual, "y":this.yActual})
+  }
+
+  //Obtiene del servicio los posibles movimientos de una ficha
+  getTableroNuevoMovimiento(){
+    this.checkersService.getTableroNuevoMovimiento()
+    .subscribe((data)=>{
+      this.idSala = data.idSala;
+      this.tablero = data.tablero;
+      this.ganador = data.ganador;
+      console.log("Tablero Nuevo Movimientos: " + this.tablero);
+    })
+    
+  }
 
   function(row , col){
     this.xActual = row;
-    this.yActaul = col;
-    this.envioInfoVerficarPosiblesMovimiento();
-    this.getPosiblesMovimientos();
+    this.yActual = col;
+
+    if(this.estado == "false"){
+      this.envioInfoVerficarPosiblesMovimiento();
+      this.getPosiblesMovimientos();
+      this.estado = "true";
+    }
+
+    else if(this.estado == "true"){
+      this.envioInfoActualizarTableroNuevoMovimiento();
+      this.getTableroNuevoMovimiento();
+      this.estado = "false";
+      console.log("Entó al else");
+    }
   }
+
+
+
 }
