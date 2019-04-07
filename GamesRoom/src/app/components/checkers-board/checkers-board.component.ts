@@ -11,9 +11,8 @@ export class CheckersBoardComponent implements OnInit {
     uidJugador1 = "jugador1";
     uidJugador2 = "jugador2";
     tablero = [];
-    x : string;
-    y : string;
-    tableroUsuario = [];
+    xActual : string;
+    yActaul : string;
 
 
   constructor(private checkersService: CheckersService) { }
@@ -34,8 +33,8 @@ export class CheckersBoardComponent implements OnInit {
   }
 
   //Envia información hacia el servicio para verificar los posible movimientos de una ficha
-  envioInfoVerficarPosibleMovimiento(){
-    this.checkersService.envioInfoPosibleMovimiento({"jugador": this.uidJugador1, "idSala":this.idSala, "x": this.x, "y":this.y})
+  envioInfoVerficarPosiblesMovimiento(){
+    this.checkersService.envioInfoPosibleMovimiento({"jugador": this.uidJugador1, "idSala":this.idSala, "x": this.xActual, "y":this.yActaul})
   }
 
   //Obtiene del servicio los posibles movimientos de una ficha
@@ -43,17 +42,16 @@ export class CheckersBoardComponent implements OnInit {
     this.checkersService.getPosiblesMovimientos()
     .subscribe((data)=>{
       this.idSala = data.idSala;
-      this.tableroUsuario = data.tablero;
-      console.log("Tablero Usuario:" + this.tableroUsuario)
+      this.tablero = data.tablero;
+      console.log("Tablero Nuevo:" + this.tablero)
     })
   }
   
 
   function(row , col){
-    //alert('Row: ' + row + ' Col: ' + col);
-    this.x = row;
-    this.y = col;
-    this.envioInfoVerficarPosibleMovimiento();
+    this.xActual = row;
+    this.yActaul = col;
+    this.envioInfoVerficarPosiblesMovimiento();
     this.getPosiblesMovimientos();
   }
 }
