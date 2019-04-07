@@ -44,7 +44,7 @@ export class CheckersBoardComponent implements OnInit {
     .subscribe((data)=>{
       this.idSala = data.idSala;
       this.tableroUsuario = data.tablero;
-      console.log("Tablero Usuario:" + this.tableroUsuario)
+      console.log("Tablero Usuario:" + data.tablero)
     })
   }
   

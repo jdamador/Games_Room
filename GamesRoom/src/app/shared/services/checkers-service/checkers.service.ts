@@ -32,13 +32,13 @@ export class CheckersService {
 
   //Envia la información al API para verificar los posible movimientos de una ficha
   public envioInfoPosibleMovimiento = (data) =>{
-    this.socket.emit('validaMovimiento', data);
+    this.socket.emit('validaMovimientoDama', data);
   }
 
   //Obtiene los posibles movimientos a partir de la informacion procesada por el API
   public getPosiblesMovimientos(){
     return Observable.create((observer)=>{
-      this.socket.on('validaMovimiento', (data)=>{
+      this.socket.on('validaMovimientoDama', (data)=>{
         //console.log(data);
         observer.next(data);
       })
