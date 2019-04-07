@@ -44,7 +44,7 @@ export class CheckersBoardComponent implements OnInit {
       this.idSala = data.idSala;
       this.tablero = data.tablero;
       this.ganador = data.ganador;
-      console.log("Tablero Posibles Movimientos: " + this.tablero);
+      console.log("Tablero Posibles Movimientos: " + data.tablero);
     })
   }
   
@@ -60,7 +60,7 @@ export class CheckersBoardComponent implements OnInit {
       this.idSala = data.idSala;
       this.tablero = data.tablero;
       this.ganador = data.ganador;
-      console.log("Tablero Nuevo Movimientos: " + this.tablero);
+      console.log("Tablero Nuevo Movimientos: " + data.tablero);
     })
     
   }
@@ -70,9 +70,11 @@ export class CheckersBoardComponent implements OnInit {
     this.yActual = col;
 
     if(this.estado == "false"){
-      this.envioInfoVerficarPosiblesMovimiento();
-      this.getPosiblesMovimientos();
-      this.estado = "true";
+      if(this.tablero[this.xActual][this.yActual] != 'V'){
+        this.envioInfoVerficarPosiblesMovimiento();
+        this.getPosiblesMovimientos();
+        this.estado = "true";
+      }
     }
 
     else if(this.estado == "true"){
