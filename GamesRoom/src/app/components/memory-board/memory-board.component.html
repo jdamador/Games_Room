@@ -1,14 +1,9 @@
 <div class="container">
   <div class="cards_table">
     <span *ngFor="let card of cards; index as i">
-      <img
-        class="img-card"
-        src="{{ card.visible ? card.url : images_inact }}"
-        (click)="card_selected(i)"
-      />
+      <img class="img-card" src="{{ card.visible ? card.url : images_inact }}" (click)="card_selected(i)" />
     </span>
   </div>
 </div>
 <div *ngFor="let message of messages">
-  {{message}}
 </div>
