@@ -1,0 +1,49 @@
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.container {
+  display: block;
+  position: relative;
+  width: 960px;
+  height: 500px;
+  width: 500px;
+
+}
+
+
+.container::after {
+  content: "";
+  background: url(/assets/images/fondo.jpg);
+  bottom: 0;
+  left: 0;
+  opacity: 0.6;
+  position: relative;
+  top: 0;
+  z-index: -1;
+  height: 500px;
+  width: 500px;
+}
+
+.mesa-cartas {
+  padding: 5px;
+  height: 500px;
+  width: 500px;
+  position: relative;
+}
+@media only screen and (max-width: 479px) {
+  .mesa-cartas{
+    width: 90%;
+  }
+}
+
+img.img-card:hover {
+  position: relative;
+  top: -7px;
+}
+
+img.img-card {
+  padding: 5px;
+  height: 90px;
+  size: auto;
+}

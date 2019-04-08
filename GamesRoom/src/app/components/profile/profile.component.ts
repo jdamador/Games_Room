@@ -1,9 +1,6 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { AuthService } from "../../shared/services/auth.service";
-import { Router } from "@angular/router";
-
-import { UserService } from 'src/app/shared/user-service/user.service';
 import { User } from 'src/app/shared/user-service/user.model';
+import { StatisticsService } from 'src/app/shared/services/statistics-service/statistics.service';
 
 @Component({
   selector: 'app-profile',
@@ -12,6 +9,7 @@ import { User } from 'src/app/shared/user-service/user.model';
 })
 
 export class ProfileComponent implements OnInit {
+
   images={
     silver: '../../assets/images/silver.png',
     bronze: '../../assets/images/bronze.png',
@@ -25,31 +23,24 @@ export class ProfileComponent implements OnInit {
   defeats=0;
   draws=0;
   users: User[];
-  constructor(private userService: UserService,
-    public authService: AuthService) { }
+  
+  constructor(
+    public statistic: StatisticsService) { 
 
-  ngOnInit() {
-    this.userService.getUsers().subscribe(data => {
-      this.users = data.map(e => {
-        return {
-          uid: e.payload.doc.id,
-          ...e.payload.doc.data()
-        } as User;
-      })
-      this.iniciar();
-    });
-    
   }
 
-  iniciar(){
+  ngOnInit() {
+    this.obtenerEstadistica()
+  }
+
+  obtenerEstadistica(){
     var total=50;
-    var id= this.authService.userData['uid'];
-    for (let elemento of this.users)
-    {
-      if(elemento.uid==id){
-        this.wins= elemento.wins;
-        this.defeats= elemento.defeats;
-        this.draws= elemento.draws;
+    this.statistic.getStatistics().subscribe(
+      data => {
+        console.log(data)
+        this.wins= data['ganadas'];
+        this.defeats= data['perdidas'];
+        this.draws= data['empatadas'];
         total= total+this.wins*5;
         total= total-this.defeats*8;
         total= total +this.draws*2;
@@ -72,10 +63,11 @@ export class ProfileComponent implements OnInit {
         else{
           this.resulImage= this.images.diamond;0
         }
+      },
+      error => {
+        console.log('error de consulta '+error)
       }
-    }
-
+    )
   }
- 
 
 }

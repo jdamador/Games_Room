@@ -15,8 +15,8 @@ export class UserService {
     public authService: AuthService
     ) { }
   
-  getUsers() {
-
+  getUsers(id) {
+    console.log(id)
     return this.afs.collection('users').snapshotChanges();
   }
 }
