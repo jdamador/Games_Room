@@ -12,6 +12,7 @@ export class MemoryService {
   private url = 'http://localhost:3000';
   private userInfo = this.authService.userData;
 
+
   constructor(private authService: AuthService, private http: HttpClient) {}
 
   public connectToServer(id: string) {
@@ -22,9 +23,5 @@ export class MemoryService {
 
   private joinGame(socket: any, id: string) {
     socket.emit('join-game', { gameID: id, username: this.userInfo });
-  }
-
-  getAllBoard(): Observable<any> {
-    return this.http.get<any>('http://localhost:3000/getBoard');
   }
 }

@@ -15,11 +15,6 @@ export class MemoryBoardComponent implements OnInit {
   images_inact = '/assets/Memory/poker.png';
 
   ngOnInit() {
-    // When the board component is called, it get a new board from the API.
-    this.memoryService.getAllBoard().subscribe(response => {
-      this.cards = response['grid'];
-      this.session = response;
-    });
   }
 
   constructor(private memoryService: MemoryService) {}
