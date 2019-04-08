@@ -21,18 +21,21 @@ export class HomeComponent implements OnInit {
   ) {}
   ngOnInit() {}
 
-  openSettingsIA(): void {
+  openSettingsIA(tipo: string): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
     this.dialog.open(ConfigGameIAComponent, dialogConfig);
   }
-  openSettingPlayers(): void {
+  openSettingPlayers(tipo: string): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
     this.dialog.open(ConfigGamePlayersComponent, dialogConfig);
+    if(tipo==='checkers'){
+      this.authService.goCheckers();
+    }
   }
 }
