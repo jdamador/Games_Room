@@ -28,10 +28,6 @@ export class HomeComponent implements OnInit {
     dialogConfig.width = '60%';
     dialogConfig.data = gameType;
     const dialogRef = this.dialog.open(ConfigGameIAComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
-      this.gameType = result;
-      console.log(this.gameType);
-    });
   }
   openSettingPlayers(gameType): void {
     const dialogConfig = new MatDialogConfig();
@@ -43,9 +39,5 @@ export class HomeComponent implements OnInit {
       ConfigGamePlayersComponent,
       dialogConfig
     );
-    dialogRef.afterClosed().subscribe(result => {
-      this.gameType = result;
-      console.log(this.gameType);
-    });
   }
 }

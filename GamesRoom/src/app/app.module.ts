@@ -58,7 +58,10 @@ import { HttpModule } from '@angular/http';
 import { ConfigGameIAComponent } from './components/config-game-ia/config-game-ia.component';
 import { ConfigGamePlayersComponent } from './components/config-game-players/config-game-players.component';
 import { MemoryService } from './shared/services/memory/memory.service';
-
+import { SessionService } from './shared/services/sessionservice/session.service';
+import { RematchComponent } from './components/memory-board/rematch.component';
+import { PlayerLeftComponent } from './components/memory-board/player-left.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 @NgModule({
@@ -75,7 +78,9 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     CheckersBoardComponent,
     ChatBoardComponent,
     ConfigGameIAComponent,
-    ConfigGamePlayersComponent
+    ConfigGamePlayersComponent,
+    RematchComponent,
+    PlayerLeftComponent
   ],
   imports: [
     BrowserModule,
@@ -102,9 +107,17 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     MatFormFieldModule,
     SocketIoModule.forRoot(config),
     HttpModule,
-    HttpClientModule
+    HttpClientModule,
+    MatProgressSpinnerModule
   ],
-  providers: [AuthService, UserService, CardService, ChatService, MemoryService],
+  providers: [
+    AuthService,
+    UserService,
+    CardService,
+    ChatService,
+    MemoryService,
+    SessionService
+  ],
   bootstrap: [AppComponent],
   entryComponents: [ConfigGameIAComponent, ConfigGamePlayersComponent]
 })

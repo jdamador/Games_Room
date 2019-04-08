@@ -2,7 +2,7 @@
 <div mat-dialog-content>
   <section class="section">
     <div class="col-lg-4 col-md-4 espacio">
-      <button mat-raised-button color='primary' (click)="onSubmitNewGame()">Create Game</button>
+      <button mat-raised-button color='primary' (click)="onSubmitNewGame('')">Create Game</button>
       <button mat-raised-button color='primary' (click)="showGames()">Unirse a una partida</button>
     </div>
     <div class="col-lg-8 col-md-8" *ngIf="showRooms">

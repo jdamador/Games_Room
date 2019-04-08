@@ -1,37 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { NewSession } from 'src/app/interfaces/table/table.module';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class SessionService {
   private base = environment.base;
-  constructor(private http: HttpClient) {}
-  getAllSessions() {
-    return this.http.get(`${this.base}/gameTables.json`);
-  }
-  getSession(sessionId: string) {
-    return this.http.get(`${this.base}/gameTables/${sessionId}.json`);
-  }
-  createSession(params: any) {
-    return this.http.post(`${this.base}/gameTables.json?`, params);
-  }
-}
+  private auth = environment.secret;
 
-@Injectable()
-export class UserService {
-  private base = environment.base;
-  private options = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-  constructor(private http: HttpClient) {}
-  getUserProfile(user_uid: string) {
-    this.options['params'] = {
-      orderBy: '"user_uid"',
-      equalTo: `"${user_uid}"`
-    };
-    return this.http.get(`${this.base}/users.json`, this.options);
+  constructor(private http: HttpClient) { }
+
+  getAllSessions() {
+    return this.http.get(`${this.base}/gameTables.json?${this.auth}`);
   }
-  createUserProfile(params: any) {
-    return this.http.post(`${this.base}/users.json?`, params);
+
+  getSession(sessionId: string) {
+    return this.http.get(`${this.base}/gameTables/${sessionId}.json?${this.auth}`);
+  }
+
+  createSession(params: NewSession) {
+    return this.http.post(`${this.base}/gameTables.json?${this.auth}`, params);
   }
 }

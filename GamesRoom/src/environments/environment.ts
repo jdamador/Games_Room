@@ -12,7 +12,8 @@ export const environment = {
     storageBucket: 'proyect1design.appspot.com',
     messagingSenderId: '965759997972'
   },
-  base: 'https://proyect1design.firebaseio.com'
+  base: 'https://proyect1design.firebaseio.com',
+  secret: 'sB6GqQEYqJ7Fv6tfnjpSMzxX7q8p9vyKH1DrZiih'
 };
 
 /*
