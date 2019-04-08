@@ -1,51 +1,27 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
-import {
-  MatDialogRef,
-  MatTableDataSource,
-  MatPaginator
-} from '@angular/material';
+import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { Inject } from '@angular/core';
-import { SessionService } from 'src/app/shared/services/sessionservice/session.service';
 
 @Component({
   selector: 'app-config-game-players',
   templateUrl: './config-game-players.component.html',
   styleUrls: ['./config-game-players.component.css']
 })
-export class ConfigGamePlayersComponent implements OnInit{
-  // Table format
-  displayedColumns = ['user', 'created', 'number of players', 'join'];
-  gameTable = new MatTableDataSource<any>();
+export class ConfigGamePlayersComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ConfigGamePlayersComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private session: SessionService
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
-
-  // Get all sesions
-  ngOnInit() {
-    this.session.getAllSessions().subscribe(
-      (sessions: any[]) => {
-        const formedData = [];
-        for (let key in sessions) {
-          sessions[key]['id'] = key;
-          formedData.push(sessions[key]);
-        }
-        this.gameTable.data = formedData;
-      },
-      err => {
-        console.log(err);
-      }
-    );
-  }
 
   gameType = 'lobby';
   showRooms = false;
+  ngOnInit() {}
 
   onClose() {
     this.dialogRef.close(this.gameType);
   }
+
   showGames() {
     if (this.showRooms) {
       this.showRooms = false;
@@ -53,6 +29,7 @@ export class ConfigGamePlayersComponent implements OnInit{
       this.showRooms = true;
     }
   }
+
   onSubmitNewGame() {
     this.gameType = this.data;
     this.dialogRef.close(this.gameType);
