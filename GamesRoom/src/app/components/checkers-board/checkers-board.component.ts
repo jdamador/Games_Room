@@ -21,8 +21,8 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
   constructor(private checkersService: CheckersService, private authService: AuthService) { }
 
   ngOnInit() {
-    //this.uidJugador= this.authService.userData.uid;
-    this.uidJugador= "Jugador1"
+    this.uidJugador= this.authService.userData.uid;
+    //this.uidJugador= "Jugador1"
     console.log(this.uidJugador);
     this.session = this.checkersService.connectToServer();
     this.envioInfoCrearTablero(this.idSala);
