@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class CheckersService {
 
-  private url = 'http://localhost:3000';
+  private url = 'http://172.24.117.19:3000';
 
 
   constructor() {

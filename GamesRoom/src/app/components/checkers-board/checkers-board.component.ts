@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./checkers-board.component.css']
 })
 export class CheckersBoardComponent implements OnInit, OnDestroy {
-    idSala : string = "_201948846984v8oebyodi";
+    idSala : string = "_201948846984v8";
     uidJugador : string; 
     turno: string= this.uidJugador;
     tablero = [];
