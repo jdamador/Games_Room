@@ -18,6 +18,12 @@
 
               <img class="image" *ngIf="((r%2==0 && c%2 ==0) || (r%2!=0 && c%2 !=0)) && j == 'V'" 
               src="../../../assets/images/FondoBlanco.jpg" alt="Fondo Blanco">
+
+              <img class="image" *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'KR'" 
+              src="../../../assets/images/CoronaRoja.png" alt="Fondo ReinaRoja">
+
+              <img class="image" *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'KB'" 
+              src="../../../assets/images/CoronaBlanca.png" alt="Fondo ReinaBlanca">
             </mat-grid-tile>
           </div>
       </mat-grid-list>
