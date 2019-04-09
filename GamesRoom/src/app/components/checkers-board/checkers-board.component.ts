@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./checkers-board.component.css']
 })
 export class CheckersBoardComponent implements OnInit, OnDestroy {
-    idSala : string = "_201948846984v8oebyo";
+    idSala : string = "_201948846984";
     uidJugador : string; 
     turno: string= this.uidJugador;
     tablero = [];
@@ -16,6 +16,7 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
     yActual : string;
     ganador : string;
     estado = "false";
+    color: string;
     private session: any;
 
   constructor(private checkersService: CheckersService, private authService: AuthService) { }
@@ -30,6 +31,7 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
         this.tablero = data.tablero;
         this.idSala = data.idSala
         this.turno = data.turno;
+        this.color= data.color;
         console.log(data.tablero)
       });
 
@@ -86,17 +88,29 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
   }
 
   async function(row , col){
+    
     this.xActual = row;
     this.yActual = col;
     if(this.estado == "false"){
-      if(this.tablero[this.xActual][this.yActual] != 'V'){
-        await this.envioInfoVerficarPosiblesMovimiento();
-        console.log(this.ganador);
+      if(this.color=="B"){
+        var pos= this.tablero[this.xActual][this.yActual];
+        if(pos != 'V' && pos!= 'R' && pos!= 'KR'){
+          await this.envioInfoVerficarPosiblesMovimiento();
+          console.log(this.ganador);
+        }
       }
+      else{
+        var pos= this.tablero[this.xActual][this.yActual];
+        if(pos != 'V' && pos!= 'B' && pos!= 'KB'){
+          await this.envioInfoVerficarPosiblesMovimiento();
+          console.log(this.ganador);
+        }
+      }
+      
     }
 
     else if(this.estado == "true"){
-      if(this.tablero[this.xActual][this.yActual] != 'V'){
+      if(this.tablero[this.xActual][this.yActual] == 'PV'){
         this.envioInfoActualizarTableroNuevoMovimiento();
   
         this.estado = "false";
