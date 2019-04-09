@@ -49,10 +49,6 @@ export class CheckersService {
     socket.on('actualizarTablaDama', data);
   }
 
-  public getCambioTurno(socket: any, data) {
-    socket.on('cambioTurno', data);
-  }
-
   public disconnectSession(socket: any) {
     socket.disconnect();
   }

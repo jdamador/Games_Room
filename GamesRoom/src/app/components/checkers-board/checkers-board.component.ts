@@ -8,14 +8,15 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./checkers-board.component.css']
 })
 export class CheckersBoardComponent implements OnInit, OnDestroy {
-    idSala : string = "_201948846984v8";
+    idSala : string = "_20194884698";
     uidJugador : string; 
-    turno: string= this.uidJugador;
+    turno: string;
     tablero = [];
     xActual : string;
     yActual : string;
     ganador : string;
     estado = "false";
+    color: string;
     private session: any;
 
   constructor(private checkersService: CheckersService, private authService: AuthService) { }
@@ -23,40 +24,28 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.uidJugador= this.authService.userData.uid;
     //this.uidJugador= "Jugador1"
-    console.log(this.uidJugador);
     this.session = this.checkersService.connectToServer();
     this.envioInfoCrearTablero(this.idSala);
-    // this.checkersService.getTablero()
-    //   .subscribe((data) => {
-    //     this.idSala = data.idSala;
-    //     this.tablero = data.tablero;
-    //   });
       this.checkersService.getTablero(this.session, (data: any) => {
         this.tablero = data.tablero;
         this.idSala = data.idSala
         this.turno = data.turno;
-        console.log(data.tablero)
+        this.color= data.color;
+        console.log(this.turno);
       });
 
       this.checkersService.getTableroNuevoMovimiento(this.session, (data: any) => {
         this.idSala = data.idSala;
         this.tablero = data.tablero;
         this.ganador = data.ganador;
-        this.turno = data.turno;
-        console.log("Tablero Nuevo Movimientos: " + data.tablero);
-      });
-
-      this.checkersService.getCambioTurno(this.session, (data: any) => {
-        this.turno = data.turno;
+        this.turno= data.turno;
       });
 
       this.checkersService.getPosiblesMovimientos(this.session, (data: any) => {
         this.tablero = data.tablero;
         this.idSala = data.idSala;
         this.ganador= data.ganador;
-        console.log("Tablero Posibles Movimientos: " + data.tablero);
-        this.estado = "true";
-        console.log("Estado = " + this.estado);      
+        this.turno = data.turno;
       });
     }
 
@@ -73,6 +62,7 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
   async envioInfoVerficarPosiblesMovimiento(){
     if(this.turno==this.uidJugador){
       this.checkersService.envioInfoPosibleMovimiento(this.session,{"jugador": this.uidJugador, "idSala":this.idSala, "x": this.xActual, "y":this.yActual});
+      this.estado="true";
     }
     else{
       console.log("no es su turno")
@@ -93,19 +83,33 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
   async function(row , col){
     this.xActual = row;
     this.yActual = col;
-    if(this.estado == "false"){
-      if(this.tablero[this.xActual][this.yActual] != 'V'){
-        await this.envioInfoVerficarPosiblesMovimiento();
-        console.log(this.ganador);
+    var pos= this.tablero[this.xActual][this.yActual];
+    console.log("-----------")
+    console.log(this.color);
+    console.log(this.uidJugador);
+    console.log(this.turno);
+    console.log(this.estado);
+    console.log("-----------")
+    if(this.estado == "false" && this.turno==this.uidJugador){
+      if(this.color=="B"){
+        if(pos != 'V' && pos!= 'R' && pos!= 'KR'){
+          await this.envioInfoVerficarPosiblesMovimiento();
+        }
       }
+      else{
+        if(this.color=="R"){
+          if(pos != 'V' && pos!= 'B' && pos!= 'KB'){
+            await this.envioInfoVerficarPosiblesMovimiento();
+          }
+        }
+      }   
     }
 
     else if(this.estado == "true"){
-      if(this.tablero[this.xActual][this.yActual] != 'V'){
+      if(pos == 'PV' && this.turno==this.uidJugador){
+        console.log()
         this.envioInfoActualizarTableroNuevoMovimiento();
-  
         this.estado = "false";
-        console.log("Estado = " + this.estado);
       }
     }
   }
