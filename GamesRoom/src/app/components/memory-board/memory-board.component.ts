@@ -28,10 +28,7 @@ export class MemoryBoardComponent implements OnInit, OnDestroy {
   private gameSession = this.router.url.replace('/memory/', '');
   private session: any;
   private gameProgress: GameProgress;
-  private user: User = {
-    name: this.authService.userData.email,
-    assignedNumber: undefined
-  };
+  private user: any;
   private onGoingGame: boolean;
   // Cards will be show in the game board.
   board: [];
@@ -48,6 +45,10 @@ export class MemoryBoardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.user = {
+      name: this.authService.userData.email,
+      assignedNumber: undefined
+    };
     // Connect to server who contains the api rest functions.
     this.session = this.memoryService.connectToServer(this.gameSession);
     // Wait until a player join to the room.
@@ -100,22 +101,11 @@ export class MemoryBoardComponent implements OnInit, OnDestroy {
     this.memoryService.disconnectSession(this.session);
   }
   // TODO: make validatios to board.
-  /*
+
   public card_selected(position: number) {
     console.log(this.gameProgress);
-    if (this.enableClick && this.gameProgress && this.gameProgress.currentPlayer === this.user.name) {
-      if (!this.gameProgress.grid[position]) {
-        this.enableClick = false;
-        this.gameProgress.grid[position] = this.user.assignedNumber;
-        this.playerMove(this.gameProgress);
-      } else {
-        this.uiService.showSnackBar('This space has been already taken!, play a different one', null, 3000);
-      }
-    } else {
-      this.uiService.showSnackBar('You have to wait for your turn!', null, 3000);
-    }
   }
-  */
+
   private playerMove(gameProgress: GameProgress) {
     this.memoryService.playerMove(this.session, gameProgress);
   }
