@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./checkers-board.component.css']
 })
 export class CheckersBoardComponent implements OnInit, OnDestroy {
-    idSala : string = "_20194884698";
+    idSala : string = "_2019488469";
     uidJugador : string; 
     turno: string;
     tablero = [];
@@ -28,7 +28,7 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
     this.envioInfoCrearTablero(this.idSala);
       this.checkersService.getTablero(this.session, (data: any) => {
         this.tablero = data.tablero;
-        this.idSala = data.idSala
+        this.idSala = data.idSala;
         this.turno = data.turno;
         this.color= data.color;
         console.log(this.turno);
