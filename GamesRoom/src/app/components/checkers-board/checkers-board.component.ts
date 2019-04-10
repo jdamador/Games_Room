@@ -19,6 +19,10 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
     color: string;
     private session: any;
 
+    turnoJugador: string= 'Blancas'
+    numBlancas: number = 15;
+    numRojas: number = 15;
+
   constructor(private checkersService: CheckersService, private authService: AuthService) { }
 
   ngOnInit() {
