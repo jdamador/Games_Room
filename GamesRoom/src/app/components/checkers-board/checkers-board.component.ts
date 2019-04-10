@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CheckersService } from 'src/app/shared/services/checkers-service/checkers.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { ConfigGamePlayersComponent} from 'src/app/components/config-game-players/config-game-players.component';
 
 @Component({
   selector: 'app-checkers-board',
@@ -8,7 +9,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./checkers-board.component.css']
 })
 export class CheckersBoardComponent implements OnInit, OnDestroy {
-    idSala : string = "_2019488469";
+    idSala : string = "_20194884a";
     uidJugador : string; 
     turno: string;
     tablero = [];
@@ -18,10 +19,13 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
     estado = "false";
     color: string;
     private session: any;
+    pieceType : string;
 
-  constructor(private checkersService: CheckersService, private authService: AuthService) { }
+
+  constructor(private checkersService: CheckersService, private authService: AuthService, private configGame: ConfigGamePlayersComponent) { }
 
   ngOnInit() {
+    this.pieceType = this.configGame.pieces_type;
     this.uidJugador= this.authService.userData.uid;
     //this.uidJugador= "Jugador1"
     this.session = this.checkersService.connectToServer();
@@ -67,7 +71,6 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
     else{
       console.log("no es su turno")
     }
- 
   }
   
   //Envia información hacia el servicio para actualizar la tabla con un nuevo movimiento
@@ -89,7 +92,7 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
     console.log(this.uidJugador);
     console.log(this.turno);
     console.log(this.estado);
-    console.log("-----------")
+    console.log("-----------");
     if(this.estado == "false" && this.turno==this.uidJugador){
       if(this.color=="B"){
         if(pos != 'V' && pos!= 'R' && pos!= 'KR'){
