@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CheckersService } from 'src/app/shared/services/checkers-service/checkers.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { ConfigGamePlayersComponent} from 'src/app/components/config-game-players/config-game-players.component';
 
 @Component({
   selector: 'app-checkers-board',
@@ -9,7 +8,7 @@ import { ConfigGamePlayersComponent} from 'src/app/components/config-game-player
   styleUrls: ['./checkers-board.component.css']
 })
 export class CheckersBoardComponent implements OnInit, OnDestroy {
-    idSala : string = "_20194884a";
+    idSala : string = "_20194884698";
     uidJugador : string; 
     turno: string;
     tablero = [];
@@ -19,20 +18,21 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
     estado = "false";
     color: string;
     private session: any;
-    pieceType = "star";
 
+    turnoJugador: string= 'Blancas'
+    numBlancas: number = 15;
+    numRojas: number = 15;
 
-  constructor(private checkersService: CheckersService, private authService: AuthService, private configGame: ConfigGamePlayersComponent) { }
+  constructor(private checkersService: CheckersService, private authService: AuthService) { }
 
   ngOnInit() {
-    this.pieceType = this.configGame.pieces_type;
     this.uidJugador= this.authService.userData.uid;
     //this.uidJugador= "Jugador1"
     this.session = this.checkersService.connectToServer();
     this.envioInfoCrearTablero(this.idSala);
       this.checkersService.getTablero(this.session, (data: any) => {
         this.tablero = data.tablero;
-        this.idSala = data.idSala;
+        this.idSala = data.idSala
         this.turno = data.turno;
         this.color= data.color;
         console.log(this.turno);
@@ -71,6 +71,7 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
     else{
       console.log("no es su turno")
     }
+ 
   }
   
   //Envia información hacia el servicio para actualizar la tabla con un nuevo movimiento
@@ -92,7 +93,7 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
     console.log(this.uidJugador);
     console.log(this.turno);
     console.log(this.estado);
-    console.log("-----------");
+    console.log("-----------")
     if(this.estado == "false" && this.turno==this.uidJugador){
       if(this.color=="B"){
         if(pos != 'V' && pos!= 'R' && pos!= 'KR'){

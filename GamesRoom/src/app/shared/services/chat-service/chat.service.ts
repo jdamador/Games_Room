@@ -26,4 +26,8 @@ export class ChatService {
   public envioInfo = (data) => {
     this.socket.emit('sendMessage', data);
   }
+
+  public entrarSesion = (data) => {
+    this.socket.emit('entrarSesionChat', data);
+  }
 }
