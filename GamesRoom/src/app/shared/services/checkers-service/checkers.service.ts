@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as io from 'socket.io-client';
+import io from 'socket.io-client';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable({
@@ -8,52 +8,48 @@ import { Observable } from 'rxjs/Observable';
 export class CheckersService {
 
   private url = 'http://localhost:3000';
-  private socket;  
 
 
   constructor() {
-    this.socket = io(this.url);
+
    }
 
+  public connectToServer() {
+    const socket = io.connect(this.url, {'forceNew': true});
+    return socket;
+  }
+
    //Envia la información al API para que crear el nuevo tablero
-  public envioInfoCrearTablero = (data) => {
-    this.socket.emit('crearTableroDama', data);
+  public envioInfoCrearTablero = (socket: any, data) => {
+    socket.emit('crearTableroDama', data);
   }
 
    //Funcion que recibe del API el nuevo tablero
-  public getTablero(){
-    return Observable.create((observer)=>{
-      this.socket.on('crearTableroDama', (data)=>{
-        observer.next(data);
-      });
-    });
+  public getTablero(socket: any, data) {
+    socket.on('crearTableroDama', data);
   }
 
   //Envia la información al API para verificar los posible movimientos de una ficha
-  public envioInfoPosibleMovimiento = (data) =>{
-    this.socket.emit('validaMovimientoDama', data);
+  public envioInfoPosibleMovimiento = (socket: any, data) =>{
+    socket.emit('validaMovimientoDama', data);
   }
 
   //Obtiene los posibles movimientos a partir de la informacion procesada por el API
-  public getPosiblesMovimientos(){
-    return Observable.create((observer)=>{
-      this.socket.on('validaMovimientoDama', (data)=>{
-        observer.next(data);
-      })
-    })
+  public getPosiblesMovimientos(socket: any, data) {
+    socket.on('validaMovimientoDama', data);
   }
 
   //Envia la información al API para verificar los posible movimientos de una ficha
-  public envioInfoActualizarTableroNuevoMovimiento = (data) =>{
-    this.socket.emit('actualizarTablaDama', data);
+  public envioInfoActualizarTableroNuevoMovimiento = (socket: any, data) =>{
+    socket.emit('actualizarTablaDama', data);
   }
 
   //Obtiene los posibles movimientos a partir de la informacion procesada por el API
-  public getTableroNuevoMovimiento(){
-    return Observable.create((observer)=>{
-      this.socket.on('actualizarTablaDama', (data)=>{
-        observer.next(data);
-      })
-    })
+  public getTableroNuevoMovimiento(socket: any, data) {
+    socket.on('actualizarTablaDama', data);
+  }
+
+  public disconnectSession(socket: any) {
+    socket.disconnect();
   }
 }

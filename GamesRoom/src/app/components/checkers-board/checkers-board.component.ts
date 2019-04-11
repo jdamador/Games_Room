@@ -1,98 +1,119 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CheckersService } from 'src/app/shared/services/checkers-service/checkers.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-checkers-board',
   templateUrl: './checkers-board.component.html',
   styleUrls: ['./checkers-board.component.css']
 })
-export class CheckersBoardComponent implements OnInit {
-    idSala : string;
-    uidJugador1 = "jugador1";
-    uidJugador2 = "jugador2";
+export class CheckersBoardComponent implements OnInit, OnDestroy {
+    idSala : string = "_20194884698";
+    uidJugador : string; 
+    turno: string;
     tablero = [];
     xActual : string;
     yActual : string;
     ganador : string;
     estado = "false";
-    num = 1;
+    color: string;
+    private session: any;
 
-  constructor(private checkersService: CheckersService) { }
+    turnoJugador: string= 'Blancas'
+    numBlancas: number = 15;
+    numRojas: number = 15;
+
+  constructor(private checkersService: CheckersService, private authService: AuthService) { }
 
   ngOnInit() {
-    this.envioInfoCrearTablero();
-    this.checkersService.getTablero()
-      .subscribe((data) => {
+    this.uidJugador= this.authService.userData.uid;
+    //this.uidJugador= "Jugador1"
+    this.session = this.checkersService.connectToServer();
+    this.envioInfoCrearTablero(this.idSala);
+      this.checkersService.getTablero(this.session, (data: any) => {
+        this.tablero = data.tablero;
+        this.idSala = data.idSala
+        this.turno = data.turno;
+        this.color= data.color;
+        console.log(this.turno);
+      });
+
+      this.checkersService.getTableroNuevoMovimiento(this.session, (data: any) => {
         this.idSala = data.idSala;
         this.tablero = data.tablero;
+        this.ganador = data.ganador;
+        this.turno= data.turno;
+      });
+
+      this.checkersService.getPosiblesMovimientos(this.session, (data: any) => {
+        this.tablero = data.tablero;
+        this.idSala = data.idSala;
+        this.ganador= data.ganador;
+        this.turno = data.turno;
       });
     }
 
+    ngOnDestroy() {
+      this.checkersService.disconnectSession(this.session);
+    }
+
   //Envia información hacia el servicio para crear el tablero
-  envioInfoCrearTablero(){
-    this.checkersService.envioInfoCrearTablero({"jugador1": this.uidJugador1, "jugador2":this.uidJugador2});
+  envioInfoCrearTablero(id: string){
+    this.checkersService.envioInfoCrearTablero(this.session, {"idSala": id,"jugador": this.uidJugador});
   }
 
   //Envia información hacia el servicio para verificar los posible movimientos de una ficha
   async envioInfoVerficarPosiblesMovimiento(){
-    this.checkersService.envioInfoPosibleMovimiento({"jugador": this.uidJugador1, "idSala":this.idSala, "x": this.xActual, "y":this.yActual});
-    await this.getPosiblesMovimientos();
-  }
-
-  //Obtiene del servicio los posibles movimientos de una ficha
-  async getPosiblesMovimientos(){
-    this.checkersService.getPosiblesMovimientos().elementAt(this.num)
-    .subscribe((data)=>{
-      this.num ++;
-      this.idSala = data.idSala;
-      this.tablero = data.tablero;
-      this.ganador = data.ganador;
-      console.log(data.ganador);
-      console.log(this.ganador);
-      console.log("Tablero Posibles Movimientos: " + data.tablero);
-      if(this.ganador == "noturno"){
-        alert("¡No es tu turno!");
-      }
-      else{
-        this.estado = "true";
-        console.log("Estado = " + this.estado);
-      }
-    });
+    if(this.turno==this.uidJugador){
+      this.checkersService.envioInfoPosibleMovimiento(this.session,{"jugador": this.uidJugador, "idSala":this.idSala, "x": this.xActual, "y":this.yActual});
+      this.estado="true";
+    }
+    else{
+      console.log("no es su turno")
+    }
+ 
   }
   
   //Envia información hacia el servicio para actualizar la tabla con un nuevo movimiento
   async envioInfoActualizarTableroNuevoMovimiento(){
-    this.checkersService.envioInfoActualizarTableroNuevoMovimiento({"idSala": this.idSala, "x": this.xActual, "y":this.yActual})
-  }
-
-  //Obtiene del servicio los posibles movimientos de una ficha
-  async getTableroNuevoMovimiento(){
-    this.checkersService.getTableroNuevoMovimiento()
-    .subscribe((data)=>{
-      this.idSala = data.idSala;
-      this.tablero = data.tablero;
-      this.ganador = data.ganador;
-      console.log("Tablero Nuevo Movimientos: " + data.tablero);
-    })
-
+    if(this.turno==this.uidJugador){
+      this.checkersService.envioInfoActualizarTableroNuevoMovimiento(this.session,{"idSala": this.idSala, "x": this.xActual, "y":this.yActual})
+    }
+    else{
+      console.log("no es su turno")
+    }
   }
 
   async function(row , col){
     this.xActual = row;
     this.yActual = col;
-    if(this.estado == "false"){
-      if(this.tablero[this.xActual][this.yActual] != 'V'){
-        await this.envioInfoVerficarPosiblesMovimiento();
-        console.log(this.ganador);
+    var pos= this.tablero[this.xActual][this.yActual];
+    console.log("-----------")
+    console.log(this.color);
+    console.log(this.uidJugador);
+    console.log(this.turno);
+    console.log(this.estado);
+    console.log("-----------")
+    if(this.estado == "false" && this.turno==this.uidJugador){
+      if(this.color=="B"){
+        if(pos != 'V' && pos!= 'R' && pos!= 'KR'){
+          await this.envioInfoVerficarPosiblesMovimiento();
+        }
       }
+      else{
+        if(this.color=="R"){
+          if(pos != 'V' && pos!= 'B' && pos!= 'KB'){
+            await this.envioInfoVerficarPosiblesMovimiento();
+          }
+        }
+      }   
     }
 
     else if(this.estado == "true"){
-      if(this.tablero[this.xActual][this.yActual] != 'V'){
+      if(pos == 'PV' && this.turno==this.uidJugador){
+        console.log()
         this.envioInfoActualizarTableroNuevoMovimiento();
-        this.getTableroNuevoMovimiento();
         this.estado = "false";
-        console.log("Estado = " + this.estado);
       }
     }
   }

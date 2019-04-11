@@ -178,4 +178,8 @@ export class AuthService {
   getPeople() {
     return this.afAuth.auth;
   }
+
+  goCheckers(){
+    return this.router.navigate(['checkers']);
+  }
 }
