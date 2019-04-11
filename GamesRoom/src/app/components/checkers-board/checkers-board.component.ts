@@ -19,43 +19,58 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
     color: string;
     private session: any;
 
-    turnoJugador: string= 'Blancas'
-    numBlancas: number = 15;
-    numRojas: number = 15;
+    turnoJugador: string= '-'
+    numBlancas: number = 0;
+    numRojas: number = 0;
 
   constructor(private checkersService: CheckersService, private authService: AuthService) { }
 
   ngOnInit() {
     this.uidJugador= this.authService.userData.uid;
-    //this.uidJugador= "Jugador1"
     this.session = this.checkersService.connectToServer();
     this.envioInfoCrearTablero(this.idSala);
-      this.checkersService.getTablero(this.session, (data: any) => {
-        this.tablero = data.tablero;
-        this.idSala = data.idSala
-        this.turno = data.turno;
-        this.color= data.color;
-        console.log(this.turno);
-      });
+    this.checkersService.getTablero(this.session, (data: any) => {
+      this.tablero = data.tablero;
+      this.idSala = data.idSala
+      this.turno = data.turno;
+      this.color= data.color;
+      this.numBlancas= data.numBlancas;
+      this.numRojas= data.numRojas;
+      if(this.color==='B'){
+        this.turnoJugador= 'Blancas'
+      }
+      else{
+        this.turnoJugador= 'Rojas'
+      }
+      console.log(this.turno);
+    });
 
-      this.checkersService.getTableroNuevoMovimiento(this.session, (data: any) => {
-        this.idSala = data.idSala;
-        this.tablero = data.tablero;
-        this.ganador = data.ganador;
-        this.turno= data.turno;
-      });
+    this.checkersService.getTableroNuevoMovimiento(this.session, (data: any) => {
+      this.idSala = data.idSala;
+      this.tablero = data.tablero;
+      this.ganador = data.ganador;
+      this.turno= data.turno;
+      this.numBlancas= data.numBlancas;
+      this.numRojas= data.numRojas;
+      if(this.color==='B'){
+        this.turnoJugador= 'Blancas'
+      }
+      else{
+        this.turnoJugador= 'Rojas'
+      }
+    });
 
-      this.checkersService.getPosiblesMovimientos(this.session, (data: any) => {
-        this.tablero = data.tablero;
-        this.idSala = data.idSala;
-        this.ganador= data.ganador;
-        this.turno = data.turno;
-      });
-    }
+    this.checkersService.getPosiblesMovimientos(this.session, (data: any) => {
+      this.tablero = data.tablero;
+      this.idSala = data.idSala;
+      this.ganador= data.ganador;
+      this.turno = data.turno;
+    });
+  }
 
-    ngOnDestroy() {
-      this.checkersService.disconnectSession(this.session);
-    }
+  ngOnDestroy() {
+    this.checkersService.disconnectSession(this.session);
+  }
 
   //Envia información hacia el servicio para crear el tablero
   envioInfoCrearTablero(id: string){

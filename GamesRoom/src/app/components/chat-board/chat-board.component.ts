@@ -13,7 +13,7 @@ export class ChatBoardComponent implements OnInit {
   message: string;
   messages= [];
   newMessage: string;
-  author="roy"
+  author="-"
   idSala : string = "_20194884698";
 
   constructor(private chatService: ChatService, private auth: AuthService) { }
