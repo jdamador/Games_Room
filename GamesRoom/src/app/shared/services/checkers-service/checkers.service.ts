@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 export class CheckersService {
 
   private url = 'http://localhost:3000';
-
+  pieceType : string;
 
   constructor() {
 
@@ -17,6 +17,16 @@ export class CheckersService {
   public connectToServer() {
     const socket = io.connect(this.url, {'forceNew': true});
     return socket;
+  }
+
+  //Recibe la información del tipo de piexa con que se va a jugar
+  setPieceType(pieceType: string) {
+    this.pieceType = pieceType;
+  }
+
+  //Envia la información del tipo de ficha al tablero
+  getPieceType(){
+    return this.pieceType;          
   }
 
    //Envia la información al API para que crear el nuevo tablero

@@ -3,7 +3,7 @@ import { AuthService } from "../../shared/services/auth.service";
 import { Router } from "@angular/router";
 import { MatDialog, MatDialogConfig } from "@angular/material";
 import { ConfigGameIAComponent } from "../config-game-ia/config-game-ia.component";
-import { ConfigGamePlayersComponent } from "../config-game-players/config-game-players.component";
+import { ConfigGamePlayersCheckersComponent } from "../config-game-players-checkers/config-game-players-checkers.component";
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
@@ -29,13 +29,10 @@ export class HomeComponent implements OnInit {
     this.dialog.open(ConfigGameIAComponent, dialogConfig);
   }
   openSettingPlayers(tipo: string): void {
-    //const dialogConfig = new MatDialogConfig();
-    //dialogConfig.disableClose = true;
-    //dialogConfig.autoFocus = true;
-    //dialogConfig.width = "60%";
-    //this.dialog.open(ConfigGamePlayersComponent, dialogConfig);
-    if(tipo==='checkers'){
-      this.authService.goCheckers();
-    }
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "60%";
+    this.dialog.open(ConfigGamePlayersCheckersComponent, dialogConfig);
   }
 }

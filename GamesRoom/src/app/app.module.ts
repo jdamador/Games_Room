@@ -63,6 +63,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 import { ConfigGameIAComponent } from './components/config-game-ia/config-game-ia.component';
 import { ConfigGamePlayersComponent } from './components/config-game-players/config-game-players.component';
+import { ConfigGamePlayersCheckersComponent } from './components/config-game-players-checkers/config-game-players-checkers.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,7 +78,8 @@ import { ConfigGamePlayersComponent } from './components/config-game-players/con
     CheckersBoardComponent,
     ChatBoardComponent,
     ConfigGameIAComponent,
-    ConfigGamePlayersComponent
+    ConfigGamePlayersComponent,
+    ConfigGamePlayersCheckersComponent
   ],
   imports: [
     BrowserModule,

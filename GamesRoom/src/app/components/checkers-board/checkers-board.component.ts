@@ -18,6 +18,7 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
     estado = "false";
     color: string;
     private session: any;
+    type_piece : string;
 
     turnoJugador: string= 'Blancas'
     numBlancas: number = 15;
@@ -26,7 +27,9 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
   constructor(private checkersService: CheckersService, private authService: AuthService) { }
 
   ngOnInit() {
+    this.type_piece = this.checkersService.getPieceType();
     this.uidJugador= this.authService.userData.uid;
+    console.log("Valor: " + this.type_piece);
     //this.uidJugador= "Jugador1"
     this.session = this.checkersService.connectToServer();
     this.envioInfoCrearTablero(this.idSala);
