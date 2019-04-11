@@ -1,6 +1,7 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { User } from 'src/app/shared/user-service/user.model';
 import { StatisticsService } from 'src/app/shared/services/statistics-service/statistics.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -25,7 +26,7 @@ export class ProfileComponent implements OnInit {
   users: User[];
   
   constructor(
-    public statistic: StatisticsService) { 
+    public statistic: StatisticsService, public authService:AuthService) { 
 
   }
 
@@ -35,7 +36,8 @@ export class ProfileComponent implements OnInit {
 
   obtenerEstadistica(){
     var total=50;
-    this.statistic.getStatistics().subscribe(
+    var uid= this.authService.userData.uid
+    this.statistic.getStatistics(uid).subscribe(
       data => {
         console.log(data)
         this.wins= data['ganadas'];
