@@ -29,7 +29,7 @@ const routes: Routes = [
   { path: 'myProfile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'checkers', component: CheckersBoardComponent, canActivate: [AuthGuard] },
   { path: 'chat', component: ChatBoardComponent, canActivate: [AuthGuard] },
-  { path: 'memory', component: MemoryBoardComponent, canActivate: [AuthGuard] },
+  { path: 'memory/:id', component: MemoryBoardComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

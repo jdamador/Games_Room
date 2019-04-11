@@ -142,7 +142,7 @@ export class AuthService {
     });
   }
 
-  //Function for create statistics when user registered
+  // Function for create statistics when user registered
   CreateStatistics(idUser) {
     const config = {
       uid: idUser
@@ -165,7 +165,7 @@ export class AuthService {
     return this.router.navigate(['home']);
   }
 
-  //Saves Games View
+  // Saves Games View
   SavedGames() {
     return this.router.navigate(['saveGames']);
   }
@@ -179,7 +179,10 @@ export class AuthService {
     return this.afAuth.auth;
   }
 
-  goCheckers(){
+  goCheckers() {
     return this.router.navigate(['checkers']);
+  }
+  userInfo() {
+    return JSON.parse(localStorage.getItem('user'));
   }
 }

@@ -13,7 +13,8 @@ import {
   MatRadioModule,
   MatGridListModule,
   MatDialogModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -55,13 +56,15 @@ import { ChatBoardComponent } from './components/chat-board/chat-board.component
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { ChatService } from './shared/services/chat-service/chat.service';
 
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 import { ConfigGameIAComponent } from './components/config-game-ia/config-game-ia.component';
 import { ConfigGamePlayersComponent } from './components/config-game-players/config-game-players.component';
+import { ConfigGamePlayersMemoryComponent } from './components/config-game-players-memory/config-game-players.component';
+import { SessionService } from './shared/services/sessionservice/session.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,7 +79,8 @@ import { ConfigGamePlayersComponent } from './components/config-game-players/con
     CheckersBoardComponent,
     ChatBoardComponent,
     ConfigGameIAComponent,
-    ConfigGamePlayersComponent
+    ConfigGamePlayersComponent,
+    ConfigGamePlayersMemoryComponent
   ],
   imports: [
     BrowserModule,
@@ -103,10 +107,17 @@ import { ConfigGamePlayersComponent } from './components/config-game-players/con
     MatFormFieldModule,
     SocketIoModule.forRoot(config),
     HttpModule,
-    HttpClientModule
+    HttpClientModule,
+    HttpModule,
+    HttpClientModule,
+    MatProgressSpinnerModule
   ],
-  providers: [AuthService, UserService, CardService,ChatService],
+  providers: [AuthService, UserService, CardService, ChatService, SessionService],
   bootstrap: [AppComponent],
-  entryComponents: [ConfigGameIAComponent, ConfigGamePlayersComponent]
+  entryComponents: [
+    ConfigGameIAComponent,
+    ConfigGamePlayersComponent,
+    ConfigGamePlayersMemoryComponent
+  ]
 })
 export class AppModule {}

@@ -1,13 +1,13 @@
-import { Component, OnInit, NgZone } from "@angular/core";
-import { AuthService } from "../../shared/services/auth.service";
-import { Router } from "@angular/router";
-import { MatDialog, MatDialogConfig } from "@angular/material";
-import { ConfigGameIAComponent } from "../config-game-ia/config-game-ia.component";
-import { ConfigGamePlayersComponent } from "../config-game-players/config-game-players.component";
+import { Component, OnInit, NgZone } from '@angular/core';
+import { AuthService } from '../../shared/services/auth.service';
+import { Router } from '@angular/router';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { ConfigGameIAComponent } from '../config-game-ia/config-game-ia.component';
+import { ConfigGamePlayersMemoryComponent } from '../config-game-players-memory/config-game-players.component';
 @Component({
-  selector: "app-home",
-  templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.css"]
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
   checkers_levels: any;
@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "60%";
+    dialogConfig.width = '60%';
     this.dialog.open(ConfigGameIAComponent, dialogConfig);
   }
   openSettingPlayers(tipo: string): void {
@@ -34,8 +34,20 @@ export class HomeComponent implements OnInit {
     // dialogConfig.autoFocus = true;
     // dialogConfig.width = "60%";
     // this.dialog.open(ConfigGamePlayersComponent, dialogConfig);
-    if(tipo==='checkers'){
+    if (tipo === 'checkers') {
       this.authService.goCheckers();
     }
+  }
+
+  openSettingPlayersMemory(tipo: string): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '60%';
+    dialogConfig.data = tipo;
+    const dialogRef = this.dialog.open(
+      ConfigGamePlayersMemoryComponent,
+      dialogConfig
+    );
   }
 }
