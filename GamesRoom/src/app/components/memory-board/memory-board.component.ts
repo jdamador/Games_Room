@@ -6,14 +6,6 @@ import { MatDialog } from '@angular/material';
 import { RematchComponent } from './rematch.component';
 import { PlayerLeftComponent } from './player-left.component';
 
-export interface GameProgress {
-  players: string[];
-  currentPlayer: string;
-  board: [];
-  roomId: string;
-  winner: string;
-}
-
 export interface User {
   name: string;
   assignedNumber: number;
@@ -27,13 +19,14 @@ export interface User {
 export class MemoryBoardComponent implements OnInit, OnDestroy {
   private gameSession = this.router.url.replace('/memory/', '');
   private session: any;
-  private gameProgress: GameProgress;
-  private user: any;
+  private gameProgress: any;
+  private user: User = (this.user = {
+    name: this.authService.userInfo().displayName,
+    assignedNumber: undefined
+  });
   private onGoingGame: boolean;
   // Cards will be show in the game board.
-  board: [];
-  enableClick: boolean;
-
+  board: any[];
   // Default image, it is shows when the card is not flipped.
   images_inact = '/assets/Memory/poker.png';
 
@@ -45,12 +38,10 @@ export class MemoryBoardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.user = {
-      name: this.authService.userData.email,
-      assignedNumber: undefined
-    };
+    console.log(this.user);
     // Connect to server who contains the api rest functions.
-    this.session = this.memoryService.connectToServer(this.gameSession);
+    this.session = this.memoryService.connectToServer(this.gameSession, 15);
+
     // Wait until a player join to the room.
     this.memoryService.waitingForOpponent(
       this.session,
@@ -58,8 +49,7 @@ export class MemoryBoardComponent implements OnInit, OnDestroy {
         this.onGoingGame = opponentFound;
       }
     );
-
-    this.memoryService.gameUpdated(this.session, (gameStatus: GameProgress) => {
+    this.memoryService.gameUpdated(this.session, (gameStatus: any) => {
       this.onGoingGame = true;
       if (gameStatus.players.length === 1) {
         console.log(
@@ -73,16 +63,11 @@ export class MemoryBoardComponent implements OnInit, OnDestroy {
         dialogRef.afterClosed().subscribe(result => {
           if (result) {
           } else {
-            this.router.navigate(['/home']);
+            this.router.navigate(['home']);
           }
         });
       }
-      if (gameStatus.currentPlayer === this.user.name) {
-        this.enableClick = true;
-      }
       this.gameProgress = gameStatus;
-      this.user.assignedNumber =
-        this.gameProgress.players.indexOf(this.user.name) + 1;
       this.board = this.gameProgress.board;
     });
 
@@ -93,20 +78,31 @@ export class MemoryBoardComponent implements OnInit, OnDestroy {
         }
       });
       dialogRef.afterClosed().subscribe(result => {
-        this.router.navigate(['/home']);
+        this.router.navigate(['home']);
       });
     });
   }
-  ngOnDestroy(): void {
-    this.memoryService.disconnectSession(this.session);
-  }
-  // TODO: make validatios to board.
-
-  public card_selected(position: number) {
+  public card_selected(index: number) {
     console.log(this.gameProgress);
+    if (this.gameProgress.currentPlayer === this.user.name) {
+      if (!this.gameProgress.board[index].visible) {
+        this.gameProgress.index = index;
+        this.playerMove(this.gameProgress);
+      } else {
+        console.log(
+          'This space has been already taken!, play a different one',
+          null,
+          3000
+        );
+      }
+    } else {
+      console.log('You have to wait for your turn!', null, 3000);
+    }
   }
-
-  private playerMove(gameProgress: GameProgress) {
+  private playerMove(gameProgress: any) {
     this.memoryService.playerMove(this.session, gameProgress);
+  }
+  ngOnDestroy(): void {
+    this.router.navigate(['home']);
   }
 }

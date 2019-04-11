@@ -119,6 +119,6 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     SessionService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ConfigGameIAComponent, ConfigGamePlayersComponent]
+  entryComponents: [ConfigGameIAComponent, ConfigGamePlayersComponent, PlayerLeftComponent]
 })
 export class AppModule {}

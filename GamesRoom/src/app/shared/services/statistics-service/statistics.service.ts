@@ -10,6 +10,7 @@ export class StatisticsService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   getStatistics() {
+    console.log(this.authService.userData);
     const config = {
       uid: this.authService.userData.uid
     };

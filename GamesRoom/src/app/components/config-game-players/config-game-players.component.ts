@@ -70,7 +70,7 @@ export class ConfigGamePlayersComponent implements OnInit, AfterViewInit {
       name: gameID,
       created: new Date(),
       user: userInfo.email,
-      numberOfPlayers: 1
+      numberOfPlayers: 0
     };
 
     this.session.createSession(newGame).subscribe(
