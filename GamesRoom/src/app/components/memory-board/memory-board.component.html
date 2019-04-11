@@ -4,91 +4,16 @@
       <mat-spinner></mat-spinner>
       <h1>Waiting for Opponent....</h1>
     </div>
-    <section *ngIf="onGoingGame">
-      <div class="container">
-        <div class="cards_table">
-          <span *ngFor="let card of gameProgress.board; index as i">
-            <img class="img-card" src="{{ card.visible ? card.url : images_inact }}" (click)="card_selected(i)" />
-          </span>
-        </div>
-      </div>
-      <div *ngFor="let message of messages">
+
+    <div *ngIf="onGoingGame" class="container">
+      <div class="cards_table">
+        <span *ngFor="let card of gameProgress.board; index as i">
+          <img class="img-card" src="{{ card.visible ? card.url : images_inact }}" (click)="card_selected(i)" />
+        </span>
       </div>
       <div class="chat-board">
         <app-chat-board></app-chat-board>
       </div>
-      <div class="status-board">
-        <header class="status-header">
-          <h4>Estado</h4>
-        </header>
-        <section class="status-session">
-          <table style="border: hidden">
-            <tr>
-              <td>
-                <h5>Turno: </h5>
-              </td>
-              <td>
-                <h5>{{turnoJugador}}</h5>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <h5>Cantidad Blancas:</h5>
-              </td>
-              <td>
-                <h5>{{numBlancas}}</h5>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <h5>Cantidad Rojas:</h5>
-              </td>
-              <td>
-                <h5>{{numRojas}}</h5>
-              </td>
-            </tr>
-          </table>
-        </section>
-      </div>
-    </section>
+    </div>
   </app-menu>
 </div>
-<!--
-<div class="chat-board">
-  <app-chat-board></app-chat-board>
-</div>
-<div class="status-board">
-  <header class="status-header">
-    <h4>Estado</h4>
-  </header>
-  <section class="status-session">
-    <table style="border: hidden">
-      <tr>
-        <td>
-          <h5>Turno: </h5>
-        </td>
-        <td>
-          <h5>{{turnoJugador}}</h5>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <h5>Cantidad Blancas:</h5>
-        </td>
-        <td>
-          <h5>{{numBlancas}}</h5>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <h5>Cantidad Rojas:</h5>
-        </td>
-        <td>
-          <h5>{{numRojas}}</h5>
-        </td>
-      </tr>
-    </table>
-  </section>
-</div>
-
--->

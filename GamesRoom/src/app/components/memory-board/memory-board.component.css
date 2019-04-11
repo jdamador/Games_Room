@@ -3,9 +3,9 @@
 }
 
 .container {
-  width: 60%;
-  padding-left: 0%;
+  width: 100%;
 }
+
 .container::after {
   bottom: 0;
   left: 0;
@@ -13,10 +13,13 @@
   top: 0;
   z-index: -1;
 }
+
 .cards_table {
   padding: 5px;
   height: 60%;
   width: 60%;
+  float: left;
+  position: relative;
 }
 
 @media only screen and (max-width: 479px) {
@@ -38,14 +41,10 @@ img.img-card {
 
 .chat-board {
   margin-top: 1%;
-  width: 44%;
-  float: left;
-  position: relative;
-}
-
-.status-board {
-  margin-top: 3%;
   width: 40%;
+  min-width: 300px;
+  height: 50%;
   float: left;
+  margin-left: 3%;
   position: relative;
 }
