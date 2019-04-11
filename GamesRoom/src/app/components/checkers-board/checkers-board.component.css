@@ -1,11 +1,17 @@
 mat-grid-list {
-  width: 40%;
-  height: 40%;
+  width: 100%;
+  height: 100%;
   margin-left: 5%;
   margin-top: 5%;
-  display: flex;
   flex-direction: row;
 }
+
+h4 {
+  margin-bottom: 10px;
+}
+
+
+
 
 .image{
   width: 100%;
@@ -21,4 +27,72 @@ mat-grid-list {
 .content {
   width: 100%;
   height: 100%;
+}
+
+.game-board{
+  width: 45%;
+  min-width: 300px;
+  height: 100%;
+  max-height: 400px;
+  margin-right: 5%;
+  float: left;
+ 
+}
+
+.chat-board{
+  margin-top: 1%;
+  width: 45%;
+  min-width: 300px;
+  height: 50%;
+  float: left;
+  margin-left: 3%;
+  position: relative;
+}
+
+.status-board{
+  margin-top: 3%;
+  width: 45%;
+  min-width: 300px;
+  height: 40%;
+  float: left;
+  margin-left: 3%;
+  position: relative;
+}
+
+.status-header, .chat-footer {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.status-header {
+  border-bottom: 1px solid #333;
+  background: white;
+  padding: 10px 20px;
+  height: 10%;
+  width: 100%;
+  top: 0;
+}
+
+.status-header h4 {
+  margin-bottom: 0;
+}
+
+.status-session {
+  flex-grow: 1;
+  height: 80%;
+  margin-top: 1%;
+}
+
+.status-session h5 {
+  margin-top: 5%;
+}
+
+table td:nth-child(2) {
+  text-align: center;
+}
+
+table{
+  width: 70%;
+  margin-left: 8%
 }
