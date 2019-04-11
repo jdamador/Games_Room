@@ -54,6 +54,7 @@ import { ChatBoardComponent } from './components/chat-board/chat-board.component
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { ChatService } from './shared/services/chat-service/chat.service';
+import { CheckersService } from './shared/services/checkers-service/checkers.service';
 
 import { HttpClientModule } from '@angular/common/http'; 
 import { HttpModule } from '@angular/http';
@@ -105,7 +106,7 @@ import { ConfigGamePlayersComponent } from './components/config-game-players/con
     HttpModule,
     HttpClientModule
   ],
-  providers: [AuthService, UserService, CardService,ChatService],
+  providers: [AuthService, UserService, CardService, ChatService, CheckersService],
   bootstrap: [AppComponent],
   entryComponents: [ConfigGameIAComponent, ConfigGamePlayersComponent]
 })

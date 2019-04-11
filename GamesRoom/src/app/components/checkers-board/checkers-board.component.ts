@@ -19,7 +19,7 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
     estado = "false";
     color: string;
     private session: any;
-    pieceType : string;
+    pieceType = "star";
 
 
   constructor(private checkersService: CheckersService, private authService: AuthService, private configGame: ConfigGamePlayersComponent) { }
