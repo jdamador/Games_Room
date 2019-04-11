@@ -18,7 +18,6 @@ export class ConfigGamePlayersCheckersComponent implements OnInit {
   }
 
   jugarCheckers(){
-    console.log("Config: " + this.pieces_type)
     this.checkersService.setPieceType(this.pieces_type);
     this.authService.goCheckers();
     this.onClose();

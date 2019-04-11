@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./checkers-board.component.css']
 })
 export class CheckersBoardComponent implements OnInit, OnDestroy {
-    idSala : string = "_20194884698";
+    idSala : string = "_2019488469g";
     uidJugador : string; 
     turno: string;
     tablero = [];
@@ -29,7 +29,6 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.type_piece = this.checkersService.getPieceType();
     this.uidJugador= this.authService.userData.uid;
-    console.log("Valor: " + this.type_piece);
     //this.uidJugador= "Jugador1"
     this.session = this.checkersService.connectToServer();
     this.envioInfoCrearTablero(this.idSala);

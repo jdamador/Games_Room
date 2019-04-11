@@ -7,6 +7,13 @@
       <mat-radio-button class="margin" value="hard">Hard</mat-radio-button>
     </mat-radio-group>
   </section>
+  <section class="section">
+    <label >Pick your favorite piece</label>
+    <mat-radio-group [(ngModel)]="pieces_type">
+      <mat-radio-button class="margin" value="circle">Circle</mat-radio-button>
+      <mat-radio-button class="margin" value="star">Star</mat-radio-button>
+    </mat-radio-group>
+  </section>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onClose()">Cancel</button>
