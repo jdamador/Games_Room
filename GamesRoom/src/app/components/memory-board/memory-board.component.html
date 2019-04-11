@@ -14,9 +14,81 @@
       </div>
       <div *ngFor="let message of messages">
       </div>
-      <div class="chat">
-        <!--<app-chat-board></app-chat-board>-->
+      <div class="chat-board">
+        <app-chat-board></app-chat-board>
+      </div>
+      <div class="status-board">
+        <header class="status-header">
+          <h4>Estado</h4>
+        </header>
+        <section class="status-session">
+          <table style="border: hidden">
+            <tr>
+              <td>
+                <h5>Turno: </h5>
+              </td>
+              <td>
+                <h5>{{turnoJugador}}</h5>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h5>Cantidad Blancas:</h5>
+              </td>
+              <td>
+                <h5>{{numBlancas}}</h5>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h5>Cantidad Rojas:</h5>
+              </td>
+              <td>
+                <h5>{{numRojas}}</h5>
+              </td>
+            </tr>
+          </table>
+        </section>
       </div>
     </section>
   </app-menu>
 </div>
+<!--
+<div class="chat-board">
+  <app-chat-board></app-chat-board>
+</div>
+<div class="status-board">
+  <header class="status-header">
+    <h4>Estado</h4>
+  </header>
+  <section class="status-session">
+    <table style="border: hidden">
+      <tr>
+        <td>
+          <h5>Turno: </h5>
+        </td>
+        <td>
+          <h5>{{turnoJugador}}</h5>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <h5>Cantidad Blancas:</h5>
+        </td>
+        <td>
+          <h5>{{numBlancas}}</h5>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <h5>Cantidad Rojas:</h5>
+        </td>
+        <td>
+          <h5>{{numRojas}}</h5>
+        </td>
+      </tr>
+    </table>
+  </section>
+</div>
+
+-->

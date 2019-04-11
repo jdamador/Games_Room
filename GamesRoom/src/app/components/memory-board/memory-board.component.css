@@ -3,30 +3,24 @@
 }
 
 .container {
-  position: relative;
-  height: 500px;
   width: 60%;
+  padding-left: 0%;
 }
-
-
 .container::after {
-  background: url(/assets/images/fondo.jpg);
   bottom: 0;
   left: 0;
   opacity: 0.6;
-  position: relative;
   top: 0;
   z-index: -1;
 }
-
 .cards_table {
   padding: 5px;
-  height: 100%;
-  width: 100%;
-  position: relative;
+  height: 60%;
+  width: 60%;
 }
+
 @media only screen and (max-width: 479px) {
-  .mesa-cartas{
+  .mesa-cartas {
     width: 90%;
   }
 }
@@ -40,4 +34,18 @@ img.img-card {
   padding: 5px;
   height: 90px;
   size: auto;
+}
+
+.chat-board {
+  margin-top: 1%;
+  width: 44%;
+  float: left;
+  position: relative;
+}
+
+.status-board {
+  margin-top: 3%;
+  width: 40%;
+  float: left;
+  position: relative;
 }
