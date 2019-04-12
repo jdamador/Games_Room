@@ -90,7 +90,7 @@ export class MemoryBoardComponent implements OnInit, OnDestroy {
         this.gameProgress.index = index;
         this.playerMove(this.gameProgress);
       } else {
-        this.snackBar.open('Este espacio ya ha sido seleccionado, escoga otro.', null, {
+        this.snackBar.open('Este espacio ya ha sido seleccionado, escoja otro.', null, {
           duration: 3000
         });
       }
