@@ -15,4 +15,5 @@ export class StatisticsService {
     };
     return this.http.post('http://localhost:3000/estadisticas/obtener', config);
   }
+
 }

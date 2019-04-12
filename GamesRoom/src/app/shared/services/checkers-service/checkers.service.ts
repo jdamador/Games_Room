@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import io from 'socket.io-client';
 import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class CheckersService {
   private url = 'http://localhost:3000';
   pieceType : string;
 
-  constructor() {
+  constructor(private http: HttpClient) {
 
    }
 
@@ -61,5 +62,9 @@ export class CheckersService {
 
   public disconnectSession(socket: any) {
     socket.disconnect();
+  }
+
+  getSesiones(){
+    return this.http.get('http://localhost:3000/partidasDisponiblesDamas');
   }
 }

@@ -17,7 +17,7 @@ export class ConfigGamePlayersCheckersComponent implements OnInit {
   public pieces_type: any;
   newGame = false;
   showRooms = false;
-  displayedColumns = ['user', 'created', 'number of players', 'join'];
+  displayedColumns = ['Sala', 'Jugador1', 'join'];
   gameTable = new MatTableDataSource<NewSession>();
   gameType = 'lobby';
 
@@ -35,20 +35,8 @@ export class ConfigGamePlayersCheckersComponent implements OnInit {
 
   ngOnInit() {
 
-    this.session.getAllSessions().subscribe(
-      (sessions: NewSession[]) => {
-        let formedData = [];
-        // tslint:disable-next-line:forin
-        for (let key in sessions) {
-          sessions[key]['id'] = key;
-          formedData.push(sessions[key]);
-        }
-        this.gameTable.data = formedData;
-      },
-      err => {
-        console.log(err);
-      }
-    );
+    this.checkersService.getSesiones().subscribe(response =>
+      console.log(response));
   }
 
   ngAfterViewInit() {
