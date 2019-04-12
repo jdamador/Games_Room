@@ -2,7 +2,7 @@ import { Component, OnInit, NgZone } from "@angular/core";
 import { AuthService } from "../../shared/services/auth.service";
 import { Router } from "@angular/router";
 import { MatDialog, MatDialogConfig } from "@angular/material";
-import { ConfigGameIAComponent } from "../config-game-ia/config-game-ia.component";
+import { ConfigGameIaCheckersComponent } from "../config-game-ia-checkers/config-game-ia-checkers.component";
 import { ConfigGamePlayersCheckersComponent } from "../config-game-players-checkers/config-game-players-checkers.component";
 @Component({
   selector: "app-home",
@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
-    this.dialog.open(ConfigGameIAComponent, dialogConfig);
+    this.dialog.open(ConfigGameIaCheckersComponent, dialogConfig);
   }
   openSettingPlayers(tipo: string): void {
     const dialogConfig = new MatDialogConfig();

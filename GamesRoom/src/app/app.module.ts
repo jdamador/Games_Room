@@ -61,7 +61,6 @@ import { HttpModule } from '@angular/http';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
-import { ConfigGameIAComponent } from './components/config-game-ia/config-game-ia.component';
 import { ConfigGamePlayersCheckersComponent } from './components/config-game-players-checkers/config-game-players-checkers.component';
 import { ConfigGameIaCheckersComponent } from './components/config-game-ia-checkers/config-game-ia-checkers.component';
 @NgModule({
@@ -77,7 +76,6 @@ import { ConfigGameIaCheckersComponent } from './components/config-game-ia-check
     MemoryBoardComponent,
     CheckersBoardComponent,
     ChatBoardComponent,
-    ConfigGameIAComponent,
     ConfigGamePlayersCheckersComponent,
     ConfigGameIaCheckersComponent
   ],
@@ -110,6 +108,6 @@ import { ConfigGameIaCheckersComponent } from './components/config-game-ia-check
   ],
   providers: [AuthService, UserService, CardService, ChatService, CheckersService],
   bootstrap: [AppComponent],
-  entryComponents: [ConfigGameIAComponent, ConfigGamePlayersCheckersComponent]
+  entryComponents: [ConfigGameIaCheckersComponent, ConfigGamePlayersCheckersComponent]
 })
 export class AppModule {}
