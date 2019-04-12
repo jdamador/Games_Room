@@ -5,21 +5,20 @@ import { Observable, of as observableOf, merge } from 'rxjs';
 
 // TODO: Replace this with your own data model type
 export interface SaveListItem {
-  player2: string,
-  player1: string,
+  player2: string;
+  player1: string;
   name: string;
   id: number;
 }
 
 // TODO: replace this with real data from your application
 const EXAMPLE_DATA: SaveListItem[] = [
-  {id: 1, name: 'Hydrogen', player1: 'Daniel', player2:'Royland'},
-  {id: 2, name: 'Hydrogen', player1: 'Daniel', player2:'Royland'},
-  {id: 3, name: 'Hydrogen', player1: 'Daniel', player2:'Royland'},
-  {id: 4, name: 'Hydrogen', player1: 'Daniel', player2:'Royland'},
-  {id: 5, name: 'Hydrogen', player1: 'Daniel', player2:'Royland'},
-  {id: 6, name: 'Hydrogen', player1: 'Daniel', player2:'Royland'},
-
+  { id: 1, name: 'Hydrogen', player1: 'Daniel', player2: 'Royland' },
+  { id: 2, name: 'Hydrogen', player1: 'Daniel', player2: 'Royland' },
+  { id: 3, name: 'Hydrogen', player1: 'Daniel', player2: 'Royland' },
+  { id: 4, name: 'Hydrogen', player1: 'Daniel', player2: 'Royland' },
+  { id: 5, name: 'Hydrogen', player1: 'Daniel', player2: 'Royland' },
+  { id: 6, name: 'Hydrogen', player1: 'Daniel', player2: 'Royland' }
 ];
 
 /**
@@ -51,9 +50,11 @@ export class SaveListDataSource extends DataSource<SaveListItem> {
     // Set the paginator's length
     this.paginator.length = this.data.length;
 
-    return merge(...dataMutations).pipe(map(() => {
-      return this.getPagedData(this.getSortedData([...this.data]));
-    }));
+    return merge(...dataMutations).pipe(
+      map(() => {
+        return this.getPagedData(this.getSortedData([...this.data]));
+      })
+    );
   }
 
   /**
@@ -83,11 +84,16 @@ export class SaveListDataSource extends DataSource<SaveListItem> {
     return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
-        case 'name': return compare(a.name, b.name, isAsc);
-        case 'id': return compare(+a.id, +b.id, isAsc);
-        case 'player1': return compare(+a.player1, +b.player1, isAsc);
-        case 'player2': return compare(+a.player2, +b.player2, isAsc);
-        default: return 0;
+        case 'name':
+          return compare(a.name, b.name, isAsc);
+        case 'id':
+          return compare(+a.id, +b.id, isAsc);
+        case 'player1':
+          return compare(+a.player1, +b.player1, isAsc);
+        case 'player2':
+          return compare(+a.player2, +b.player2, isAsc);
+        default:
+          return 0;
       }
     });
   }
