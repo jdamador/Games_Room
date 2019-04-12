@@ -13,6 +13,28 @@
       </div>
       <div class="chat-board">
         <app-chat-board></app-chat-board>
+        <header class="status-header">
+          <h4>Estado</h4>
+        </header>
+        <div class="status-session">
+          <table style="border: hidden">
+            <tr>
+              <td>
+                <h5>Turno: {{gameProgress.currentPlayer}} </h5>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h5>Cantidad Blancas: {{numBlancas}}</h5>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h5>Cantidad Rojas: {{numRojas}}</h5>
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
   </app-menu>

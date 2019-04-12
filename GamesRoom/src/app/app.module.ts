@@ -14,7 +14,8 @@ import {
   MatGridListModule,
   MatDialogModule,
   MatFormFieldModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatSnackBarModule
 } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -110,7 +111,8 @@ import { SessionService } from './shared/services/sessionservice/session.service
     HttpClientModule,
     HttpModule,
     HttpClientModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSnackBarModule
   ],
   providers: [AuthService, UserService, CardService, ChatService, SessionService],
   bootstrap: [AppComponent],
