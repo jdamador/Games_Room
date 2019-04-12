@@ -9,9 +9,9 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./chat-board.component.css']
 })
 export class ChatBoardComponent implements OnInit {
-  currentRoom= "sala";
+  currentRoom = 'sala';
   message: string;
-  messages= [];
+  messages = [];
   newMessage: string;
   author="roy"
   idSala : string = "_20194884698";

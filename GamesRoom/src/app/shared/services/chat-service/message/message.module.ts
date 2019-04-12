@@ -3,11 +3,9 @@ import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule
-  ]
+  imports: [CommonModule]
 })
-export class MessageModule { 
+export class MessageModule {
   Author: string;
-	Text: string;
+  Text: string;
 }

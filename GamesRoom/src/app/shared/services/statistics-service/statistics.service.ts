@@ -3,20 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class StatisticsService {
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
-  constructor(private http: HttpClient, private authService: AuthService
-    ) { }
-
-  getStatistics(){
+  getStatistics() {
+    console.log(this.authService.userData);
     const config = {
       uid: this.authService.userData.uid
-    }
-    return this.http.post('http://localhost:3000/estadisticas/obtener',config);
+    };
+    return this.http.post('http://localhost:3000/estadisticas/obtener', config);
   }
-
 }

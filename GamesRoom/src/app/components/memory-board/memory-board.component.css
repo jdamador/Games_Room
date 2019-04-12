@@ -3,17 +3,13 @@
 }
 
 .container {
-  display: block;
   position: relative;
-  width: 960px;
   height: 500px;
-  width: 500px;
-
+  width: 60%;
 }
 
 
 .container::after {
-  content: "";
   background: url(/assets/images/fondo.jpg);
   bottom: 0;
   left: 0;
@@ -21,14 +17,12 @@
   position: relative;
   top: 0;
   z-index: -1;
-  height: 500px;
-  width: 500px;
 }
 
-.mesa-cartas {
+.cards_table {
   padding: 5px;
-  height: 500px;
-  width: 500px;
+  height: 100%;
+  width: 100%;
   position: relative;
 }
 @media only screen and (max-width: 479px) {
