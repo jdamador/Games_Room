@@ -15,7 +15,8 @@
     border-radius: 0;
   }
 
-  .chat-header, .chat-footer {
+  .chat-header,
+  .chat-footer {
     display: flex;
     align-items: center;
     flex-shrink: 0;
@@ -88,5 +89,3 @@
     display: inline-block;
     margin-right: 5px;
   }
-
- 

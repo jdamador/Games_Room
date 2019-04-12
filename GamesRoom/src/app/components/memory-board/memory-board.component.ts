@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MemoryService } from 'src/app/shared/services/memory/memory.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { RematchComponent } from './rematch.component';
 import { PlayerLeftComponent } from './player-left.component';
 
@@ -34,7 +34,8 @@ export class MemoryBoardComponent implements OnInit, OnDestroy {
     private memoryService: MemoryService,
     private router: Router,
     private authService: AuthService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -89,14 +90,14 @@ export class MemoryBoardComponent implements OnInit, OnDestroy {
         this.gameProgress.index = index;
         this.playerMove(this.gameProgress);
       } else {
-        console.log(
-          'This space has been already taken!, play a different one',
-          null,
-          3000
-        );
+        this.snackBar.open('Este espacio ya ha sido seleccionado, escoja otro.', null, {
+          duration: 3000
+        });
       }
     } else {
-      console.log('You have to wait for your turn!', null, 3000);
+      this.snackBar.open('Es turno del jugador rival', null, {
+        duration: 3000
+      });
     }
   }
   private playerMove(gameProgress: any) {

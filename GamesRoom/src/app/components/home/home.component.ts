@@ -4,6 +4,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material';
+import { ConfigGamePlayersMemoryComponent } from '../config-game-players-memory/config-game-players.component';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -35,26 +36,13 @@ export class HomeComponent implements OnInit {
     dialogConfig.width = "60%";
     this.dialog.open(ConfigGamePlayersCheckersComponent, dialogConfig);
   }
-  /** 
-   * 
-   openSettingsIA(gameType): void {
+ 
+  openSettingPlayersMemory(tipo: string): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '60%';
-    dialogConfig.data = gameType;
-    const dialogRef = this.dialog.open(ConfigGameIAComponent, dialogConfig);
+    dialogConfig.data = tipo;
+    this.dialog.open(ConfigGamePlayersMemoryComponent,dialogConfig);
   }
-  openSettingPlayers(gameType): void {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = '60%';
-    dialogConfig.data = gameType;
-    const dialogRef = this.dialog.open(
-      ConfigGamePlayersComponent,
-      dialogConfig
-    );
-  }
-  */
 }

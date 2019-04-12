@@ -4,19 +4,38 @@
       <mat-spinner></mat-spinner>
       <h1>Waiting for Opponent....</h1>
     </div>
-    <section *ngIf="onGoingGame">
-      <div class="container">
-        <div class="cards_table">
-          <span *ngFor="let card of gameProgress.board; index as i">
-            <img class="img-card" src="{{ card.visible ? card.url : images_inact }}" (click)="card_selected(i)" />
-          </span>
+
+    <div *ngIf="onGoingGame" class="container">
+      <div class="cards_table">
+        <span *ngFor="let card of gameProgress.board; index as i">
+          <img class="img-card" src="{{ card.visible ? card.url : images_inact }}" (click)="card_selected(i)" />
+        </span>
+      </div>
+      <div class="chat-board">
+        <app-chat-board></app-chat-board>
+        <header class="status-header">
+          <h4>Estado</h4>
+        </header>
+        <div class="status-session">
+          <table style="border: hidden">
+            <tr>
+              <td>
+                <h5>Turno: {{gameProgress.currentPlayer}} </h5>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h5>Cantidad Blancas: {{numBlancas}}</h5>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h5>Cantidad Rojas: {{numRojas}}</h5>
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
-      <div *ngFor="let message of messages">
-      </div>
-      <div class="chat">
-        <!--<app-chat-board></app-chat-board>-->
-      </div>
-    </section>
+    </div>
   </app-menu>
 </div>

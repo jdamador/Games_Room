@@ -181,7 +181,8 @@ export class AuthService {
   userInfo() {
     return JSON.parse(localStorage.getItem('user'));
   }
-  goCheckers(){
+
+  goCheckers() {
     return this.router.navigate(['checkers']);
   }
 }

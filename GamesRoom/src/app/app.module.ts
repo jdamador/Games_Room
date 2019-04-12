@@ -14,7 +14,9 @@ import {
   MatRadioModule,
   MatGridListModule,
   MatDialogModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  MatProgressSpinnerModule,
+  MatSnackBarModule
 } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -60,12 +62,12 @@ import { ConfigGameIaCheckersComponent } from './components/config-game-ia-check
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { MemoryService } from './shared/services/memory/memory.service';
-import { SessionService } from './shared/services/sessionservice/session.service';
 import { RematchComponent } from './components/memory-board/rematch.component';
 import { PlayerLeftComponent } from './components/memory-board/player-left.component';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
+import { ConfigGamePlayersMemoryComponent } from './components/config-game-players-memory/config-game-players.component';
+import { SessionService } from './shared/services/sessionservice/session.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,7 +84,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     ConfigGamePlayersCheckersComponent,
     ConfigGameIaCheckersComponent,
     RematchComponent,
-    PlayerLeftComponent
+    PlayerLeftComponent,
+    ConfigGamePlayersMemoryComponent
   ],
   imports: [
     BrowserModule,
@@ -124,6 +127,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
   entryComponents: [
     ConfigGameIaCheckersComponent, 
     ConfigGamePlayersCheckersComponent, 
+    ConfigGamePlayersMemoryComponent
   ]
 })
 export class AppModule {}

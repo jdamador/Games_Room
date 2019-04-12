@@ -3,41 +3,42 @@
 }
 
 .container {
-  position: relative;
-  height: 500px;
-  width: 60%;
-}
-
-
-.container::after {
-  background: url(/assets/images/fondo.jpg);
-  bottom: 0;
-  left: 0;
-  opacity: 0.6;
-  position: relative;
-  top: 0;
-  z-index: -1;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
 }
 
 .cards_table {
-  padding: 5px;
-  height: 100%;
-  width: 100%;
+  width: 60%;
+  margin: 0px;
+  float: left;
   position: relative;
 }
+
 @media only screen and (max-width: 479px) {
-  .mesa-cartas{
-    width: 90%;
+  .mesa-cards_table {
+    width: 100%;
   }
 }
 
-img.img-card:hover {
-  position: relative;
-  top: -7px;
-}
-
 img.img-card {
-  padding: 5px;
+  padding: 1px;
   height: 90px;
   size: auto;
+}
+
+.chat-board {
+  width: 40%;
+  height: 300px;
+  float: left;
+  position: relative;
+}
+
+table td:nth-child(2) {
+  text-align: center;
+}
+
+table {
+  width: 70%;
+  margin-left: 8%
 }

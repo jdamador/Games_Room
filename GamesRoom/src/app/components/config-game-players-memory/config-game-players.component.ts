@@ -1,40 +1,40 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { MatDialogRef,  MatTableDataSource,  MatPaginator } from '@angular/material'
-import { AuthService } from "../../shared/services/auth.service";
-import { CheckersService } from "src/app/shared/services/checkers-service/checkers.service";
+import {
+  MatDialogRef,
+  MatTableDataSource,
+  MatPaginator
+} from '@angular/material';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { Inject } from '@angular/core';
 import { NewSession } from 'src/app/interfaces/table/table.module';
 import { SessionService } from 'src/app/shared/services/sessionservice/session.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-config-game-players-checkers',
-  templateUrl: './config-game-players-checkers.component.html',
-  styleUrls: ['./config-game-players-checkers.component.css']
+  selector: 'app-config-game-players',
+  templateUrl: './config-game-players.component.html',
+  styleUrls: ['./config-game-players.component.css']
 })
-export class ConfigGamePlayersCheckersComponent implements OnInit {
-  public pieces_type: any;
-  newGame = false;
-  showRooms = false;
+export class ConfigGamePlayersMemoryComponent implements OnInit, AfterViewInit {
+  // Configure the table columns.
   displayedColumns = ['user', 'created', 'number of players', 'join'];
   gameTable = new MatTableDataSource<NewSession>();
+  showRooms = false;
   gameType = 'lobby';
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(public session: SessionService,
+  constructor(
+    public session: SessionService,
     public authService: AuthService,
     private router: Router,
-    public dialogRef: MatDialogRef<ConfigGamePlayersCheckersComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, public checkersService: CheckersService) {
-
-      this.gameType = data;
-
-    }
-
+    public dialogRef: MatDialogRef<ConfigGamePlayersMemoryComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    this.gameType = data;
+  }
   ngOnInit() {
-
     this.session.getAllSessions().subscribe(
       (sessions: NewSession[]) => {
         let formedData = [];
@@ -50,9 +50,11 @@ export class ConfigGamePlayersCheckersComponent implements OnInit {
       }
     );
   }
-
   ngAfterViewInit() {
     this.gameTable.paginator = this.paginator;
+  }
+  onClose() {
+    this.dialogRef.close();
   }
 
   showGames() {
@@ -62,25 +64,25 @@ export class ConfigGamePlayersCheckersComponent implements OnInit {
       this.showRooms = true;
     }
   }
+  onSubmitNewGame(gameID: string) {
+    const userInfo = this.authService.userData;
+    const newGame: NewSession = {
+      name: gameID,
+      created: new Date(),
+      user: userInfo.email,
+      numberOfPlayers: 0
+    };
 
-  onClose() {
-    this.dialogRef.close();
+    this.session.createSession(newGame).subscribe(
+      (data: any) => {
+        this.dialogRef.close();
+        this.router.navigate([`/${this.gameType}/`, data.name]);
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
-
-  configGameCheckers(){
-    if (this.newGame) {
-      this.newGame = false;
-    } else {
-      this.newGame = true;
-    }
-  }
-
-  jugarCheckers(){
-    this.checkersService.setPieceType(this.pieces_type);
-    this.authService.goCheckers();
-    this.onClose();
-  }
-
   joinGame(id: string) {
     this.dialogRef.close();
     this.router.navigate([`/${this.gameType}/`, id]);

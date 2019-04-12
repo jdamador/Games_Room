@@ -13,27 +13,29 @@ export class ChatBoardComponent implements OnInit {
   message: string;
   messages = [];
   newMessage: string;
-  author="roy"
-  idSala : string = "_20194884698";
+  author = 'roy';
+  idSala: string = '_20194884698';
 
-  constructor(private chatService: ChatService, private auth: AuthService) { }
+  constructor(private chatService: ChatService, private auth: AuthService) {}
 
   ngOnInit() {
-    this.author= this.auth.userData.displayName;
-    this.inicioSesion()
-    this.chatService.getMessages()
-      .subscribe((data) => {
-        this.messages.push({"Author": data.Author, "Text": data.Text});
-      });
+    this.author = this.auth.userInfo().displayName;
+    this.inicioSesion();
+    this.chatService.getMessages().subscribe(data => {
+      this.messages.push({ Author: data.Author, Text: data.Text });
+    });
   }
 
-  envio(){
-    this.chatService.envioInfo({"idSala":this.idSala, "Author":this.author, "Text":this.newMessage})
-    this.newMessage= ""
+  envio() {
+    this.chatService.envioInfo({
+      idSala: this.idSala,
+      Author: this.author,
+      Text: this.newMessage
+    });
+    this.newMessage = '';
   }
 
-  inicioSesion(){
-    this.chatService.entrarSesion({"idSala":this.idSala})
+  inicioSesion() {
+    this.chatService.entrarSesion({ idSala: this.idSala });
   }
-
 }

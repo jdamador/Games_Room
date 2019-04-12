@@ -44,7 +44,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   { path: 'chat', component: ChatBoardComponent, canActivate: [AuthGuard] },
-  { path: 'memory/:id', component: MemoryBoardComponent, canActivate: [AuthGuard] }
+  { path: 'memory/:id', component: MemoryBoardComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

@@ -10,9 +10,8 @@ export class StatisticsService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   getStatistics() {
-    console.log(this.authService.userData);
     const config = {
-      uid: this.authService.userData.uid
+      uid: this.authService.userInfo().uid
     };
     return this.http.post('http://localhost:3000/estadisticas/obtener', config);
   }
