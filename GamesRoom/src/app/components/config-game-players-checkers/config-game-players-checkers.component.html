@@ -22,17 +22,13 @@
 
         <div class="col-lg-8 col-md-8" *ngIf="showRooms">
           <mat-table [dataSource]='gameTable'>
-            <ng-container matColumnDef="user">
-              <mat-header-cell *matHeaderCellDef> User </mat-header-cell>
-              <mat-cell *matCellDef="let user"> {{user.user}} </mat-cell>
+            <ng-container matColumnDef="Sala">
+              <mat-header-cell *matHeaderCellDef> Sala </mat-header-cell>
+              <mat-cell *matCellDef="let user"> {{user.Sala}} </mat-cell>
             </ng-container>
-            <ng-container matColumnDef="created">
-              <mat-header-cell *matHeaderCellDef> Created </mat-header-cell>
-              <mat-cell *matCellDef="let user"> {{user.created | date: 'short'}}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="number of players">
-              <mat-header-cell *matHeaderCellDef> Number of players </mat-header-cell>
-              <mat-cell *matCellDef="let user"> {{user.numberOfPlayers}} / 2</mat-cell>
+            <ng-container matColumnDef="id User">
+              <mat-header-cell *matHeaderCellDef> id User </mat-header-cell>
+              <mat-cell *matCellDef="let user"> {{user.Jugador1}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="join">
               <mat-header-cell *matHeaderCellDef> Join Session </mat-header-cell>

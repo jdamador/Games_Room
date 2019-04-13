@@ -4,7 +4,6 @@ import { AuthService } from "../../shared/services/auth.service";
 import { CheckersService } from "src/app/shared/services/checkers-service/checkers.service";
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { Inject } from '@angular/core';
-import { NewSession } from 'src/app/interfaces/table/table.module';
 import { SessionService } from 'src/app/shared/services/sessionservice/session.service';
 import { Router } from '@angular/router';
 
@@ -17,8 +16,8 @@ export class ConfigGamePlayersCheckersComponent implements OnInit {
   public pieces_type: any;
   newGame = false;
   showRooms = false;
-  displayedColumns = ['Sala', 'Jugador1', 'join'];
-  gameTable = new MatTableDataSource<NewSession>();
+  displayedColumns = ['Sala', 'id User', 'join'];
+  gameTable = new MatTableDataSource<any>();
   gameType = 'lobby';
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -34,9 +33,21 @@ export class ConfigGamePlayersCheckersComponent implements OnInit {
     }
 
   ngOnInit() {
-
-    this.checkersService.getSesiones().subscribe(response =>
-      console.log(response));
+    this.checkersService.getSesiones().subscribe(
+      (sessions: any[]) => {
+        console.log(sessions);
+        let formedData = [];
+        for (let key in sessions) {
+          sessions[key]['id'] = key;
+          formedData.push(sessions[key]);
+        }
+        this.gameTable.data = formedData;
+      },
+      err => {
+        console.log(err);
+      }
+    );
+    
   }
 
   ngAfterViewInit() {
