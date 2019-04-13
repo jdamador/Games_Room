@@ -13,7 +13,7 @@ export class MemoryService {
   // Get user data from Auth service.
   private userInfo = this.authService.userInfo();
 
-  constructor(private authService: AuthService, private http: HttpClient) {}
+  constructor(private authService: AuthService, private http: HttpClient) { }
   // Open a new connection to server.
   public connectToServer(id: string, size: number) {
     const socket = io.connect(this.url, { foceNew: true });
@@ -35,7 +35,7 @@ export class MemoryService {
     return socket.emit('player-action', gameUpdate);
   }
 
-  //
+  // Alert when some change was make.
   public gameUpdated(socket: any, updateFunction) {
     socket.on('game-updated', updateFunction);
   }
@@ -53,5 +53,10 @@ export class MemoryService {
   // Close the connection with the server.
   public disconnectSession(socket: any) {
     socket.disconnect();
+  }
+
+  // Alert when the game was complete.
+  public gameOver(socket: any, gameOverFunction) {
+    socket.on('game-over', gameOverFunction);
   }
 }

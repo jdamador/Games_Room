@@ -69,8 +69,8 @@ export class ConfigGamePlayersMemoryComponent implements OnInit, AfterViewInit {
     const newGame: NewSession = {
       name: gameID,
       created: new Date(),
-      user: userInfo.email,
-      numberOfPlayers: 0
+      user: userInfo.displayName,
+      numberOfPlayers: 1
     };
 
     this.session.createSession(newGame).subscribe(

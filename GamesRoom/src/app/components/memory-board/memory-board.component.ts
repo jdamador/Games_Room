@@ -3,8 +3,6 @@ import { MemoryService } from 'src/app/shared/services/memory/memory.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
-import { RematchComponent } from './rematch.component';
-import { PlayerLeftComponent } from './player-left.component';
 
 export interface User {
   name: string;
@@ -34,14 +32,13 @@ export class MemoryBoardComponent implements OnInit, OnDestroy {
     private memoryService: MemoryService,
     private router: Router,
     private authService: AuthService,
-    private dialog: MatDialog,
     private snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   ngOnInit() {
-    console.log(this.user);
+
     // Connect to server who contains the api rest functions.
-    this.session = this.memoryService.connectToServer(this.gameSession, 15);
+    this.session = this.memoryService.connectToServer(this.gameSession, 2);
 
     // Wait until a player join to the room.
     this.memoryService.waitingForOpponent(
@@ -50,59 +47,64 @@ export class MemoryBoardComponent implements OnInit, OnDestroy {
         this.onGoingGame = opponentFound;
       }
     );
+    // Updata the game when some change is make.
     this.memoryService.gameUpdated(this.session, (gameStatus: any) => {
       this.onGoingGame = true;
-      if (gameStatus.players.length === 1) {
-        console.log(
-          `Opponent ${gameStatus.players[0]} is waiting for rematch `
-        );
-        const dialogRef = this.dialog.open(RematchComponent, {
-          data: {
-            opponentName: 'Do you want a rematch?'
-          }
-        });
-        dialogRef.afterClosed().subscribe(result => {
-          if (result) {
-          } else {
-            this.router.navigate(['home']);
-          }
-        });
-      }
       this.gameProgress = gameStatus;
       this.board = this.gameProgress.board;
     });
 
+    // Return to lobby if some player left the match.
     this.memoryService.disconnect(this.session, (opponentLeft: string) => {
-      const dialogRef = this.dialog.open(PlayerLeftComponent, {
-        data: {
-          opponentInfo: opponentLeft
+      this.router.navigate(['home']);
+    });
+    // Validate when the game was complete and show a message for each player.
+    this.memoryService.gameOver(this.session, (gameOver: any) => {
+      if (gameOver === '*') {
+        this.snackBar.open('¡Has empatado la partida!', null, {
+          duration: 3000
+        });
+      } else
+        if (gameOver === this.user.name) {
+          this.snackBar.open(`¡Felicitaciones ${this.user.name}, has ganado la partida!`, null, {
+            duration: 3000
+          });
+        } else {
+          this.snackBar.open(`Lo sentimos ${this.user.name}, has perdido la partida!`, null, {
+            duration: 3000
+          });
         }
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        this.router.navigate(['home']);
-      });
     });
   }
+
+  // Validate when some player pick a card.
   public card_selected(index: number) {
-    console.log(this.gameProgress);
+
+    // Validate if is your turn.
     if (this.gameProgress.currentPlayer === this.user.name) {
+      // Validate if the card was not picked before.
       if (!this.gameProgress.board[index].visible) {
         this.gameProgress.index = index;
+        // Send game process to validate the move.
         this.playerMove(this.gameProgress);
       } else {
+        // Show a message if that card was selected before.
         this.snackBar.open('Este espacio ya ha sido seleccionado, escoja otro.', null, {
           duration: 3000
         });
       }
     } else {
+      // Show a message if isn't your turn.
       this.snackBar.open('Es turno del jugador rival', null, {
         duration: 3000
       });
     }
   }
+  // Call backend to check the move and flipped the cards.
   private playerMove(gameProgress: any) {
     this.memoryService.playerMove(this.session, gameProgress);
   }
+  // If the window is closed go to home.
   ngOnDestroy(): void {
     this.router.navigate(['home']);
   }

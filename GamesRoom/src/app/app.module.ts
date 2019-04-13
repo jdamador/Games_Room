@@ -49,9 +49,6 @@ import { MenuComponent } from './components/menu/menu.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { SaveListComponent } from './components/save-list/save-list.component';
 import { MemoryBoardComponent } from './components/memory-board/memory-board.component';
-
-// Services
-import { CardService } from './shared/services/card.service';
 import { ChatBoardComponent } from './components/chat-board/chat-board.component';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
@@ -114,7 +111,7 @@ import { SessionService } from './shared/services/sessionservice/session.service
     MatProgressSpinnerModule,
     MatSnackBarModule
   ],
-  providers: [AuthService, UserService, CardService, ChatService, SessionService],
+  providers: [AuthService, UserService, ChatService, SessionService],
   bootstrap: [AppComponent],
   entryComponents: [
     ConfigGameIAComponent,
