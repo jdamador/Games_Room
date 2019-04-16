@@ -1,0 +1,57 @@
+<h1 mat-dialog-title>{{ name }} Game Settings (Player vs Player)</h1>
+<div mat-dialog-content>
+
+    <section class="section">
+        <div class="col-lg-4 col-md-4 espacio">
+          <button mat-raised-button color='primary' (click)="configGameCheckers()">Create Game</button>
+          <button mat-raised-button color='primary' (click)="showGames()">Unirse a una partida</button>
+        </div>
+
+        <div class="col-lg-8 col-md-8" *ngIf="newGame">
+          <section class="section">
+              <label >Pick your favorite piece</label>
+              <mat-radio-group [(ngModel)]="pieces_type">
+                <mat-radio-button class="margin" value="circle">Circle</mat-radio-button>
+                <mat-radio-button class="margin" value="star">Star</mat-radio-button>
+              </mat-radio-group>
+            </section>
+            <button mat-button (click)="jugarCheckers()">
+                Ok
+              </button>
+        </div>
+
+        <div class="col-lg-8 col-md-8" *ngIf="showRooms">
+          <mat-table [dataSource]='gameTable'>
+            <ng-container matColumnDef="Sala">
+              <mat-header-cell class="customWidthClass" *matHeaderCellDef> Sala </mat-header-cell>
+              <mat-cell class="customWidthClass" *matCellDef="let user"> {{user.idSala}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="id User">
+              <mat-header-cell class="customWidthClass" *matHeaderCellDef> id User </mat-header-cell>
+              <mat-cell class="customWidthClass" *matCellDef="let user"> {{user.jugador1}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="join">
+              <mat-header-cell class="customWidthClass" *matHeaderCellDef> Join Session </mat-header-cell>
+              <mat-cell class="customWidthClass" *matCellDef="let user">
+                <button mat-button color="primary" [disabled]="user.numberOfPlayers >= 2"
+                  (click)="joinGame(user.idSala)">Join</button>
+              </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
+          </mat-paginator>
+      </div>
+    </section>
+
+
+  
+
+
+</div>
+
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onClose()">Cancel</button>
+</div>

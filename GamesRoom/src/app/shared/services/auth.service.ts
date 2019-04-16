@@ -1,5 +1,4 @@
 import { Injectable, NgZone } from '@angular/core';
-import { User } from '../services/user';
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import {
@@ -103,11 +102,10 @@ export class AuthService {
     return this.afAuth.auth
       .signInWithPopup(provider)
       .then(result => {
+        this.SetUserData(result.user);
         this.ngZone.run(() => {
           this.router.navigate(['home']);
         });
-
-        this.SetUserData(result.user);
       })
       .catch(error => {
         window.alert(error);
@@ -121,15 +119,16 @@ export class AuthService {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );
-    const userData: User = {
+    this.userData = {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified
     };
+    localStorage.setItem('user', this.userData);
     this.CreateStatistics(user.uid);
-    return userRef.set(userData, {
+    return userRef.set(this.userData, {
       merge: true
     });
   }
@@ -142,7 +141,7 @@ export class AuthService {
     });
   }
 
-  //Function for create statistics when user registered
+  // Function for create statistics when user registered
   CreateStatistics(idUser) {
     const config = {
       uid: idUser
@@ -165,12 +164,12 @@ export class AuthService {
     return this.router.navigate(['home']);
   }
 
-  //Saves Games View
+  // Saves Games View
   SavedGames() {
     return this.router.navigate(['saveGames']);
   }
 
-  //Saves Games View
+  // Saves Games View
   MyProfile() {
     return this.router.navigate(['myProfile']);
   }
@@ -178,8 +177,11 @@ export class AuthService {
   getPeople() {
     return this.afAuth.auth;
   }
+  userInfo() {
+    return JSON.parse(localStorage.getItem('user'));
+  }
 
-  goCheckers(){
+  goCheckers() {
     return this.router.navigate(['checkers']);
   }
 }

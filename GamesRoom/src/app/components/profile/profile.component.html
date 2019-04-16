@@ -1,23 +1,21 @@
-<div class="content">
-    <app-menu>
-        <div class="main-div">
-            <mat-card class="z-depth center" flex="50" >
-                <div class="title" *ngIf="authService.userData as user">                      
-                    <h3>Player: {{user.displayName}}</h3>
-                </div>
-                <div class="row">
-                    <div class="statistics">
-                      <h4>Statistics</h4>
-                      <h5>Wins: {{wins}}</h5>
-                      <h5>Defeats: {{defeats}}</h5>
-                      <h5>Draws: {{draws}}</h5>
-                    </div>
-                    <div class="division">
-                      <h4>Division</h4>
-                      <img class="styleImage" [src]='resulImage' width="50%" height="50%">
-                    </div>
-                </div>
-            </mat-card>     
+<app-menu>
+  <div class="main-div">
+    <mat-card class="z-depth center" flex="50">
+      <div class="title" *ngIf="this.authService.userInfo() as user">
+        <h3>Player: {{user.email}}</h3>
+      </div>
+      <div class="row">
+        <div class="statistics">
+          <h4>Statistics</h4>
+          <h5>Wins: {{wins}}</h5>
+          <h5>Defeats: {{defeats}}</h5>
+          <h5>Draws: {{draws}}</h5>
         </div>
-    </app-menu>
-</div>
+        <div class="division">
+          <h4>Division</h4>
+          <img class="styleImage" [src]='resulImage' width="50%" height="50%">
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</app-menu>

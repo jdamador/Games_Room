@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import io from 'socket.io-client';
 import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -8,15 +9,47 @@ import { Observable } from 'rxjs/Observable';
 export class CheckersService {
 
   private url = 'http://localhost:3000';
+  pieceType : string;
+  estadoJuego : any;
+  idSala : string;
 
-
-  constructor() {
+  constructor(private http: HttpClient) {
 
    }
 
   public connectToServer() {
     const socket = io.connect(this.url, {'forceNew': true});
     return socket;
+  }
+
+  //Recibe la información del tipo de piexa con que se va a jugar
+  setPieceType(pieceType: string) {
+    this.pieceType = pieceType;
+  }
+
+  //Envia la información del tipo de ficha al tablero
+  getPieceType(){
+    return this.pieceType;          
+  }
+
+   //Recibe la información del tipo de piexa con que se va a jugar
+   setidSalaUnirPartida(idSala: string) {
+    this.idSala = idSala;
+  }
+
+  //Envia la información del tipo de ficha al tablero
+  getidSalaUnirPartida(){
+    return this.idSala;          
+  }
+
+   //Recibe la información del tipo de piexa con que se va a jugar
+   setEstadoJuego(estadoJuego: any) {
+    this.estadoJuego = estadoJuego;
+  }
+
+  //Envia la información del tipo de ficha al tablero
+  getEstadoJuego(){
+    return this.estadoJuego;          
   }
 
    //Envia la información al API para que crear el nuevo tablero
@@ -51,5 +84,18 @@ export class CheckersService {
 
   public disconnectSession(socket: any) {
     socket.disconnect();
+  }
+
+  getSesiones(){
+    return this.http.get('http://localhost:3000/partidasDisponiblesDamas');
+  }
+
+   getidSala(){
+    this.http.get('http://localhost:3000/claveUnica').subscribe(data =>{
+      this.idSala = data['idSala'];
+      console.log("ID SALA: " + this.idSala)
+    });
+    console.log("Id sala: " + this.idSala)
+    return this.idSala;
   }
 }

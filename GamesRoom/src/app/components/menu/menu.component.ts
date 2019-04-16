@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AuthService } from "../../shared/services/auth.service";
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-menu',
@@ -10,14 +10,13 @@ import { AuthService } from "../../shared/services/auth.service";
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent {
-  showFiller = false ;
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches)
-    );
+  showFiller = false;
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
+    .pipe(map(result => result.matches));
 
-  constructor(private breakpointObserver: BreakpointObserver,
-     public authService: AuthService) {}
-  
-
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    public authService: AuthService
+  ) {}
 }

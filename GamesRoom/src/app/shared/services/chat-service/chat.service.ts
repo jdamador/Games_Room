@@ -6,24 +6,23 @@ import { Observable } from 'rxjs/Observable';
   providedIn: 'root'
 })
 export class ChatService {
-
   private url = 'http://localhost:3000';
-  private socket;  
+  private socket;
 
-  constructor() { 
+  constructor() {
     this.socket = io(this.url);
   }
 
   public getMessages = () => {
-    return Observable.create((observer) => {
-        this.socket.on('sendMessage', (data) => {
-          console.log(data)
-            observer.next(data);
-        });
+    return Observable.create(observer => {
+      this.socket.on('sendMessage', data => {
+        console.log(data);
+        observer.next(data);
+      });
     });
   }
 
-  public envioInfo = (data) => {
+  public envioInfo = data => {
     this.socket.emit('sendMessage', data);
   }
 
