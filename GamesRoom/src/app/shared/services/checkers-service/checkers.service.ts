@@ -90,9 +90,7 @@ export class CheckersService {
     return this.http.get('http://localhost:3000/partidasDisponiblesDamas');
   }
 
-
-    getidSala(): Observable<any> {
-      return this.http.get('http://localhost:3000/claveUnica');
-    }
-  
+  getidSala(): Observable<any> {
+    return this.http.get('http://localhost:3000/claveUnica');
+  }
 }
