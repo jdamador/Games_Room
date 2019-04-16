@@ -47,7 +47,7 @@ export class MemoryBoardComponent implements OnInit, OnDestroy {
         this.onGoingGame = opponentFound;
       }
     );
-    // Updata the game when some change is make.
+    // Update the game when some change is make.
     this.memoryService.gameUpdated(this.session, (gameStatus: any) => {
       this.onGoingGame = true;
       this.gameProgress = gameStatus;

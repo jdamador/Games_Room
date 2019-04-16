@@ -37,10 +37,12 @@ export class ConfigGamePlayersMemoryComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.session.getAllSessions().subscribe(
       (sessions: NewSession[]) => {
+        console.log(sessions);
         let formedData = [];
         // tslint:disable-next-line:forin
         for (let key in sessions) {
           sessions[key]['id'] = key;
+          console.log(sessions[key]['id']);
           formedData.push(sessions[key]);
         }
         this.gameTable.data = formedData;
