@@ -13,13 +13,8 @@ export class ChatBoardComponent implements OnInit {
   message: string;
   messages = [];
   newMessage: string;
-<<<<<<< HEAD
-  author="-"
-  idSala : string = "_20194884698";
-=======
   author = 'roy';
   idSala: string = '_20194884698';
->>>>>>> Rebeca
 
   constructor(private chatService: ChatService, private auth: AuthService) {}
 

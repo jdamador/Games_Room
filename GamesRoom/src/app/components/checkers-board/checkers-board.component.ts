@@ -43,10 +43,18 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
       this.uidJugador= this.authService.userData.uid;
       this.session = this.checkersService.connectToServer();
       
-      
-      console.log(this.checkersService.getidSala());
+      this.checkersService.getidSala().subscribe(
+        data => {
+          this.idSala= data.idSala;
+          this.envioInfoCrearTablero(this.idSala);
+        },
+        error => {
+          console.log("Error en la consulta");
+        }
+      );
+  
 
-      this.envioInfoCrearTablero(this.idSala);
+      
       this.checkersService.getTablero(this.session, (data: any) => {
         this.tablero = data.tablero;
         this.idSala = data.idSala
