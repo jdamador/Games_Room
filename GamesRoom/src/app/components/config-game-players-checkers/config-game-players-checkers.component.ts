@@ -19,6 +19,7 @@ export class ConfigGamePlayersCheckersComponent implements OnInit {
   displayedColumns = ['Sala', 'id User', 'join'];
   gameTable = new MatTableDataSource<any>();
   gameType = 'lobby';
+  estadoJuego = false; //Si es false, inidica creación de nueva partida, si es true, indica la unión a una partida
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -35,7 +36,6 @@ export class ConfigGamePlayersCheckersComponent implements OnInit {
   ngOnInit() {
     this.checkersService.getSesiones().subscribe(
       (sessions: any[]) => {
-        console.log(sessions);
         let formedData = [];
         for (let key in sessions) {
           sessions[key]['id'] = key;
@@ -75,13 +75,18 @@ export class ConfigGamePlayersCheckersComponent implements OnInit {
   }
 
   jugarCheckers(){
+    this.checkersService.setEstadoJuego(this.estadoJuego);
     this.checkersService.setPieceType(this.pieces_type);
     this.authService.goCheckers();
     this.onClose();
   }
 
-  joinGame(id: string) {
+  joinGame(idSala: string) {
+    this.estadoJuego = true;
+    this.checkersService.setEstadoJuego(this.estadoJuego);
+    this.checkersService.setidSalaUnirPartida(idSala);
+    console.log(idSala)
     this.dialogRef.close();
-    this.router.navigate([`/${this.gameType}/`, id]);
+    this.authService.goCheckers();
   }
 }

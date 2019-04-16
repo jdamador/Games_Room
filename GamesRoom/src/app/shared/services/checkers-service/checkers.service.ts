@@ -10,6 +10,8 @@ export class CheckersService {
 
   private url = 'http://localhost:3000';
   pieceType : string;
+  estadoJuego : any;
+  idSala : string;
 
   constructor(private http: HttpClient) {
 
@@ -28,6 +30,26 @@ export class CheckersService {
   //Envia la información del tipo de ficha al tablero
   getPieceType(){
     return this.pieceType;          
+  }
+
+   //Recibe la información del tipo de piexa con que se va a jugar
+   setidSalaUnirPartida(idSala: string) {
+    this.idSala = idSala;
+  }
+
+  //Envia la información del tipo de ficha al tablero
+  getidSalaUnirPartida(){
+    return this.idSala;          
+  }
+
+   //Recibe la información del tipo de piexa con que se va a jugar
+   setEstadoJuego(estadoJuego: any) {
+    this.estadoJuego = estadoJuego;
+  }
+
+  //Envia la información del tipo de ficha al tablero
+  getEstadoJuego(){
+    return this.estadoJuego;          
   }
 
    //Envia la información al API para que crear el nuevo tablero
@@ -66,5 +88,14 @@ export class CheckersService {
 
   getSesiones(){
     return this.http.get('http://localhost:3000/partidasDisponiblesDamas');
+  }
+
+   getidSala(){
+    this.http.get('http://localhost:3000/claveUnica').subscribe(data =>{
+      this.idSala = data['idSala'];
+      console.log("ID SALA: " + this.idSala)
+    });
+    console.log("Id sala: " + this.idSala)
+    return this.idSala;
   }
 }

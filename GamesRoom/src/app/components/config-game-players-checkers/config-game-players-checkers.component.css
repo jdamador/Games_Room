@@ -4,3 +4,7 @@ mat-radio-button {
 mat-radio-group {
     align-content: center
 }
+
+.customWidthClass{ 
+    flex: 0 0 200px; 
+}
