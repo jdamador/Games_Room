@@ -32,11 +32,23 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
   ngOnInit() {
       this.estadoJuego = this.checkersService.getEstadoJuego();
       if(this.estadoJuego == false){ //Para crear una nueva partida
-        
-        
+        console.log("Entra if --> Crea partida")
+        this.checkersService.getidSala().subscribe(
+          data => {
+            this.idSala= data.idSala;
+            this.envioInfoCrearTablero(this.idSala);
+          },
+          error => {
+            console.log("Error en la consulta");
+          }
+        );
       }
+
       else if(this.estadoJuego == true){ //Para unirse a una partida
+        console.log("Entra else if --> Se une a partida")
         this.idSala = this.checkersService.getidSalaUnirPartida();
+        console.log("ID SALA UNIR: " + this.idSala)
+        this.envioInfoCrearTablero(this.idSala);
       }
       
       this.type_piece = this.checkersService.getPieceType();
@@ -44,9 +56,7 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
       this.session = this.checkersService.connectToServer();
       
       
-      console.log(this.checkersService.getidSala());
-
-      this.envioInfoCrearTablero(this.idSala);
+      
       this.checkersService.getTablero(this.session, (data: any) => {
         this.tablero = data.tablero;
         this.idSala = data.idSala

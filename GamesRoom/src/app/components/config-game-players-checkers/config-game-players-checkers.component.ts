@@ -85,7 +85,6 @@ export class ConfigGamePlayersCheckersComponent implements OnInit {
     this.estadoJuego = true;
     this.checkersService.setEstadoJuego(this.estadoJuego);
     this.checkersService.setidSalaUnirPartida(idSala);
-    console.log(idSala)
     this.dialogRef.close();
     this.authService.goCheckers();
   }
