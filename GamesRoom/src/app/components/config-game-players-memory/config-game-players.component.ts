@@ -67,6 +67,7 @@ export class ConfigGamePlayersMemoryComponent implements OnInit, AfterViewInit {
   }
   onSubmitNewGame() {
     this.setBoardSize();
+    this.socket.setGameType('Players');
     const userInfo = this.authService.userData;
     const newGame: NewSession = {
       name: '',

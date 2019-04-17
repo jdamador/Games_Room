@@ -54,9 +54,6 @@ export class MemoryBoardComponent implements OnInit, OnDestroy {
       this.onGoingGame = true;
       this.gameProgress = gameStatus;
       this.board = this.gameProgress.board;
-      if (this.gameProgress.currentPlayer === 'Jarvis_Bot') {
-        this.playerMove(this.gameProgress);
-      }
     });
 
     // Return to lobby if some player left the match.
