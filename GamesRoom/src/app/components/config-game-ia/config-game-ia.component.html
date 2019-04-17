@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>{{ name }} Game Settings (Player vs IA)</h1>
 <div mat-dialog-content>
   <section class="section">
-    <mat-radio-group [(ngModel)]="checkers_levels">
+    <mat-radio-group [(ngModel)]="levels">
       <mat-radio-button class="margin" value="easy">Easy</mat-radio-button>
       <mat-radio-button class="margin" value="medium">Medium</mat-radio-button>
       <mat-radio-button class="margin" value="hard">Hard</mat-radio-button>
@@ -10,7 +10,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onClose()">Cancel</button>
-  <button mat-button [mat-dialog-close]="checkers_levels" cdkFocusInitial>
-    Ok
-  </button>
+  <button mat-button (click)="startGame()">Create Game</button>
 </div>

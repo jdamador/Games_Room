@@ -10,6 +10,7 @@ export class MemoryService {
   // Url to connect with node js server (Use game functions).
   private url = 'http://localhost:3000';
   private boardSize = 10;
+  private boardType = '';
   // Get user data from Auth service.
   private userInfo = this.authService.userInfo();
 
@@ -17,16 +18,17 @@ export class MemoryService {
   // Open a new connection to server.
   public connectToServer(id: string) {
     const socket = io.connect(this.url, { foceNew: true });
-    this.joinGame(socket, id, this.boardSize);
+    this.joinGame(socket, id);
     return socket;
   }
 
   // Add new player to game room.
-  private joinGame(socket: any, id: string, size: number) {
+  private joinGame(socket: any, id: string) {
     socket.emit('join-game', {
       gameID: id,
       username: this.userInfo,
-      tamano: size
+      tamano: this.boardSize,
+      gameType: this.boardType
     });
   }
 
@@ -61,5 +63,8 @@ export class MemoryService {
   }
   public setBoardSize(size) {
     this.boardSize = size;
+  }
+  public setGameType(type) {
+    this.boardType = type;
   }
 }

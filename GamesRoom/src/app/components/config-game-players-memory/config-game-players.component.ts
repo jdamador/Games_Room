@@ -19,7 +19,7 @@ import { MemoryService } from 'src/app/shared/services/memory/memory.service';
 })
 export class ConfigGamePlayersMemoryComponent implements OnInit, AfterViewInit {
   // Configure the table columns.
-  displayedColumns = ['user', 'created', 'number of players', 'join'];
+  displayedColumns = ['user', 'number of players', 'join'];
   gameTable = new MatTableDataSource<NewSession>();
   showRooms = false;
   memory_levels = '';
@@ -65,12 +65,11 @@ export class ConfigGamePlayersMemoryComponent implements OnInit, AfterViewInit {
       this.showRooms = true;
     }
   }
-  onSubmitNewGame(gameID: string) {
+  onSubmitNewGame() {
     this.setBoardSize();
     const userInfo = this.authService.userData;
     const newGame: NewSession = {
-      name: gameID,
-      created: new Date(),
+      name: '',
       user: userInfo.displayName,
       numberOfPlayers: 1
     };
