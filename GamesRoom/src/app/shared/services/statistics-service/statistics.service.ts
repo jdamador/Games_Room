@@ -7,11 +7,11 @@ import { AuthService } from '../auth.service';
   providedIn: 'root'
 })
 export class StatisticsService {
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient) {}
 
-  getStatistics() {
+  getStatistics(id) {
     const config = {
-      uid: this.authService.userInfo().uid
+      uid: id
     };
     return this.http.post('http://localhost:3000/estadisticas/obtener', config);
   }
