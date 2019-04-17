@@ -75,16 +75,25 @@ export class ConfigGamePlayersCheckersComponent implements OnInit {
   }
 
   jugarCheckers(){
-    this.checkersService.setEstadoJuego(this.estadoJuego);
-    this.checkersService.setPieceType(this.pieces_type);
-    this.authService.goCheckers();
-    this.onClose();
+    this.checkersService.getidSala().subscribe(
+      data => {
+        this.checkersService.idSala= data.idSala
+        this.checkersService.setEstadoJuego(this.estadoJuego);
+        this.checkersService.setPieceType(this.pieces_type);
+        this.authService.goCheckers();
+        this.onClose();
+      },
+      error => {
+        console.log("Error en la consulta");
+      }
+    );
+    
   }
 
-  joinGame(idSala: string) {
+  joinGame(user) {
     this.estadoJuego = true;
     this.checkersService.setEstadoJuego(this.estadoJuego);
-    this.checkersService.setidSalaUnirPartida(idSala);
+    this.checkersService.setidSalaUnirPartida(user);
     this.dialogRef.close();
     this.authService.goCheckers();
   }

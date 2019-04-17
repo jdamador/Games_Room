@@ -2,9 +2,9 @@
 <div mat-dialog-content>
   <section class="section">
     <mat-radio-group [(ngModel)]="checkers_levels">
-      <mat-radio-button class="margin" value="easy">Easy</mat-radio-button>
-      <mat-radio-button class="margin" value="medium">Medium</mat-radio-button>
-      <mat-radio-button class="margin" value="hard">Hard</mat-radio-button>
+      <mat-radio-button class="margin" value=1>Easy</mat-radio-button>
+      <mat-radio-button class="margin" value=2>Medium</mat-radio-button>
+      <mat-radio-button class="margin" value=3>Hard</mat-radio-button>
     </mat-radio-group>
   </section>
   <section class="section">
@@ -17,7 +17,7 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onClose()">Cancel</button>
-  <button mat-button [mat-dialog-close]="checkers_levels" cdkFocusInitial>
+  <button mat-button [mat-dialog-close]="checkers_levels" cdkFocusInitial (click)="jugarCheckers()">
     Ok
   </button>
 </div>

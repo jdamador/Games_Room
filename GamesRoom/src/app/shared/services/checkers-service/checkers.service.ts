@@ -12,6 +12,8 @@ export class CheckersService {
   pieceType : string;
   estadoJuego : any;
   idSala : string;
+  keyEliminar: string;
+  nivelJuego: number;
 
   constructor(private http: HttpClient) {
 
@@ -22,7 +24,17 @@ export class CheckersService {
     return socket;
   }
 
-  //Recibe la información del tipo de piexa con que se va a jugar
+  //Recibe un nivel dado para el juego de bot
+  setLevel(nivel: number){
+    this.nivelJuego= nivel;
+  }
+
+  //obtiene el nivel de la partida
+  getLevel(){
+    return this.nivelJuego;
+  }
+
+  //Recibe la información del tipo de pieza con que se va a jugar
   setPieceType(pieceType: string) {
     this.pieceType = pieceType;
   }
@@ -33,8 +45,9 @@ export class CheckersService {
   }
 
    //Recibe la información del tipo de piexa con que se va a jugar
-   setidSalaUnirPartida(idSala: string) {
-    this.idSala = idSala;
+   setidSalaUnirPartida(user) {
+    this.keyEliminar= user.keyEliminar
+    this.idSala = user.idSala;
   }
 
   //Envia la información del tipo de ficha al tablero
@@ -82,6 +95,16 @@ export class CheckersService {
     socket.on('actualizarTablaDama', data);
   }
 
+  //envia al bot a hacer un movimiento
+  public envioBotHacerJugada = (socket: any, data) =>{
+    socket.emit('obtenerJugadaDamaBot', data);
+  }
+
+  //obtiene el cambio realizado cuando el bot jugo
+  public obtenerJugadaBot(socket: any, data) {
+    socket.on('obtenerJugadaDamaBot', data);
+  }
+
   public disconnectSession(socket: any) {
     socket.disconnect();
   }
@@ -92,5 +115,12 @@ export class CheckersService {
 
   getidSala(): Observable<any> {
     return this.http.get('http://localhost:3000/claveUnica');
+  }
+
+  eliminarDisponible(): Observable<any> {
+    let config={
+      "id": this.keyEliminar
+    }
+    return this.http.post('http://localhost:3000/eliminarPartidaDama',config);
   }
 }

@@ -18,23 +18,34 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
     estado = "false";
     color: string;
     private session: any;
-    type_piece : string;
+    type_piece : string = "none";
     estadoJuego : any;
     turnoJugador: string= '-'
     numBlancas: number = 0;
     numRojas: number = 0;
 
-  constructor(
-    private checkersService: CheckersService,
-    private authService: AuthService
-  ) {}
+    nivel= 0;
+
+  constructor(private checkersService: CheckersService,private authService: AuthService) {}
 
   ngOnInit() {
-      this.estadoJuego = this.checkersService.getEstadoJuego();
+      this.session = this.checkersService.connectToServer();
+      this.uidJugador= this.authService.userData.uid;
+      this.estadoJuego = this.checkersService.getEstadoJuego();    
       if(this.estadoJuego == false){ //Para crear una nueva partida
-        console.log("Entra if --> Crea partida")
+        this.type_piece = this.checkersService.getPieceType();
+        this.idSala= this.checkersService.idSala;
+        this.envioInfoCrearTablero(this.idSala);
+      }
+      else if(this.estadoJuego == true){ //Para unirse a una partida
+        this.idSala = this.checkersService.getidSalaUnirPartida();
+        this.envioInfoCrearTablero(this.idSala);
+      }
+      else if(this.estadoJuego == "bot"){
         this.checkersService.getidSala().subscribe(
           data => {
+            this.nivel= this.checkersService.getLevel();
+            this.type_piece = this.checkersService.getPieceType();
             this.idSala= data.idSala;
             this.envioInfoCrearTablero(this.idSala);
           },
@@ -42,28 +53,19 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
             console.log("Error en la consulta");
           }
         );
+        
+        
       }
-
-      else if(this.estadoJuego == true){ //Para unirse a una partida
-        console.log("Entra else if --> Se une a partida")
-        this.idSala = this.checkersService.getidSalaUnirPartida();
-        console.log("ID SALA UNIR: " + this.idSala)
-        this.envioInfoCrearTablero(this.idSala);
-      }
-      
-      this.type_piece = this.checkersService.getPieceType();
-      this.uidJugador= this.authService.userData.uid;
-      this.session = this.checkersService.connectToServer();
-      
-      
-      
+          
       this.checkersService.getTablero(this.session, (data: any) => {
         this.tablero = data.tablero;
         this.idSala = data.idSala
         this.turno = data.turno;
         this.color= data.color;
+        this.type_piece= data.pieza;
         this.numBlancas= data.numBlancas;
         this.numRojas= data.numRojas;
+        this.nivel= data.nivel;
         if(this.color==='B'){
           this.turnoJugador= 'Blancas'
         }
@@ -85,6 +87,13 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
       else{
         this.turnoJugador= 'Rojas'
       }
+      if(this.estadoJuego=='bot'){
+        this.checkersService.envioBotHacerJugada(this.session, {
+          idSala: this.idSala,
+          jugador: this.uidJugador,
+          nivel: this.nivel
+        });
+      }
     });
 
     this.checkersService.getPosiblesMovimientos(this.session, (data: any) => {
@@ -92,6 +101,18 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
       this.idSala = data.idSala;
       this.ganador= data.ganador;
       this.turno = data.turno;
+      
+    });
+
+    this.checkersService.obtenerJugadaBot(this.session, (data: any) => {
+      this.tablero = data.tablero;
+      this.idSala = data.idSala;
+      this.ganador= data.ganador;
+      this.color= data.color;
+      this.numBlancas= data.numBlancas;
+      this.numRojas= data.numRojas;
+      this.turno = data.turno;
+      this.turnoJugador= 'Blancas';
     });
         
     }
@@ -102,10 +123,24 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
 
     //Envia información hacia el servicio para crear el tablero
     envioInfoCrearTablero(id: string) {
-      this.checkersService.envioInfoCrearTablero(this.session, {
-        idSala: id,
-        jugador: this.uidJugador
-      });
+        this.checkersService.envioInfoCrearTablero(this.session, {
+          idSala: id,
+          jugador: this.uidJugador,
+          tipo: this.type_piece,
+          nivel: this.nivel
+        });
+        if(this.estadoJuego == true){
+          this.checkersService.eliminarDisponible().subscribe(
+            data => {
+              console.log(data)
+            },
+            error => {
+              console.log("Error en la consulta");
+            }
+          );
+        }
+        
+      
     }
 
     //Envia información hacia el servicio para verificar los posible movimientos de una ficha
