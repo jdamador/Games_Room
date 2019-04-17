@@ -7,24 +7,24 @@
 .space{
     height: 10%;
 }
-  
+
 .main-div{
   height: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: grey;
+  background: lightblue;
 }
 
 .statistics{
   width: 50%;
   text-align: center;
   height: 30%;
-  
+
 }
 
 h4{
-  line-height: 300%; 
+  line-height: 300%;
 }
 
 h5{
@@ -47,4 +47,3 @@ h5{
 }
 
 
-  

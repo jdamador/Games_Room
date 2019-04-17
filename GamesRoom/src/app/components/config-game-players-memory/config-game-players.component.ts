@@ -10,6 +10,7 @@ import { NewSession } from 'src/app/interfaces/table/table.module';
 import { SessionService } from 'src/app/shared/services/sessionservice/session.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { Router } from '@angular/router';
+import { MemoryService } from 'src/app/shared/services/memory/memory.service';
 
 @Component({
   selector: 'app-config-game-players',
@@ -21,18 +22,16 @@ export class ConfigGamePlayersMemoryComponent implements OnInit, AfterViewInit {
   displayedColumns = ['user', 'created', 'number of players', 'join'];
   gameTable = new MatTableDataSource<NewSession>();
   showRooms = false;
-  gameType = 'lobby';
-
+  memory_levels = '';
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     public session: SessionService,
     public authService: AuthService,
     private router: Router,
+    private socket: MemoryService,
     public dialogRef: MatDialogRef<ConfigGamePlayersMemoryComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.gameType = data;
   }
   ngOnInit() {
     this.session.getAllSessions().subscribe(
@@ -67,6 +66,7 @@ export class ConfigGamePlayersMemoryComponent implements OnInit, AfterViewInit {
     }
   }
   onSubmitNewGame(gameID: string) {
+    this.setBoardSize();
     const userInfo = this.authService.userData;
     const newGame: NewSession = {
       name: gameID,
@@ -78,15 +78,26 @@ export class ConfigGamePlayersMemoryComponent implements OnInit, AfterViewInit {
     this.session.createSession(newGame).subscribe(
       (data: any) => {
         this.dialogRef.close();
-        this.router.navigate([`/${this.gameType}/`, data.name]);
+        this.router.navigate([`/memory/`, data.name]);
       },
       err => {
         console.log(err);
       }
     );
   }
+
   joinGame(id: string) {
     this.dialogRef.close();
-    this.router.navigate([`/${this.gameType}/`, id]);
+    this.router.navigate([`/memory/`, id]);
+  }
+  setBoardSize() {
+    console.log(this.memory_levels);
+    if (this.memory_levels === 'hard') {
+      this.socket.setBoardSize(18);
+    } else if (this.memory_levels === 'medium') {
+      this.socket.setBoardSize(15);
+    } else {
+      this.socket.setBoardSize(10);
+    }
   }
 }

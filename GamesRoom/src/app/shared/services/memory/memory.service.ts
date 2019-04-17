@@ -9,15 +9,15 @@ import { HttpClient } from '@angular/common/http';
 export class MemoryService {
   // Url to connect with node js server (Use game functions).
   private url = 'http://localhost:3000';
-
+  private boardSize = 10;
   // Get user data from Auth service.
   private userInfo = this.authService.userInfo();
 
   constructor(private authService: AuthService, private http: HttpClient) { }
   // Open a new connection to server.
-  public connectToServer(id: string, size: number) {
+  public connectToServer(id: string) {
     const socket = io.connect(this.url, { foceNew: true });
-    this.joinGame(socket, id, size);
+    this.joinGame(socket, id, this.boardSize);
     return socket;
   }
 
@@ -58,5 +58,8 @@ export class MemoryService {
   // Alert when the game was complete.
   public gameOver(socket: any, gameOverFunction) {
     socket.on('game-over', gameOverFunction);
+  }
+  public setBoardSize(size) {
+    this.boardSize = size;
   }
 }

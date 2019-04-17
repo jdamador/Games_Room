@@ -63,7 +63,7 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
     this.checkersService.disconnectSession(this.session);
   }
 
-  //Envia información hacia el servicio para crear el tablero
+  // Envia información hacia el servicio para crear el tablero
   envioInfoCrearTablero(id: string) {
     this.checkersService.envioInfoCrearTablero(this.session, {
       idSala: id,
@@ -71,7 +71,7 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
     });
   }
 
-  //Envia información hacia el servicio para verificar los posible movimientos de una ficha
+  // Envia información hacia el servicio para verificar los posible movimientos de una ficha
   async envioInfoVerficarPosiblesMovimiento() {
     if (this.turno == this.uidJugador) {
       this.checkersService.envioInfoPosibleMovimiento(this.session, {
@@ -86,7 +86,7 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
     }
   }
 
-  //Envia información hacia el servicio para actualizar la tabla con un nuevo movimiento
+  // Envia información hacia el servicio para actualizar la tabla con un nuevo movimiento
   async envioInfoActualizarTableroNuevoMovimiento() {
     if (this.turno == this.uidJugador) {
       this.checkersService.envioInfoActualizarTableroNuevoMovimiento(
