@@ -30,8 +30,12 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
       this.session = this.checkersService.connectToServer();
-      this.uidJugador= this.authService.userData.uid;
-      this.estadoJuego = this.checkersService.getEstadoJuego();    
+      const user = JSON.parse(localStorage.getItem('user'));
+      this.uidJugador = user['uid']
+      this.estadoJuego = this.checkersService.getEstadoJuego(); 
+      if(this.estadoJuego==undefined){
+        this.authService.Home();
+      } 
       if(this.estadoJuego == false){ //Para crear una nueva partida
         this.type_piece = this.checkersService.getPieceType();
         this.idSala= this.checkersService.idSala;
@@ -52,9 +56,11 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
           error => {
             console.log("Error en la consulta");
           }
-        );
-        
-        
+        );     
+      }
+      else if(this.estadoJuego =="botRecuperar"){
+        this.idSala= this.checkersService.getidSalaUnirPartida();
+        this.envioInfoCrearTablero(this.idSala);
       }
           
       this.checkersService.getTablero(this.session, (data: any) => {
@@ -191,12 +197,12 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
       this.xActual = row;
       this.yActual = col;
       var pos = this.tablero[this.xActual][this.yActual];
-      console.log('-----------');
-      console.log(this.color);
-      console.log(this.uidJugador);
-      console.log(this.turno);
-      console.log(this.estado);
-      console.log('-----------');
+      // console.log('-----------');
+      // console.log(this.color);
+      // console.log(this.uidJugador);
+      // console.log(this.turno);
+      // console.log(this.estado);
+      // console.log('-----------');
       if (this.estado == 'false' && this.turno == this.uidJugador) {
         if (this.color == 'B') {
           if (pos != 'V' && pos != 'R' && pos != 'KR') {

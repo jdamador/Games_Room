@@ -30,7 +30,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.startTrackingLoop();
-    this.id= this.authService.userData.uid;
+    const user = JSON.parse(localStorage.getItem('user'));
+    this.id = user['uid']
     this.obtenerEstadistica();
   }
 

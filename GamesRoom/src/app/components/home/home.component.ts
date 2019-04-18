@@ -5,6 +5,7 @@ import { AuthService } from '../../shared/services/auth.service';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ConfigGamePlayersMemoryComponent } from '../config-game-players-memory/config-game-players.component';
+import { StatusService } from "src/app/shared/services/status-service/status.service";
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -16,10 +17,12 @@ export class HomeComponent implements OnInit {
     public authService: AuthService,
     public router: Router,
     public ngZone: NgZone,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    
   ) {}
   ngOnInit() {
     this.gameType = 'lobby';
+    
   }
 
   openSettingsIACheckers(tipo: string): void {

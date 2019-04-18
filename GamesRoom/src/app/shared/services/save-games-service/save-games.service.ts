@@ -16,4 +16,13 @@ export class SaveGamesService {
     }
     return this.http.post('http://localhost:3000/partidasGuardadas',config);
   }
+
+  eliminarPartida(uid, key, id): Observable<any>{
+    let config={
+      jugador: uid,
+      clave: key,
+      idSala: id
+    }
+    return this.http.post('http://localhost:3000/eliminarJuego',config);
+  }
 }
