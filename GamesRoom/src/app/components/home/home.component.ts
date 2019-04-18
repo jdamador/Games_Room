@@ -18,8 +18,8 @@ export class HomeComponent implements OnInit {
     public router: Router,
     public ngZone: NgZone,
     private dialog: MatDialog
-  ) {}
-  ngOnInit() {}
+  ) { }
+  ngOnInit() { }
 
   openSettingsIA(tipo: string): void {
     const dialogConfig = new MatDialogConfig();
@@ -37,6 +37,14 @@ export class HomeComponent implements OnInit {
     if (tipo === 'checkers') {
       this.authService.goCheckers();
     }
+  }
+  openSettingsIAMemory(type) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '60%';
+    dialogConfig.data = type;
+    this.dialog.open(ConfigGameIAComponent, dialogConfig);
   }
 
   openSettingPlayersMemory(tipo: string): void {

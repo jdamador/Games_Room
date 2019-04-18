@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MemoryService } from 'src/app/shared/services/memory/memory.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -12,18 +12,23 @@ import { SessionService } from 'src/app/shared/services/sessionservice/session.s
 })
 export class ConfigGameIAComponent implements OnInit {
   levels: any;
-  gameType = 'Memory';
+  gameType = '';
   constructor(public session: SessionService,
     public authService: AuthService,
     private router: Router,
-    private socket: MemoryService, public dialogRef: MatDialogRef<ConfigGameIAComponent>) { }
+    private socket: MemoryService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef<ConfigGameIAComponent>) {
+    this.gameType = data;
+  }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
   onClose() {
     this.dialogRef.close();
   }
   startGame() {
-    if (this.gameType === 'Memory') {
+    if (this.gameType === 'memory') {
       this.onSubmitNewGame('');
     }
   }

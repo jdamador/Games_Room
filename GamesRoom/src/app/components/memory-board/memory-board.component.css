@@ -4,12 +4,13 @@
 
 .container {
   width: 100%;
-  height: 100%;
+  height: 600px;
   margin: 0px;
 }
 
 .cards_table {
   width: 60%;
+  height: 600px;
   margin: 0px;
   float: left;
   position: relative;

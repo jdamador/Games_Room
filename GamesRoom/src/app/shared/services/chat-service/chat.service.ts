@@ -8,18 +8,18 @@ import { Observable } from 'rxjs/Observable';
 export class ChatService {
 
   private url = 'http://localhost:3000';
-  private socket;  
-
-  constructor() { 
+  private socket;
+  private sala = '';
+  constructor() {
     this.socket = io(this.url);
   }
 
   public getMessages = () => {
     return Observable.create((observer) => {
-        this.socket.on('sendMessage', (data) => {
-          console.log(data)
-            observer.next(data);
-        });
+      this.socket.on('sendMessage', (data) => {
+        console.log(data)
+        observer.next(data);
+      });
     });
   }
 
@@ -29,5 +29,11 @@ export class ChatService {
 
   public entrarSesion = (data) => {
     this.socket.emit('entrarSesionChat', data);
+  }
+  public setSala(sala) {
+    this.sala = sala;
+  }
+  public getSala() {
+    return this.sala;
   }
 }

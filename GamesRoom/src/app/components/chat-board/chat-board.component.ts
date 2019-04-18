@@ -14,11 +14,12 @@ export class ChatBoardComponent implements OnInit {
   messages = [];
   newMessage: string;
   author = 'roy';
-  idSala: string = '_20194884698';
+  idSala: string = '';
 
   constructor(private chatService: ChatService, private auth: AuthService) {}
 
   ngOnInit() {
+    this.idSala = this.chatService.getSala();
     this.author = this.auth.userInfo().displayName;
     this.inicioSesion();
     this.chatService.getMessages().subscribe(data => {

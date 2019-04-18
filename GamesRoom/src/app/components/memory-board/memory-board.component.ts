@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { StatisticsService } from 'src/app/shared/services/statistics-service/statistics.service';
+import { ChatService } from 'src/app/shared/services/chat-service/chat.service';
 
 export interface User {
   name: string;
@@ -34,11 +35,11 @@ export class MemoryBoardComponent implements OnInit, OnDestroy {
     private router: Router,
     private authService: AuthService,
     private snackBar: MatSnackBar,
-    private statisticService: StatisticsService
+    private statisticService: StatisticsService,
+    private chatService: ChatService
   ) { }
 
   ngOnInit() {
-
     // Connect to server who contains the api rest functions.
     this.session = this.memoryService.connectToServer(this.gameSession);
 
@@ -54,6 +55,7 @@ export class MemoryBoardComponent implements OnInit, OnDestroy {
       this.onGoingGame = true;
       this.gameProgress = gameStatus;
       this.board = this.gameProgress.board;
+      this.chatService.setSala(this.gameProgress.roomId);
     });
 
     // Return to lobby if some player left the match.
