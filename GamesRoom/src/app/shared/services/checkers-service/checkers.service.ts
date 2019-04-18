@@ -105,8 +105,8 @@ export class CheckersService {
     socket.on('obtenerJugadaDamaBot', data);
   }
 
-  public disconnectSession(socket: any) {
-    socket.disconnect();
+  public disconnectSession(socket: any, data) {
+    socket.emit('cerrarSesionDama', data);
   }
 
   getSesiones(){
@@ -123,4 +123,13 @@ export class CheckersService {
     }
     return this.http.post('http://localhost:3000/eliminarPartidaDama',config);
   }
+
+  getTableroAntiguo(id: any): Observable<any> {
+    let config={
+      "idSala": id
+    }
+    return this.http.post('http://localhost:3000/tableroPartidaDama',config);
+  }
+
+  
 }

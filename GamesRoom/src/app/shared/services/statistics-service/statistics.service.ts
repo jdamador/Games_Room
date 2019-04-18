@@ -10,9 +10,9 @@ export class StatisticsService {
   public idPlayer;
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  getStatistics() {
+  getStatistics(id) {
     const config = {
-      uid: this.authService.userInfo().uid
+      uid: id
     };
     return this.http.post('http://localhost:3000/estadisticas/obtener', config);
   }

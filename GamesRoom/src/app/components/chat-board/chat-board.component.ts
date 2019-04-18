@@ -21,7 +21,8 @@ export class ChatBoardComponent implements OnInit {
 
   ngOnInit() {
     this.idSala= this.checkersService.idSala
-    this.author = this.auth.userInfo().displayName;
+    const user = JSON.parse(localStorage.getItem('user'));
+    this.author = user['uid']
     this.inicioSesion();
     this.chatService.getMessages().subscribe(data => {
       this.messages.push({ Author: data.Author, Text: data.Text });

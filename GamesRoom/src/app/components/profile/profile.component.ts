@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { User } from 'src/app/shared/user-service/user.model';
 import { StatisticsService } from 'src/app/shared/services/statistics-service/statistics.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   images = {
     silver: '../../assets/images/silver.png',
     bronze: '../../assets/images/bronze.png',
@@ -22,26 +22,44 @@ export class ProfileComponent implements OnInit {
   defeats = 0;
   draws = 0;
   users: User[];
+  intervalo: any
+  id: string
 
   constructor(public statistic: StatisticsService,
     public authService: AuthService) {}
 
   ngOnInit() {
+    this.startTrackingLoop();
+    const user = JSON.parse(localStorage.getItem('user'));
+    this.id = user['uid']
     this.obtenerEstadistica();
   }
 
+  ngOnDestroy() {
+    this.stopTrackingLoop();
+  }
+
+  startTrackingLoop() {
+    this.intervalo = setInterval(() => {
+        //run code
+        this.obtenerEstadistica()
+    }, 1000);
+  }
+  stopTrackingLoop() {
+      clearInterval(this.intervalo);
+      this.intervalo = null;
+   }
+
   obtenerEstadistica() {
     var total = 50;
-    this.statistic.getStatistics().subscribe(
+    this.statistic.getStatistics(this.id).subscribe(
       data => {
-        console.log(data);
         this.wins = data['ganadas'];
         this.defeats = data['perdidas'];
         this.draws = data['empatadas'];
         total = total + this.wins * 5;
         total = total - this.defeats * 8;
         total = total + this.draws * 2;
-        console.log(total);
         if (total < 15) {
           this.resulImage = this.images.iron;
         } else if (total < 40) {

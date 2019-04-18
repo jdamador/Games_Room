@@ -30,8 +30,12 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
       this.session = this.checkersService.connectToServer();
-      this.uidJugador= this.authService.userData.uid;
-      this.estadoJuego = this.checkersService.getEstadoJuego();    
+      const user = JSON.parse(localStorage.getItem('user'));
+      this.uidJugador = user['uid']
+      this.estadoJuego = this.checkersService.getEstadoJuego(); 
+      if(this.estadoJuego==undefined){
+        this.authService.Home();
+      } 
       if(this.estadoJuego == false){ //Para crear una nueva partida
         this.type_piece = this.checkersService.getPieceType();
         this.idSala= this.checkersService.idSala;
@@ -52,9 +56,11 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
           error => {
             console.log("Error en la consulta");
           }
-        );
-        
-        
+        );     
+      }
+      else if(this.estadoJuego =="botRecuperar"){
+        this.idSala= this.checkersService.getidSalaUnirPartida();
+        this.envioInfoCrearTablero(this.idSala);
       }
           
       this.checkersService.getTablero(this.session, (data: any) => {
@@ -118,7 +124,12 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
     }
 
   ngOnDestroy() {
-    this.checkersService.disconnectSession(this.session);
+
+    this.checkersService.disconnectSession(this.session, 
+      {idSala: this.idSala,
+      jugador: this.uidJugador, 
+      nivel: this.nivel}
+      );
   }
 
     //Envia información hacia el servicio para crear el tablero
@@ -171,33 +182,49 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
   }
 
   async function(row, col) {
-    this.xActual = row;
-    this.yActual = col;
-    var pos = this.tablero[this.xActual][this.yActual];
-    console.log('-----------');
-    console.log(this.color);
-    console.log(this.uidJugador);
-    console.log(this.turno);
-    console.log(this.estado);
-    console.log('-----------');
-    if (this.estado == 'false' && this.turno == this.uidJugador) {
-      if (this.color == 'B') {
-        if (pos != 'V' && pos != 'R' && pos != 'KR') {
-          await this.envioInfoVerficarPosiblesMovimiento();
+    if(this.xActual == row && this.yActual == col){
+      this.checkersService.getTableroAntiguo(this.idSala).subscribe(
+        data => {
+          this.tablero= data.Tablero;
+          this.estado= 'false';
+        },
+        error => {
+          console.log("Error en la consulta");
         }
-      } else {
-        if (this.color == 'R') {
-          if (pos != 'V' && pos != 'B' && pos != 'KB') {
+      );
+    }
+    else{
+      this.xActual = row;
+      this.yActual = col;
+      var pos = this.tablero[this.xActual][this.yActual];
+      // console.log('-----------');
+      // console.log(this.color);
+      // console.log(this.uidJugador);
+      // console.log(this.turno);
+      // console.log(this.estado);
+      // console.log('-----------');
+      if (this.estado == 'false' && this.turno == this.uidJugador) {
+        if (this.color == 'B') {
+          if (pos != 'V' && pos != 'R' && pos != 'KR') {
             await this.envioInfoVerficarPosiblesMovimiento();
           }
+        } else {
+          if (this.color == 'R') {
+            if (pos != 'V' && pos != 'B' && pos != 'KB') {
+              await this.envioInfoVerficarPosiblesMovimiento();
+            }
+          }
+        }
+      } else if (this.estado == 'true') {
+        if (pos == 'PV' && this.turno == this.uidJugador) {
+          console.log();
+          this.envioInfoActualizarTableroNuevoMovimiento();
+          this.xActual = '-1';
+          this.yActual = '-1';
+          this.estado = 'false';
         }
       }
-    } else if (this.estado == 'true') {
-      if (pos == 'PV' && this.turno == this.uidJugador) {
-        console.log();
-        this.envioInfoActualizarTableroNuevoMovimiento();
-        this.estado = 'false';
-      }
     }
+    
   }
 }
