@@ -10,7 +10,7 @@ export class MemoryService {
   // Url to connect with node js server (Use game functions).
   private url = 'http://localhost:3000';
   private boardSize = 10;
-  private boardType = '';
+  public boardType = '';
   // Get user data from Auth service.
   private userInfo = this.authService.userInfo();
 
@@ -66,5 +66,9 @@ export class MemoryService {
   }
   public setGameType(type) {
     this.boardType = type;
+  }
+  // Alert to save a game.
+  public saveGame(socket: any, gameUpdate: any) {
+    return socket.emit('saveGame', gameUpdate);
   }
 }

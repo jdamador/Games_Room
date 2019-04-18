@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { MemoryService } from 'src/app/shared/services/memory/memory.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -30,19 +30,21 @@ export class MemoryBoardComponent implements OnInit, OnDestroy {
   // Default image, it is shows when the card is not flipped.
   images_inact = '/assets/Memory/poker.png';
 
+
   constructor(
     private memoryService: MemoryService,
     private router: Router,
     private authService: AuthService,
     private snackBar: MatSnackBar,
-    private statisticService: StatisticsService,
     private chatService: ChatService
   ) { }
-
   ngOnInit() {
+
     // Connect to server who contains the api rest functions.
     this.session = this.memoryService.connectToServer(this.gameSession);
-
+    if (this.memoryService.boardType === '') {
+      this.router.navigate(['home']);
+    }
     // Wait until a player join to the room.
     this.memoryService.waitingForOpponent(
       this.session,
@@ -58,10 +60,6 @@ export class MemoryBoardComponent implements OnInit, OnDestroy {
       this.chatService.setSala(this.gameProgress.roomId);
     });
 
-    // Return to lobby if some player left the match.
-    this.memoryService.disconnect(this.session, (opponentLeft: string) => {
-      this.router.navigate(['home']);
-    });
     // Validate when the game was complete and show a message for each player.
     this.memoryService.gameOver(this.session, (gameOver: any) => {
       if (gameOver === '*') {
@@ -110,6 +108,13 @@ export class MemoryBoardComponent implements OnInit, OnDestroy {
   }
   // If the window is closed go to home.
   ngOnDestroy(): void {
+    this.memoryService.disconnectSession(this.session);
+    this.router.navigate(['home']);
+  }
+
+  // Save a game vs IA
+  saveGame() {
+    this.memoryService.saveGame(this.session, this.gameProgress);
     this.router.navigate(['home']);
   }
 }

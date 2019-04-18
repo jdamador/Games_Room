@@ -48,6 +48,13 @@
                 </h5>
               </td>
             </tr>
+            <tr *ngIf="memoryService.boardType === 'IA'">
+              <td>
+                <button mat-raised-button color="primary" (click)="saveGame()">
+                  Save Game
+                </button>
+              </td>
+            </tr>
           </table>
         </div>
       </div>

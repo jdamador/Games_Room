@@ -10,19 +10,19 @@ export class SaveGamesService {
   constructor(private http: HttpClient) { }
 
   getPartidasGuardadas(uid: any, nombre: string): Observable<any> {
-    let config={
+    const config = {
       jugador: uid,
       nombre: nombre
-    }
-    return this.http.post('http://localhost:3000/partidasGuardadas',config);
+    };
+    return this.http.post('http://localhost:3000/partidasGuardadas', config);
   }
 
-  eliminarPartida(uid, key, id): Observable<any>{
-    let config={
+  eliminarPartida(uid, key, id): Observable<any> {
+    const config = {
       jugador: uid,
       clave: key,
       idSala: id
-    }
-    return this.http.post('http://localhost:3000/eliminarJuego',config);
+    };
+    return this.http.post('http://localhost:3000/eliminarJuego', config);
   }
 }

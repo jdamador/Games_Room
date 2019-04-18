@@ -123,7 +123,6 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-
     this.checkersService.disconnectSession(this.session,
       {
         idSala: this.idSala,

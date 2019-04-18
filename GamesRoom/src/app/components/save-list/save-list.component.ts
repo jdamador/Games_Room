@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { SaveListDataSource } from './save-list-datasource';
 import { SaveGamesService } from 'src/app/shared/services/save-games-service/save-games.service';
@@ -10,11 +10,11 @@ import { CheckersService } from 'src/app/shared/services/checkers-service/checke
   templateUrl: './save-list.component.html',
   styleUrls: ['./save-list.component.css']
 })
-export class SaveListComponent implements OnInit {
+export class SaveListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource = new MatTableDataSource<any>();
-  intervalo: any
+  intervalo: any;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['name', 'nivel', 'player1', 'player2', 'delete', 'charge'];
 
@@ -48,7 +48,7 @@ export class SaveListComponent implements OnInit {
     const nombre = user['displayName'];
     this.gamesSaved.getPartidasGuardadas(jugador, nombre).subscribe(
       data => {
-        this.dataSource = data
+        this.dataSource = data;
 
       },
       error => {
@@ -72,14 +72,14 @@ export class SaveListComponent implements OnInit {
   }
 
   cargarPartida(game) {
-    var tipo = game['name'];
+    const tipo = game['name'];
     if (tipo === 'Checkers') {
-      var key = game['keyEliminar']
-      var id = game['id'];
-      var nivel = game['nivel'];
-      var unir = { 'idSala': id, 'keyEliminar': key };
-      var pieza = game['pieza']
-      this.checkersService.setidSalaUnirPartida(unir)
+      const key = game['keyEliminar']
+      const id = game['id'];
+      const nivel = game['nivel'];
+      const unir = { 'idSala': id, 'keyEliminar': key };
+      const pieza = game['pieza'];
+      this.checkersService.setidSalaUnirPartida(unir);
       this.checkersService.setEstadoJuego('botRecuperar');
       this.checkersService.setLevel(nivel);
       this.checkersService.setPieceType(pieza);
