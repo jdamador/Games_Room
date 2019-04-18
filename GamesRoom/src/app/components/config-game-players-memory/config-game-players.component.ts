@@ -34,6 +34,7 @@ export class ConfigGamePlayersMemoryComponent implements OnInit, AfterViewInit {
   ) {
   }
   ngOnInit() {
+    // Create a new session to play with another player.
     this.session.getAllSessions().subscribe(
       (sessions: NewSession[]) => {
         console.log(sessions);
@@ -54,10 +55,11 @@ export class ConfigGamePlayersMemoryComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.gameTable.paginator = this.paginator;
   }
+  // Close modal pop up.
   onClose() {
     this.dialogRef.close();
   }
-
+  // Show available rooms.
   showGames() {
     if (this.showRooms) {
       this.showRooms = false;
@@ -65,6 +67,7 @@ export class ConfigGamePlayersMemoryComponent implements OnInit, AfterViewInit {
       this.showRooms = true;
     }
   }
+  // Create a new game.
   onSubmitNewGame() {
     this.setBoardSize();
     this.socket.setGameType('Players');
@@ -74,7 +77,7 @@ export class ConfigGamePlayersMemoryComponent implements OnInit, AfterViewInit {
       user: userInfo.displayName,
       numberOfPlayers: 1
     };
-
+    // Create a new session.
     this.session.createSession(newGame).subscribe(
       (data: any) => {
         this.dialogRef.close();
@@ -85,11 +88,12 @@ export class ConfigGamePlayersMemoryComponent implements OnInit, AfterViewInit {
       }
     );
   }
-
+  // Join to a session.
   joinGame(id: string) {
     this.dialogRef.close();
     this.router.navigate([`/memory/`, id]);
   }
+  // Config the game level.
   setBoardSize() {
     console.log(this.memory_levels);
     if (this.memory_levels === 'hard') {

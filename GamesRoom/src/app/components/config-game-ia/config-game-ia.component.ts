@@ -24,17 +24,21 @@ export class ConfigGameIAComponent implements OnInit {
 
   ngOnInit() {
   }
+  // Close modal.
   onClose() {
     this.dialogRef.close();
   }
+  // Start a new game.
   startGame() {
     if (this.gameType === 'memory') {
       this.onSubmitNewGame('');
     }
   }
+  // Config the session for the new game room.
   onSubmitNewGame(gameID: string) {
     this.setBoardSize();
     this.socket.setGameType('IA');
+
     const userInfo = this.authService.userData;
     const newGame = {
       name: gameID,
@@ -42,6 +46,7 @@ export class ConfigGameIAComponent implements OnInit {
       user: userInfo.displayName,
       numberOfPlayers: 1
     };
+    // Create a new session to play.
     this.session.createSession(newGame).subscribe(
       (data: any) => {
         this.dialogRef.close();
@@ -52,7 +57,7 @@ export class ConfigGameIAComponent implements OnInit {
       }
     );
   }
-
+  // Set game level: easy, medium, hard.
   setBoardSize() {
     console.log(this.levels);
     if (this.levels === 'hard') {
