@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CheckersService } from 'src/app/shared/services/checkers-service/checkers.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { ChatService } from 'src/app/shared/services/chat-service/chat.service';
 
 @Component({
   selector: 'app-checkers-board',
@@ -26,17 +27,20 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
 
   nivel = 0;
 
-  constructor(private checkersService: CheckersService, private authService: AuthService) { }
+  constructor(private checkersService: CheckersService, private authService: AuthService,
+    private chat: ChatService
+  ) { }
 
   ngOnInit() {
     this.session = this.checkersService.connectToServer();
+    this.chat.setSala(this.checkersService.getidSala());
     const user = JSON.parse(localStorage.getItem('user'));
     this.uidJugador = user['uid'];
     this.estadoJuego = this.checkersService.getEstadoJuego();
     if (this.estadoJuego === undefined) {
       this.authService.Home();
     }
-    if (this.estadoJuego == false) { // Para crear una nueva partida
+    if (this.estadoJuego === false) { // Para crear una nueva partida
       this.type_piece = this.checkersService.getPieceType();
       this.idSala = this.checkersService.idSala;
       this.envioInfoCrearTablero(this.idSala);
