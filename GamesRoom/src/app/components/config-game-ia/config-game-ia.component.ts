@@ -17,9 +17,7 @@ export class ConfigGameIAComponent implements OnInit {
     public authService: AuthService,
     private router: Router,
     private socket: MemoryService,
-    @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ConfigGameIAComponent>) {
-    this.gameType = data;
   }
 
   ngOnInit() {
@@ -27,12 +25,6 @@ export class ConfigGameIAComponent implements OnInit {
   // Close modal.
   onClose() {
     this.dialogRef.close();
-  }
-  // Start a new game.
-  startGame() {
-    if (this.gameType === 'memory') {
-      this.onSubmitNewGame('');
-    }
   }
   // Config the session for the new game room.
   onSubmitNewGame(gameID: string) {

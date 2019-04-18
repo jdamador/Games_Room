@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
+
 import {
   MatButtonModule,
   MatToolbarModule,
@@ -33,6 +34,11 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { CheckersBoardComponent } from './components/checkers-board/checkers-board.component';
+import { SaveListComponent } from './components/save-list/save-list.component';
+import { MemoryBoardComponent } from './components/memory-board/memory-board.component';
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { ChatBoardComponent } from './components/chat-board/chat-board.component';
 
 // Firebase services + enviorment module
 import { AngularFireModule } from '@angular/fire';
@@ -44,25 +50,23 @@ import { environment } from '../environments/environment';
 import { AuthService } from './shared/services/auth.service';
 import { UserService } from './shared/user-service/user.service';
 import { from } from 'rxjs';
-import { SignInComponent } from './components/sign-in/sign-in.component';
-import { MenuComponent } from './components/menu/menu.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { SaveListComponent } from './components/save-list/save-list.component';
-import { MemoryBoardComponent } from './components/memory-board/memory-board.component';
-import { ChatBoardComponent } from './components/chat-board/chat-board.component';
-
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { ChatService } from './shared/services/chat-service/chat.service';
+import { CheckersService } from './shared/services/checkers-service/checkers.service';
 
+import { ConfigGamePlayersCheckersComponent } from './components/config-game-players-checkers/config-game-players-checkers.component';
+import { ConfigGameIaCheckersComponent } from './components/config-game-ia-checkers/config-game-ia-checkers.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
-
+import { MemoryService } from './shared/services/memory/memory.service';
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
-import { ConfigGameIAComponent } from './components/config-game-ia/config-game-ia.component';
-import { ConfigGamePlayersComponent } from './components/config-game-players/config-game-players.component';
 import { ConfigGamePlayersMemoryComponent } from './components/config-game-players-memory/config-game-players.component';
 import { SessionService } from './shared/services/sessionservice/session.service';
+import { ViewPlayersComponent } from './components/view-players/view-players.component';
+import { DetailsPlayersComponent } from './components/details-players/details-players.component';
+import { ConfigGameIAComponent } from './components/config-game-ia/config-game-ia.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,9 +80,12 @@ import { SessionService } from './shared/services/sessionservice/session.service
     MemoryBoardComponent,
     CheckersBoardComponent,
     ChatBoardComponent,
-    ConfigGameIAComponent,
-    ConfigGamePlayersComponent,
-    ConfigGamePlayersMemoryComponent
+    ConfigGamePlayersCheckersComponent,
+    ConfigGameIaCheckersComponent,
+    ConfigGamePlayersMemoryComponent,
+    ViewPlayersComponent,
+    DetailsPlayersComponent,
+    ConfigGameIAComponent
   ],
   imports: [
     BrowserModule,
@@ -104,19 +111,24 @@ import { SessionService } from './shared/services/sessionservice/session.service
     MatDialogModule,
     MatFormFieldModule,
     SocketIoModule.forRoot(config),
-    HttpModule,
-    HttpClientModule,
-    HttpModule,
     HttpClientModule,
     MatProgressSpinnerModule,
     MatSnackBarModule
   ],
-  providers: [AuthService, UserService, ChatService, SessionService],
+  providers: [
+    AuthService,
+    UserService,
+    ChatService,
+    MemoryService,
+    SessionService
+  ],
   bootstrap: [AppComponent],
   entryComponents: [
-    ConfigGameIAComponent,
-    ConfigGamePlayersComponent,
-    ConfigGamePlayersMemoryComponent
+    ConfigGameIaCheckersComponent,
+    ConfigGamePlayersCheckersComponent,
+    ConfigGamePlayersMemoryComponent,
+    DetailsPlayersComponent,
+    ConfigGameIAComponent
   ]
 })
-export class AppModule {}
+export class AppModule { }

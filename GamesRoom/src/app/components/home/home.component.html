@@ -1,10 +1,11 @@
 <div class="content">
   <app-menu>
+
     <mat-card class="checkers">
       <img mat-card-image src="../../../assets/images/checkers.png" />
       <mat-card-actions>
-        <button mat-button (click)="openSettingPlayers('checkers')">Player vs Player</button>
-        <button mat-button (click)="openSettingsIA('checkers')">Player vs IA</button>
+        <button mat-button (click)="openSettingPlayersCheckers('checkers')">Player vs Player</button>
+        <button mat-button (click)="openSettingsIACheckers('checkers')">Player vs IA</button>
       </mat-card-actions>
     </mat-card>
 
@@ -15,5 +16,6 @@
         <button mat-button (click)="openSettingsIAMemory('memory')">Player vs IA</button>
       </mat-card-actions>
     </mat-card>
+
   </app-menu>
 </div>

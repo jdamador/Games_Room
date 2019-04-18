@@ -10,14 +10,20 @@
 
                 <img class="imagePosibleMovimiento" *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'PV'"
                 src="../../../assets/images/FondoNegro.png" alt="Fondo Negro">
-
-                <img class="image" *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'R'"
+  
+                <img class="image" *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'R' && type_piece == 'circle'" 
                 src="../../../assets/images/FichaRoja.png" alt="Ficha Roja">
-
-                <img class="image" *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'B'"
+  
+                <img class="image" *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'B' && type_piece == 'circle'" 
                 src="../../../assets/images/FichaBlanca.png" alt="Ficha Blanca">
 
-                <img class="image" *ngIf="((r%2==0 && c%2 ==0) || (r%2!=0 && c%2 !=0)) && j == 'V'"
+                <img class="image" *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'R' && type_piece == 'star'" 
+                src="../../../assets/images/EstrellaRoja.png" alt="Estrella Roja">
+  
+                <img class="image" *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'B' && type_piece == 'star'" 
+                src="../../../assets/images/EstrellaBlanca.png" alt="Estrella Blanca">
+  
+                <img class="image" *ngIf="((r%2==0 && c%2 ==0) || (r%2!=0 && c%2 !=0)) && j == 'V'" 
                 src="../../../assets/images/FondoBlanco.jpg" alt="Fondo Blanco">
 
                 <img class="image" *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'KR'"

@@ -1,0 +1,28 @@
+.center{
+    width: 75%;
+    height: 65%;
+    margin: 10px auto;
+  }
+
+.statistics{
+  width: 50%;
+  text-align: center;
+  height: 30%;
+  
+}
+
+h4{
+  line-height: 300%; 
+}
+
+.title{
+  width: 100%;
+  text-align: center;
+  height: 25%;
+}
+
+.division{
+  text-align: center;
+  width: 50%;
+}
+

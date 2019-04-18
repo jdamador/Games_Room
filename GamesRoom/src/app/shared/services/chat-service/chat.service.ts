@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
   providedIn: 'root'
 })
 export class ChatService {
-
   private url = 'http://localhost:3000';
   private socket;
   private sala = '';
@@ -15,15 +14,15 @@ export class ChatService {
   }
 
   public getMessages = () => {
-    return Observable.create((observer) => {
-      this.socket.on('sendMessage', (data) => {
-        console.log(data)
+    return Observable.create(observer => {
+      this.socket.on('sendMessage', data => {
+        console.log(data);
         observer.next(data);
       });
     });
   }
 
-  public envioInfo = (data) => {
+  public envioInfo = data => {
     this.socket.emit('sendMessage', data);
   }
 

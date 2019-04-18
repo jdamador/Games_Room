@@ -1,0 +1,21 @@
+<div mat-dialog-content>
+    <mat-card class="z-depth center" flex="50">
+      <div class="title" *ngIf="this.authService.userInfo() as user">
+      </div>
+      <div class="row">
+        <div class="statistics">
+          <h4>Statistics</h4>
+          <p>Wins: {{wins}}</p>
+          <p>Defeats: {{defeats}}</p>
+          <p>Draws: {{draws}}</p>
+        </div>
+        <div class="division">
+          <h4>Division</h4>
+          <img class="styleImage" [src]='resulImage' width="50%" height="50%">
+        </div>
+      </div>
+    </mat-card>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onClose()">Cancel</button>
+</div>

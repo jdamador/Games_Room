@@ -2,23 +2,23 @@ import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort, MatButton } from '@angular/material';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { SaveGamesService } from 'src/app/shared/services/save-games-service/save-games.service';
 
 // TODO: Replace this with your own data model type
 export interface SaveListItem {
-  player2: string;
-  player1: string;
+  id: string;
+  nivel: string;
   name: string;
-  id: number;
+  keyEliminar: string;
+  player1: string;
+  player2: string;
+
 }
 
 // TODO: replace this with real data from your application
 const EXAMPLE_DATA: SaveListItem[] = [
-  { id: 1, name: 'Hydrogen', player1: 'Daniel', player2: 'Royland' },
-  { id: 2, name: 'Hydrogen', player1: 'Daniel', player2: 'Royland' },
-  { id: 3, name: 'Hydrogen', player1: 'Daniel', player2: 'Royland' },
-  { id: 4, name: 'Hydrogen', player1: 'Daniel', player2: 'Royland' },
-  { id: 5, name: 'Hydrogen', player1: 'Daniel', player2: 'Royland' },
-  { id: 6, name: 'Hydrogen', player1: 'Daniel', player2: 'Royland' }
+  { id: '1', nivel: '0', name: 'Hydrogen', 'keyEliminar': '4', player1: 'Daniel', player2: 'Royland' },
 ];
 
 /**
@@ -29,7 +29,9 @@ const EXAMPLE_DATA: SaveListItem[] = [
 export class SaveListDataSource extends DataSource<SaveListItem> {
   data: SaveListItem[] = EXAMPLE_DATA;
 
-  constructor(private paginator: MatPaginator, private sort: MatSort) {
+
+  constructor(private paginator: MatPaginator, private sort: MatSort, public gamesSaved: SaveGamesService,
+    public authService: AuthService) {
     super();
   }
 
@@ -41,6 +43,7 @@ export class SaveListDataSource extends DataSource<SaveListItem> {
   connect(): Observable<SaveListItem[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
+
     const dataMutations = [
       observableOf(this.data),
       this.paginator.page,
@@ -61,7 +64,7 @@ export class SaveListDataSource extends DataSource<SaveListItem> {
    *  Called when the table is being destroyed. Use this function, to clean up
    * any open connections or free any held resources that were set up during connect.
    */
-  disconnect() {}
+  disconnect() { }
 
   /**
    * Paginate the data (client-side). If you're using server-side pagination,
@@ -97,6 +100,21 @@ export class SaveListDataSource extends DataSource<SaveListItem> {
       }
     });
   }
+
+  // setNewTable(){
+  //   var jugador= this.authService.userData.uid;
+  //   var nombre = this.authService.userData.displayName;
+  //   this.gamesSaved.getPartidasGuardadas(jugador, nombre).subscribe(
+  //     data => {
+  //        var resultado: SaveListItem[];
+  //        resultado= data
+  //        this.data= resultado
+  //     },
+  //     error => {
+  //       console.log('error de consulta ' + error);
+  //     }
+  //   );
+  // }
 }
 
 /** Simple sort comparator for example ID/Name columns (for client-side sorting). */

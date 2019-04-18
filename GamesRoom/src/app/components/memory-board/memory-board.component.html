@@ -21,7 +21,9 @@
         </span>
       </div>
       <div class="chat-board">
-        <app-chat-board *ngIf="memoryService.boardType !== 'IA'"></app-chat-board>
+        <app-chat-board
+          *ngIf="memoryService.boardType !== 'IA'"
+        ></app-chat-board>
         <header class="status-header">
           <h4>Estado</h4>
         </header>

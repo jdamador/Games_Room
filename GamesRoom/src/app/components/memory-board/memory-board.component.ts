@@ -65,18 +65,15 @@ export class MemoryBoardComponent implements OnInit, OnDestroy {
     // Validate when the game was complete and show a message for each player.
     this.memoryService.gameOver(this.session, (gameOver: any) => {
       if (gameOver === '*') {
-        this.statisticService.postDraw();
         this.snackBar.open('¡Has empatado la partida!', null, {
           duration: 3000
         });
       } else
         if (gameOver === this.user.name) {
-          this.statisticService.postWin();
           this.snackBar.open(`¡Felicitaciones ${this.user.name}, has ganado la partida!`, null, {
             duration: 3000
           });
         } else {
-          this.statisticService.postDefeat();
           this.snackBar.open(`Lo sentimos ${this.user.name}, has perdido la partida!`, null, {
             duration: 3000
           });

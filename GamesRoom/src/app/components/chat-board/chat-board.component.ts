@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from 'src/app/shared/services/chat-service/chat.service';
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { CheckersService } from 'src/app/shared/services/checkers-service/checkers.service';
 
 @Component({
   selector: 'app-chat-board',
@@ -14,13 +14,17 @@ export class ChatBoardComponent implements OnInit {
   messages = [];
   newMessage: string;
   author = 'roy';
-  idSala: string = '';
+  idSala = '';
 
-  constructor(private chatService: ChatService, private auth: AuthService) {}
+  constructor(private chatService: ChatService, private auth: AuthService) {
+    // FIXME: get id room from checkers component.
+  }
 
   ngOnInit() {
     this.idSala = this.chatService.getSala();
     this.author = this.auth.userInfo().displayName;
+    // this.idSala = this.checkersService.idSala;
+    const user = JSON.parse(localStorage.getItem('user'));
     this.inicioSesion();
     this.chatService.getMessages().subscribe(data => {
       this.messages.push({ Author: data.Author, Text: data.Text });

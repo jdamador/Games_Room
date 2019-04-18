@@ -7,22 +7,27 @@ import { AuthService } from '../auth.service';
   providedIn: 'root'
 })
 export class StatisticsService {
+  public idPlayer;
   config = {
     uid: this.authService.userInfo().uid
   };
   constructor(private http: HttpClient, private authService: AuthService) { }
 
-  getStatistics() {
-    return this.http.post('http://localhost:3000/estadisticas/obtener', this.config);
+  getStatistics(id) {
+    const config = {
+      uid: id
+    };
+    return this.http.post('http://localhost:3000/estadisticas/obtener', config);
   }
-  // This method save a win into firebase for this user.
-  postWin() {
-    this.http.post('http://localhost:3000/postWin', this.config);
+
+  getStatisticsPlayers() {
+    const config = {
+      uid: this.idPlayer
+    };
+    return this.http.post('http://localhost:3000/estadisticas/obtener', config);
   }
-  postDefeat() {
-    this.http.post('http://localhost:3000/postDefeat', this.config);
-  }
-  postDraw() {
-    this.http.post('http://localhost:3000/postDraw', this.config);
+
+  setidPlayer(idPlayer: any) {
+    this.idPlayer = idPlayer;
   }
 }
