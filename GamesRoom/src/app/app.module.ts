@@ -68,6 +68,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 import { ConfigGamePlayersMemoryComponent } from './components/config-game-players-memory/config-game-players.component';
 import { SessionService } from './shared/services/sessionservice/session.service';
+import { ViewPlayersComponent } from './components/view-players/view-players.component';
+import { DetailsPlayersComponent } from './components/details-players/details-players.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -85,7 +87,9 @@ import { SessionService } from './shared/services/sessionservice/session.service
     ConfigGameIaCheckersComponent,
     RematchComponent,
     PlayerLeftComponent,
-    ConfigGamePlayersMemoryComponent
+    ConfigGamePlayersMemoryComponent,
+    ViewPlayersComponent,
+    DetailsPlayersComponent
   ],
   imports: [
     BrowserModule,
@@ -127,7 +131,8 @@ import { SessionService } from './shared/services/sessionservice/session.service
   entryComponents: [
     ConfigGameIaCheckersComponent, 
     ConfigGamePlayersCheckersComponent, 
-    ConfigGamePlayersMemoryComponent
+    ConfigGamePlayersMemoryComponent,
+    DetailsPlayersComponent
   ]
 })
 export class AppModule {}

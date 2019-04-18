@@ -16,6 +16,7 @@ import { ProfileComponent } from 'src/app/components/profile/profile.component';
 import { SaveListComponent } from 'src/app/components/save-list/save-list.component';
 import { ChatBoardComponent } from 'src/app/components/chat-board/chat-board.component';
 import { MemoryBoardComponent } from 'src/app/components/memory-board/memory-board.component';
+import { ViewPlayersComponent } from 'src/app/components/view-players/view-players.component';
 
 // Include route guard in routes array
 const routes: Routes = [
@@ -45,6 +46,7 @@ const routes: Routes = [
   },
   { path: 'chat', component: ChatBoardComponent, canActivate: [AuthGuard] },
   { path: 'memory/:id', component: MemoryBoardComponent, canActivate: [AuthGuard] },
+  { path: 'viewPlayers', component: ViewPlayersComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

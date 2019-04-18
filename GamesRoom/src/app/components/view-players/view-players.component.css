@@ -1,0 +1,10 @@
+.full-width-table {
+    width: 100%;
+    text-align: center;
+  }
+  
+  ::ng-deep .mat-sort-header-container {
+    display: flex;
+    justify-content: center;
+  }
+  

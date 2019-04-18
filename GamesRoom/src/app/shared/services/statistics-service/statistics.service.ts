@@ -7,6 +7,7 @@ import { AuthService } from '../auth.service';
   providedIn: 'root'
 })
 export class StatisticsService {
+  public idPlayer;
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   getStatistics() {
@@ -16,4 +17,15 @@ export class StatisticsService {
     return this.http.post('http://localhost:3000/estadisticas/obtener', config);
   }
 
-}
+  getStatisticsPlayers() {
+    const config = {
+      uid: this.idPlayer
+    };
+    return this.http.post('http://localhost:3000/estadisticas/obtener', config);
+  }
+
+  setidPlayer(idPlayer:any){
+    this.idPlayer = idPlayer;
+  }
+
+} 

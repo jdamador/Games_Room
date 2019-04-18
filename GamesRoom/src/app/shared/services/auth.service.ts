@@ -169,9 +169,14 @@ export class AuthService {
     return this.router.navigate(['saveGames']);
   }
 
-  // Saves Games View
+  // Personal Profile View
   MyProfile() {
     return this.router.navigate(['myProfile']);
+  }
+
+  //Other players view
+  ViewPlayers() {
+    return this.router.navigate(['viewPlayers']);
   }
 
   getPeople() {
