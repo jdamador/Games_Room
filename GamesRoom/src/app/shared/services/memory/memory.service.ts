@@ -11,6 +11,7 @@ export class MemoryService {
   private url = 'http://localhost:3000';
   private boardSize = 10;
   public boardType = '';
+  private gameProcess = null;
   // Get user data from Auth service.
   private userInfo = this.authService.userInfo();
 
@@ -28,8 +29,10 @@ export class MemoryService {
       gameID: id,
       username: this.userInfo,
       tamano: this.boardSize,
-      gameType: this.boardType
+      gameType: this.boardType,
+      idGame: this.gameProcess
     });
+    this.gameProcess = null;
   }
 
   // Validate some player action.
@@ -70,5 +73,9 @@ export class MemoryService {
   // Alert to save a game.
   public saveGame(socket: any, gameUpdate: any) {
     return socket.emit('saveGame', gameUpdate);
+  }
+
+  public setGameObtained(gameProcess) {
+    this.gameProcess = gameProcess;
   }
 }

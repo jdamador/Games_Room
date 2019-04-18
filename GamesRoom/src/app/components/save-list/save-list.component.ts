@@ -4,6 +4,7 @@ import { SaveListDataSource } from './save-list-datasource';
 import { SaveGamesService } from 'src/app/shared/services/save-games-service/save-games.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { CheckersService } from 'src/app/shared/services/checkers-service/checkers.service';
+import { MemoryService } from 'src/app/shared/services/memory/memory.service';
 
 @Component({
   selector: 'app-save-list',
@@ -19,7 +20,8 @@ export class SaveListComponent implements OnInit, AfterViewInit {
   displayedColumns = ['name', 'nivel', 'player1', 'player2', 'delete', 'charge'];
 
   constructor(public gamesSaved: SaveGamesService,
-    public authService: AuthService, public checkersService: CheckersService) { }
+    public authService: AuthService, public checkersService: CheckersService,
+    public memoryService: MemoryService) { }
 
   ngOnInit() {
     this.startTrackingLoop();
@@ -72,9 +74,10 @@ export class SaveListComponent implements OnInit, AfterViewInit {
   }
 
   cargarPartida(game) {
+    console.log(game);
     const tipo = game['name'];
     if (tipo === 'Checkers') {
-      const key = game['keyEliminar']
+      const key = game['keyEliminar'];
       const id = game['id'];
       const nivel = game['nivel'];
       const unir = { 'idSala': id, 'keyEliminar': key };
@@ -85,7 +88,9 @@ export class SaveListComponent implements OnInit, AfterViewInit {
       this.checkersService.setPieceType(pieza);
       this.authService.goCheckers();
     } else {
-      console.log('Memory');
+      this.memoryService.setGameObtained(game['id']);
+      this.memoryService.boardType = 'IA';
+      this.authService.goMemory();
     }
 
   }

@@ -49,9 +49,9 @@ export class AuthService {
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
-    if(user !== null && user.emailVerified !== false){
+    if (user !== null && user.emailVerified !== false) {
       this.statusService.estadoOnline(user['uid']).subscribe(
-        data => {        
+        data => {
         },
         error => {
           console.log('error de consultas ' + error);
@@ -59,9 +59,9 @@ export class AuthService {
       );
       return true
     }
-    else{
+    else {
       return false;
-    }  
+    }
   }
 
   // Sign in with Google
@@ -70,7 +70,7 @@ export class AuthService {
   }
 
   // Auth logic to run auth providers
-  AuthLogin(provider, lado:number) {
+  AuthLogin(provider, lado: number) {
     return this.afAuth.auth
       .signInWithPopup(provider)
       .then(result => {
@@ -88,8 +88,8 @@ export class AuthService {
   /* Setting up user data when sign in with username/password,
   sign up with username/password and sign in with social auth
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
-  SetUserData(user, lado:number) {
-    
+  SetUserData(user, lado: number) {
+
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );
@@ -101,9 +101,9 @@ export class AuthService {
       emailVerified: user.emailVerified
     };
     localStorage.setItem('user', this.userData);
-    if(lado==1){
+    if (lado == 1) {
       this.CreateStatistics(user.uid);
-    }  
+    }
 
     return userRef.set(this.userData, {
       merge: true
@@ -122,7 +122,7 @@ export class AuthService {
           console.log('error de consulta ' + error);
         }
       );
-      
+
     });
   }
 
@@ -173,5 +173,8 @@ export class AuthService {
 
   goCheckers() {
     return this.router.navigate(['checkers']);
+  }
+  goMemory() {
+    return this.router.navigate([`/memory/`, '']);
   }
 }

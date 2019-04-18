@@ -91,6 +91,7 @@ export class ConfigGamePlayersMemoryComponent implements OnInit, AfterViewInit {
   // Join to a session.
   joinGame(id: string) {
     this.dialogRef.close();
+    this.socket.boardType = 'Players';
     this.router.navigate([`/memory/`, id]);
   }
   // Config the game level.
