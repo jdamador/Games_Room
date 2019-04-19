@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import io from 'socket.io-client';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CheckersService {
 
-  private url = 'https://gameroomapi.herokuapp.com';
+  private url = environment.base;
   pieceType: string;
   estadoJuego: any;
   idSala: string;

@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { AuthService } from '../auth.service';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MemoryService {
   // Url to connect with node js server (Use game functions).
-  private url = 'https://gameroomapi.herokuapp.com';
+  private url = environment.base;
   private boardSize = 10;
   public boardType = '';
   private gameProcess = null;
