@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { Observable } from 'rxjs/Observable';
-
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
-  private url = 'https://gameroomapi.herokuapp.com';
+  private url = environment.base;
   private socket;
   private sala = '';
   constructor() {

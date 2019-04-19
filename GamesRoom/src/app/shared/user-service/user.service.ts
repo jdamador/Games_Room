@@ -4,13 +4,14 @@ import { firestore } from 'firebase';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from '../../shared/services/auth.service';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-
+  private url = environment.base;
   constructor(public afs: AngularFirestore,
     public ngZone: NgZone,
     public authService: AuthService,
@@ -18,11 +19,10 @@ export class UserService {
   ) { }
 
   getUsers(id) {
-    console.log(id)
     return this.afs.collection('users').snapshotChanges();
   }
 
   getPlayers() {
-    return this.http.get('https://gameroomapi.herokuapp.com/perfiles');
+    return this.http.get(`${this.url}/perfiles`);
   }
 }

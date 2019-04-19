@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SaveGamesService {
-
+  private url = environment.base;
   constructor(private http: HttpClient) { }
 
   getPartidasGuardadas(uid: any, nombre: string): Observable<any> {
@@ -14,7 +15,7 @@ export class SaveGamesService {
       jugador: uid,
       nombre: nombre
     };
-    return this.http.post('https://gameroomapi.herokuapp.com/partidasGuardadas', config);
+    return this.http.post(`${this.url}/partidasGuardadas`, config);
   }
 
   eliminarPartida(uid, key, id): Observable<any> {
@@ -23,6 +24,6 @@ export class SaveGamesService {
       clave: key,
       idSala: id
     };
-    return this.http.post('https://gameroomapi.herokuapp.com/eliminarJuego', config);
+    return this.http.post(`${this.url}/eliminarJuego`, config);
   }
 }

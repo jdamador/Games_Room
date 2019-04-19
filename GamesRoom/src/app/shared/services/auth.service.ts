@@ -9,11 +9,14 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { StatusService } from './status-service/status.service';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private url = environment.base;
   userData: any; // Save logged in user data
   statisticsData: any;
 
@@ -140,7 +143,7 @@ export class AuthService {
     );
   }
   callCreateStatistics(config: any): Observable<any> {
-    return this.http.post('https://gameroomapi.herokuapp.com/estadisticas/agregar', config);
+    return this.http.post(`${this.url}/estadisticas/agregar`, config);
   }
 
   // Home
