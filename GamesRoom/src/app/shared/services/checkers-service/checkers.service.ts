@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CheckersService {
 
-  private url = 'http://localhost:3000';
+  private url = 'https://gameroomapi.herokuapp.com';
   pieceType: string;
   estadoJuego: any;
   idSala: string;
@@ -111,24 +111,24 @@ export class CheckersService {
   }
 
   getSesiones() {
-    return this.http.get('http://localhost:3000/partidasDisponiblesDamas');
+    return this.http.get(`${this.url}/partidasDisponiblesDamas`);
   }
 
   getidSala(): Observable<any> {
-    return this.http.get('http://localhost:3000/claveUnica');
+    return this.http.get(`${this.url}/claveUnica`);
   }
 
   eliminarDisponible(): Observable<any> {
     const config = {
       'id': this.keyEliminar
     };
-    return this.http.post('http://localhost:3000/eliminarPartidaDama', config);
+    return this.http.post(`${this.url}/eliminarPartidaDama`, config);
   }
 
   getTableroAntiguo(id: any): Observable<any> {
     const config = {
       'idSala': id
     };
-    return this.http.post('http://localhost:3000/tableroPartidaDama', config);
+    return this.http.post(`${this.url}/tableroPartidaDama`, config);
   }
 }

@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class MemoryService {
   // Url to connect with node js server (Use game functions).
-  private url = 'http://localhost:3000';
+  private url = 'https://gameroomapi.herokuapp.com';
   private boardSize = 10;
   public boardType = '';
   private gameProcess = null;

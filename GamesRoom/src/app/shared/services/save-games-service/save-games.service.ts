@@ -14,7 +14,7 @@ export class SaveGamesService {
       jugador: uid,
       nombre: nombre
     };
-    return this.http.post('http://localhost:3000/partidasGuardadas', config);
+    return this.http.post('https://gameroomapi.herokuapp.com/partidasGuardadas', config);
   }
 
   eliminarPartida(uid, key, id): Observable<any> {
@@ -23,6 +23,6 @@ export class SaveGamesService {
       clave: key,
       idSala: id
     };
-    return this.http.post('http://localhost:3000/eliminarJuego', config);
+    return this.http.post('https://gameroomapi.herokuapp.com/eliminarJuego', config);
   }
 }

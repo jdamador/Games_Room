@@ -17,14 +17,14 @@ export class StatisticsService {
     const config = {
       uid: id
     };
-    return this.http.post('http://localhost:3000/estadisticas/obtener', config);
+    return this.http.post('https://gameroomapi.herokuapp.com/estadisticas/obtener', config);
   }
 
   getStatisticsPlayers() {
     const config = {
       uid: this.idPlayer
     };
-    return this.http.post('http://localhost:3000/estadisticas/obtener', config);
+    return this.http.post('https://gameroomapi.herokuapp.com/estadisticas/obtener', config);
   }
 
   setidPlayer(idPlayer: any) {

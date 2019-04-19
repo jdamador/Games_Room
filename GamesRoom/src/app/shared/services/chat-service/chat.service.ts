@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
   providedIn: 'root'
 })
 export class ChatService {
-  private url = 'http://localhost:3000';
+  private url = 'https://gameroomapi.herokuapp.com';
   private socket;
   private sala = '';
   constructor() {

@@ -60,7 +60,7 @@ import { ConfigGameIaCheckersComponent } from './components/config-game-ia-check
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { MemoryService } from './shared/services/memory/memory.service';
-const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+const config: SocketIoConfig = { url: 'https://gameroomapi.herokuapp.com', options: {} };
 
 import { ConfigGamePlayersMemoryComponent } from './components/config-game-players-memory/config-game-players.component';
 import { SessionService } from './shared/services/sessionservice/session.service';

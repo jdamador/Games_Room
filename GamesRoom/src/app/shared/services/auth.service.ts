@@ -57,9 +57,8 @@ export class AuthService {
           console.log('error de consultas ' + error);
         }
       );
-      return true
-    }
-    else {
+      return true;
+    } else {
       return false;
     }
   }
@@ -141,7 +140,7 @@ export class AuthService {
     );
   }
   callCreateStatistics(config: any): Observable<any> {
-    return this.http.post('http://localhost:3000/estadisticas/agregar', config);
+    return this.http.post('https://gameroomapi.herokuapp.com/estadisticas/agregar', config);
   }
 
   // Home
@@ -159,7 +158,7 @@ export class AuthService {
     return this.router.navigate(['myProfile']);
   }
 
-  //Other players view
+  // Other players view
   ViewPlayers() {
     return this.router.navigate(['viewPlayers']);
   }
