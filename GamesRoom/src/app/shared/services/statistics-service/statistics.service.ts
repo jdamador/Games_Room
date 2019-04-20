@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class StatisticsService {
-  private url = environment.base;
+  private url = environment.server;
   public idPlayer;
   config = {
     uid: this.authService.userInfo().uid

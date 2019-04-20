@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/angularfirebase-authentication",
+    "public": "dist/game-room",
     "ignore": [
       "firebase.json",
       "**/.*",

@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class ChatService {
-  private url = environment.base;
+  private url = environment.server;
   private socket;
   private sala = '';
   constructor() {

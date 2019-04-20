@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class UserService {
-  private url = environment.base;
+  private url = environment.server;
   constructor(public afs: AngularFirestore,
     public ngZone: NgZone,
     public authService: AuthService,

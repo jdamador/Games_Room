@@ -16,7 +16,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-  private url = environment.base;
+  private url = environment.server;
   userData: any; // Save logged in user data
   statisticsData: any;
 

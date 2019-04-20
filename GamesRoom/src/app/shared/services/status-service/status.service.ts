@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class StatusService {
-  private url = environment.base;
+  private url = environment.server;
   constructor(private http: HttpClient) { }
 
   estadoOnline(uid: any): Observable<any> {
