@@ -1,5 +1,5 @@
 <header class="chat-header">
-  <h4 *ngIf="!currentRoom"></h4>
+  <h4 *ngIf="!currentRoom.name; else roomName">Chat</h4>
   <span class="participants"></span>
 </header>
 <section class="chat-session">

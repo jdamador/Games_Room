@@ -2,12 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-
 @Injectable({
   providedIn: 'root'
 })
 export class StatusService {
-  private url = environment.server;
+  url = environment.localServer;
   constructor(private http: HttpClient) { }
 
   estadoOnline(uid: any): Observable<any> {

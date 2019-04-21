@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CheckersService {
 
-  private url = environment.server;
+  private url = environment.localServer;
   pieceType: string;
   estadoJuego: any;
   idSala: string;

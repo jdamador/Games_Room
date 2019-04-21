@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class MemoryService {
   // Url to connect with node js server (Use game functions).
-  private url = environment.server;
+  private url = environment.localServer;
   private boardSize = 10;
   public boardType = '';
   private gameProcess = null;

@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class UserService {
-  private url = environment.server;
+  url = environment.localServer;
   constructor(public afs: AngularFirestore,
     public ngZone: NgZone,
     public authService: AuthService,
@@ -19,6 +19,7 @@ export class UserService {
   ) { }
 
   getUsers(id) {
+    console.log(id)
     return this.afs.collection('users').snapshotChanges();
   }
 

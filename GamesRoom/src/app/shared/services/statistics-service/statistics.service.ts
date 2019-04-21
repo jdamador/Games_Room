@@ -8,25 +8,22 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class StatisticsService {
-  private url = environment.server;
   public idPlayer;
+  url = environment.localServer;
   config = {
     uid: this.authService.userInfo().uid
   };
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   getStatistics(id) {
-    const config = {
+    var config = {
       uid: id
-    };
-    return this.http.post(this.url+'/estadisticas/obtener', config);
+    }
+    return this.http.post(`${this.url}/estadisticas/obtener`, config);
   }
 
   getStatisticsPlayers() {
-    const config = {
-      uid: this.idPlayer
-    };
-    return this.http.post(this.url+'/estadisticas/obtener', config);
+    return this.http.post(`${this.url}/estadisticas/obtener`, this.config);
   }
 
   setidPlayer(idPlayer: any) {

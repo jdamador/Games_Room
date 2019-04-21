@@ -11,15 +11,13 @@ import { Observable } from 'rxjs';
 import { StatusService } from './status-service/status.service';
 import { environment } from 'src/environments/environment';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private url = environment.server;
   userData: any; // Save logged in user data
   statisticsData: any;
-
+  url = environment.localServer;
   constructor(
     public afs: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
@@ -103,7 +101,7 @@ export class AuthService {
       emailVerified: user.emailVerified
     };
     localStorage.setItem('user', this.userData);
-    if (lado == 1) {
+    if (lado === 1) {
       this.CreateStatistics(user.uid);
     }
 

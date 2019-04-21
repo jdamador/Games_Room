@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class SaveGamesService {
-  private url = environment.server;
+  url = environment.localServer;
   constructor(private http: HttpClient) { }
 
   getPartidasGuardadas(uid: any, nombre: string): Observable<any> {

@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { Observable } from 'rxjs/Observable';
 import { environment } from 'src/environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
-  private url = environment.server;
+  private url = environment.localServer;
   private socket;
   private sala = '';
   constructor() {
