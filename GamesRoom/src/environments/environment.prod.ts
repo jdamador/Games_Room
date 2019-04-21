@@ -10,6 +10,6 @@ export const environment = {
   },
   base: 'https://proyect1design.firebaseio.com',
   secret: 'sB6GqQEYqJ7Fv6tfnjpSMzxX7q8p9vyKH1DrZiih',
-  serverHeroku: 'https://gameroomapi.herokuapp.com',
+  serverHeroku: 'https://evening-earth-83065.herokuapp.com',
   localServer: 'https://localhost:3000'
 };

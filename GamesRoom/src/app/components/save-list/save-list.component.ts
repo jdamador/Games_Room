@@ -46,7 +46,7 @@ export class SaveListComponent implements OnInit, AfterViewInit {
 
   obtenerPartida() {
     const user = JSON.parse(localStorage.getItem('user'));
-    const jugador = user['uid'];
+    const jugador = this.authService.userInfo().uid;
     const nombre = user['displayName'];
     this.gamesSaved.getPartidasGuardadas(jugador, nombre).subscribe(
       data => {

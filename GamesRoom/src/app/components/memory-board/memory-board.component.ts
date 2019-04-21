@@ -24,7 +24,7 @@ export class MemoryBoardComponent implements OnInit, OnDestroy {
     name: this.authService.userInfo().displayName,
     assignedNumber: undefined
   });
-  private onGoingGame: boolean;
+  public onGoingGame: boolean;
   // Cards will be show in the game board.
   board: any[];
   // Default image, it is shows when the card is not flipped.

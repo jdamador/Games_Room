@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class SaveGamesService {
-  url = environment.localServer;
+  url = environment.serverHeroku;
   constructor(private http: HttpClient) { }
 
   getPartidasGuardadas(uid: any, nombre: string): Observable<any> {

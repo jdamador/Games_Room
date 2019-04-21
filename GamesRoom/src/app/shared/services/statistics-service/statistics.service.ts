@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class StatisticsService {
   public idPlayer;
-  url = environment.localServer;
+  url = environment.serverHeroku;
   config = {
     uid: this.authService.userInfo().uid
   };

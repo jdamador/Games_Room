@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CheckersService {
 
-  private url = environment.localServer;
+  private url = environment.serverHeroku;
   pieceType: string;
   estadoJuego: any;
   idSala: string;

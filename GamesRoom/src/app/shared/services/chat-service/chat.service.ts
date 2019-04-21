@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class ChatService {
-  private url = environment.localServer;
+  private url = environment.serverHeroku;
   private socket;
   private sala = '';
   constructor() {

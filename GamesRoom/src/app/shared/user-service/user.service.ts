@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class UserService {
-  url = environment.localServer;
+  url = environment.serverHeroku;
   constructor(public afs: AngularFirestore,
     public ngZone: NgZone,
     public authService: AuthService,

@@ -1,5 +1,4 @@
 <header class="chat-header">
-  <h4 *ngIf="!currentRoom.name; else roomName">Chat</h4>
   <span class="participants"></span>
 </header>
 <section class="chat-session">
@@ -11,7 +10,13 @@
   </ul>
 </section>
 <footer class="chat-footer">
-  <form class="message-form" (ngSubmit)='envio()'>
-    <input class="message-input" placeholder="Type a message." type="text" name="message" [(ngModel)]="newMessage" />
+  <form class="message-form" (ngSubmit)="envio()">
+    <input
+      class="message-input"
+      placeholder="Type a message."
+      type="text"
+      name="message"
+      [(ngModel)]="newMessage"
+    />
   </form>
 </footer>
