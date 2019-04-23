@@ -54,12 +54,20 @@ export class MemoryBoardComponent implements OnInit, OnDestroy {
     );
     // Update the game when some change is make.
     this.memoryService.gameUpdated(this.session, (gameStatus: any) => {
+      if (gameStatus.players.length === 1) {
+        this.saveLeftPlayer();
+      }
       this.onGoingGame = true;
       this.gameProgress = gameStatus;
       this.board = this.gameProgress.board;
       this.chatService.setSala(this.gameProgress.roomId);
     });
-
+    this.memoryService.disconnect(this.session, (opponentLeft: string) => {
+      this.snackBar.open(`¡Un jugador ha abandonado la partida!`, null, {
+        duration: 3000
+      });
+      this.saveLeftPlayer();
+    });
     // Validate when the game was complete and show a message for each player.
     this.memoryService.gameOver(this.session, (gameOver: any) => {
       if (gameOver === '*') {
@@ -109,12 +117,17 @@ export class MemoryBoardComponent implements OnInit, OnDestroy {
   // If the window is closed go to home.
   ngOnDestroy(): void {
     this.memoryService.disconnectSession(this.session);
-    this.router.navigate(['home']);
   }
 
   // Save a game vs IA
   saveGame() {
     this.memoryService.saveGame(this.session, this.gameProgress);
+    this.router.navigate(['home']);
+  }
+  // Save a game vs IA
+  saveLeftPlayer() {
+    this.gameProgress.currentPlayer = this.authService.userInfo().uid;
+    this.memoryService.saveGameLeft(this.session, this.gameProgress);
     this.router.navigate(['home']);
   }
 }

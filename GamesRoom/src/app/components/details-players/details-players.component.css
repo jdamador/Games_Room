@@ -1,28 +1,34 @@
-.center{
-    width: 75%;
-    height: 65%;
-    margin: 10px auto;
-  }
+.center {
+  width: 75%;
+  height: 65%;
+  margin: 10px auto;
+}
 
-.statistics{
+.statistics {
   width: 50%;
   text-align: center;
   height: 30%;
-  
+  position: relative;
+  float: left;
 }
 
-h4{
-  line-height: 300%; 
+h4 {
+  font-size: 2vw;
 }
 
-.title{
+p {
+  font-size: 2vw;
+}
+
+.title {
   width: 100%;
   text-align: center;
   height: 25%;
 }
 
-.division{
+.division {
   text-align: center;
   width: 50%;
+  position: relative;
+  float: left;
 }
-

@@ -60,7 +60,7 @@ import { ConfigGameIaCheckersComponent } from './components/config-game-ia-check
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { MemoryService } from './shared/services/memory/memory.service';
-//TODO: change when someone is going to do tests.
+// TODO: change when someone is going to do tests.
 const config: SocketIoConfig = { url: environment.serverHeroku, options: {} };
 
 import { ConfigGamePlayersMemoryComponent } from './components/config-game-players-memory/config-game-players.component';

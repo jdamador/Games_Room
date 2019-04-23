@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatDialogRef,  MatTableDataSource, MatSort } from '@angular/material';
+import { MatPaginator, MatDialogRef, MatTableDataSource, MatSort } from '@angular/material';
 import { UserService } from 'src/app/shared/user-service/user.service';
 import { StatisticsService } from 'src/app/shared/services/statistics-service/statistics.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
@@ -20,25 +20,26 @@ export class ViewPlayersComponent implements OnInit {
 
   ngOnInit() {
     this.startTrackingLoop();
-    this.obtenerJugadores(); 
+    this.obtenerJugadores();
   }
 
   startTrackingLoop() {
     this.intervalo = setInterval(() => {
-        //run code
-        this.obtenerJugadores()
+      //run code
+      this.obtenerJugadores()
     }, 2000);
   }
   stopTrackingLoop() {
-      clearInterval(this.intervalo);
-      this.intervalo = null;
-   }
+    clearInterval(this.intervalo);
+    this.intervalo = null;
+  }
 
-   obtenerJugadores(){
+  obtenerJugadores() {
     this.userService.getPlayers().subscribe(
       (sessions: any[]) => {
         let formedData = [];
-        for (let key in sessions) {
+        // tslint:disable-next-line: forin
+        for (const key in sessions) {
           sessions[key]['id'] = key;
           formedData.push(sessions[key]);
         }
@@ -48,9 +49,9 @@ export class ViewPlayersComponent implements OnInit {
         console.log(err);
       }
     );
-   }
+  }
 
-  viewPlayer(id:any): void {
+  viewPlayer(id: any): void {
     this.statistics.setidPlayer(id);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;

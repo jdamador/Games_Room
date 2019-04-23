@@ -10,20 +10,20 @@ import { environment } from 'src/environments/environment';
 export class StatisticsService {
   public idPlayer;
   url = environment.serverHeroku;
-  config = {
-    uid: this.authService.userInfo().uid
-  };
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   getStatistics(id) {
-    var config = {
+    const config = {
       uid: id
-    }
+    };
     return this.http.post(`${this.url}/estadisticas/obtener`, config);
   }
 
   getStatisticsPlayers() {
-    return this.http.post(`${this.url}/estadisticas/obtener`, this.config);
+    const config = {
+      uid: this.idPlayer
+    };
+    return this.http.post(`${this.url}/estadisticas/obtener`, config);
   }
 
   setidPlayer(idPlayer: any) {

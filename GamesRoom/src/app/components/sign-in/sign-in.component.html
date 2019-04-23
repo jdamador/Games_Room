@@ -1,9 +1,7 @@
 <div class="displayTable">
   <div class="displayTableCell">
-
     <div class="authBlock">
       <h3>Sign In</h3>
-
       <!-- Calling GoogleAuth Api from AuthService -->
       <div class="formGroup">
         <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth(0)">
@@ -11,12 +9,10 @@
           Log in with Google
         </button>
       </div>
-
+      <div class="redirectToLogin">
+        <span style="color: black">Don't have an account?<span class="redirect" style="color: black"
+            routerLink="/register-user"> Sign Up</span></span>
+      </div>
     </div>
-
-    <div class="redirectToLogin">
-      <span>Don't have an account?<span class="redirect" routerLink="/register-user"> Sign Up</span></span>
-    </div>
-
   </div>
 </div>

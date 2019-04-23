@@ -75,7 +75,9 @@ export class MemoryService {
   public saveGame(socket: any, gameUpdate: any) {
     return socket.emit('saveGame', gameUpdate);
   }
-
+  public saveGameLeft(socket: any, gameUpdate: any) {
+    return socket.emit('saveGameLeft', gameUpdate);
+  }
   public setGameObtained(gameProcess) {
     this.gameProcess = gameProcess;
   }

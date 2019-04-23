@@ -1,5 +1,4 @@
 <div mat-dialog-content>
-    <mat-card class="z-depth center" flex="50">
       <div class="title" *ngIf="this.authService.userInfo() as user">
       </div>
       <div class="row">
@@ -14,7 +13,6 @@
           <img class="styleImage" [src]='resulImage' width="50%" height="50%">
         </div>
       </div>
-    </mat-card>
 </div>
 <div mat-dialog-actions>
     <button mat-button (click)="onClose()">Cancel</button>

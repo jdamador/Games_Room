@@ -51,7 +51,6 @@ export class SaveListComponent implements OnInit, AfterViewInit {
     this.gamesSaved.getPartidasGuardadas(jugador, nombre).subscribe(
       data => {
         this.dataSource = data;
-
       },
       error => {
         console.log('error de consulta ' + error);
