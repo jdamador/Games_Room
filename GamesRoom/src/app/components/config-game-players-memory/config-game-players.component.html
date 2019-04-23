@@ -3,11 +3,9 @@
   <section class="section">
     <section class="section">
       <mat-radio-group [(ngModel)]="memory_levels">
-        <mat-radio-button class="margin" value="easy">Easy</mat-radio-button>
-        <mat-radio-button class="margin" value="medium"
-          >Medium</mat-radio-button
-        >
-        <mat-radio-button class="margin" value="hard">Hard</mat-radio-button>
+        <mat-radio-button class="margin" value="easy">10x10</mat-radio-button>
+        <mat-radio-button class="margin" value="medium">15x15</mat-radio-button>
+        <mat-radio-button class="margin" value="hard">18x18</mat-radio-button>
       </mat-radio-group>
     </section>
     <button mat-raised-button color="primary" (click)="onSubmitNewGame()">
@@ -27,18 +25,12 @@
             Number of players
           </mat-header-cell>
           <mat-cell *matCellDef="let user">
-            {{ user.numberOfPlayers }} / 2</mat-cell
-          >
+            {{ user.numberOfPlayers }} / 2</mat-cell>
         </ng-container>
         <ng-container matColumnDef="join">
           <mat-header-cell *matHeaderCellDef> Join Session </mat-header-cell>
           <mat-cell *matCellDef="let user">
-            <button
-              mat-button
-              color="primary"
-              [disabled]="user.numberOfPlayers >= 2"
-              (click)="joinGame(user.id)"
-            >
+            <button mat-button color="primary" [disabled]="user.numberOfPlayers >= 2" (click)="joinGame(user.id)">
               Join
             </button>
           </mat-cell>
@@ -46,11 +38,7 @@
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
       </mat-table>
-      <mat-paginator
-        [pageSize]="10"
-        [pageSizeOptions]="[5, 10, 20]"
-        [showFirstLastButtons]="true"
-      >
+      <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
       </mat-paginator>
     </div>
   </section>
@@ -58,4 +46,3 @@
 <div mat-dialog-actions>
   <button mat-button (click)="onClose()">Cancel</button>
 </div>
-
