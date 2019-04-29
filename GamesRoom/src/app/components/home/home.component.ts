@@ -22,7 +22,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() { }
 
-  // Open settings for IA Checkers.
   openSettingsIACheckers(tipo: string): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -30,8 +29,6 @@ export class HomeComponent implements OnInit {
     dialogConfig.width = '60%';
     this.dialog.open(ConfigGameIaCheckersComponent, dialogConfig);
   }
-
-  // Open settings for Player vs Player Checkers Game.
   openSettingPlayersCheckers(tipo: string): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;

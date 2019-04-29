@@ -15,17 +15,18 @@ export class ViewPlayersComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   displayedColumns = ['Player', 'Condition', 'View Details'];
   playersTable = new MatTableDataSource<any>();
-  intervalo: any;
+  intervalo: any
   constructor(public userService: UserService, public statistics: StatisticsService, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.startTrackingLoop();
-    this.getPlayers();
+    this.obtenerJugadores();
   }
 
   startTrackingLoop() {
     this.intervalo = setInterval(() => {
-      this.getPlayers();
+      //run code
+      this.obtenerJugadores()
     }, 2000);
   }
   stopTrackingLoop() {
@@ -33,7 +34,7 @@ export class ViewPlayersComponent implements OnInit {
     this.intervalo = null;
   }
 
-  getPlayers() {
+  obtenerJugadores() {
     this.userService.getPlayers().subscribe(
       (sessions: any[]) => {
         let formedData = [];

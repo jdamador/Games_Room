@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CheckersService } from 'src/app/shared/services/checkers-service/checkers.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ChatService } from 'src/app/shared/services/chat-service/chat.service';
+import { database } from 'firebase';
 import { MatSnackBar } from '@angular/material';
 
 @Component({
@@ -10,165 +11,155 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./checkers-board.component.css']
 })
 export class CheckersBoardComponent implements OnInit, OnDestroy {
-  // All variables to handle control of game actions.
-  idRoom: any;
-  uidPlayer: string;
-  turn: string;
-  board = [];
+  idSala: any;
+  uidJugador: string;
+  turno: string;
+  tablero = [];
   xActual: string;
   yActual: string;
-  winner: string;
-  state = 'false';
+  ganador: string;
+  estado = 'false';
   color: string;
   private session: any;
   type_piece = 'none';
-  gameState: any;
-  turnPlayer = '-';
-  numWhite = 0;
-  numRed = 0;
-  level = 0;
+  estadoJuego: any;
+  turnoJugador = '-';
+  numBlancas = 0;
+  numRojas = 0;
+
+  nivel = 0;
 
   constructor(private checkersService: CheckersService, private authService: AuthService,
     private chat: ChatService, private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
-    // When game start init a new connection and configure a game.
     this.session = this.checkersService.connectToServer();
-    this.chat.setRoom(this.checkersService.getIdRoom()); // Set chat room.
-    // Get actual user from local storage.
+    this.chat.setSala(this.checkersService.getidSala());
     const user = JSON.parse(localStorage.getItem('user'));
-    this.uidPlayer = user['uid'];
-    this.gameState = this.checkersService.getGameState();
-
-    // If there isn't a game.
-    if (this.gameState === undefined) {
+    this.uidJugador = user['uid'];
+    this.estadoJuego = this.checkersService.getEstadoJuego();
+    if (this.estadoJuego === undefined) {
       this.authService.Home();
     }
-    if (this.gameState === false) {  // To create a new game.
+    if (this.estadoJuego === false) { // Para crear una nueva partida
       this.type_piece = this.checkersService.getPieceType();
-      this.idRoom = this.checkersService.idRoom;
-      this.sendInfoCreateBoard(this.idRoom);
-    } else if (this.gameState === true) { // To join a new game.
-      this.idRoom = this.checkersService.getIdRoomJoinGame();
-      this.sendInfoCreateBoard(this.idRoom);
-    } else if (this.gameState === 'bot') {
-      this.checkersService.getIdRoom().subscribe(
+      this.idSala = this.checkersService.idSala;
+      this.envioInfoCrearTablero(this.idSala);
+    } else if (this.estadoJuego === true) { // Para unirse a una partida
+      this.idSala = this.checkersService.getidSalaUnirPartida();
+      this.envioInfoCrearTablero(this.idSala);
+    } else if (this.estadoJuego === 'bot') {
+      this.checkersService.getidSala().subscribe(
         data => {
-          this.level = this.checkersService.getLevel();
+          this.nivel = this.checkersService.getLevel();
           this.type_piece = this.checkersService.getPieceType();
-          this.level = data.idRoom;
-          this.sendInfoCreateBoard(this.idRoom);
+          this.idSala = data.idSala;
+          this.envioInfoCrearTablero(this.idSala);
         },
         error => {
-          console.log('Error getting information!');
+          console.log('Error en la consulta');
         }
       );
-    } else if (this.gameState === 'botRecover') {
-      this.idRoom = this.checkersService.getIdRoomJoinGame();
-      this.sendInfoCreateBoard(this.idRoom);
+    } else if (this.estadoJuego === 'botRecuperar') {
+      this.idSala = this.checkersService.getidSalaUnirPartida();
+      this.envioInfoCrearTablero(this.idSala);
     }
 
-    // Create an observer to get damas board.
-    this.checkersService.getBoard(this.session, (data: any) => {
-      this.board = data.board;
-      this.idRoom = data.idRoom;
-      this.turn = data.turn;
+    this.checkersService.getTablero(this.session, (data: any) => {
+      this.tablero = data.tablero;
+      this.idSala = data.idSala;
+      this.turno = data.turno;
       this.color = data.color;
-      this.type_piece = data.piece;
-      this.numWhite = data.numWhite;
-      this.numRed = data.numRed;
-      this.level = data.level;
-      this.winner = 'follow';
+      this.type_piece = data.pieza;
+      this.numBlancas = data.numBlancas;
+      this.numRojas = data.numRojas;
+      this.nivel = data.nivel;
+      this.ganador = 'sigue'
       if (this.color === 'B') {
-        this.turnPlayer = 'White';
+        this.turnoJugador = 'Blancas';
       } else {
-        this.turnPlayer = 'Red';
+        this.turnoJugador = 'Rojas';
       }
-      if (this.turn === 'bot') {
-        this.checkersService.sendBotMakePlay(this.session, {
-          idSala: this.idRoom,
-          jugador: this.uidPlayer,
-          nivel: this.level
+      if (this.turno === 'bot') {
+        this.checkersService.envioBotHacerJugada(this.session, {
+          idSala: this.idSala,
+          jugador: this.uidJugador,
+          nivel: this.nivel
         });
       }
     });
 
-    // Create an observer to get available movements.
-    this.checkersService.getBoardNewMovement(this.session, (data: any) => {
-      this.idRoom = data.idRoom;
-      this.board = data.board;
-      this.winner = data.winner;
-      this.turn = data.turn;
-      this.numWhite = data.numWhite;
-      this.numRed = data.numRed;
+    this.checkersService.getTableroNuevoMovimiento(this.session, (data: any) => {
+      this.idSala = data.idSala;
+      this.tablero = data.tablero;
+      this.ganador = data.ganador;
+      this.turno = data.turno;
+      this.numBlancas = data.numBlancas;
+      this.numRojas = data.numRojas;
       if (this.color === 'B') {
-        this.turnPlayer = 'White';
+        this.turnoJugador = 'Blancas';
       } else {
-        this.turnPlayer = 'Red';
+        this.turnoJugador = 'Rojas';
       }
-      if (this.winner === 'follow') {
-        if (this.gameState === 'bot' || this.gameState === 'botRecover') {
-          // If is a bot turn get a new movement.
-          this.checkersService.sendBotMakePlay(this.session, {
-            idRoom: this.idRoom,
-            player: this.uidPlayer,
-            level: this.level
+      if (this.ganador == 'sigue') {
+        if (this.estadoJuego === 'bot' || this.estadoJuego === 'botRecuperar') {
+          this.checkersService.envioBotHacerJugada(this.session, {
+            idSala: this.idSala,
+            jugador: this.uidJugador,
+            nivel: this.nivel
           });
         }
       }
 
     });
 
-    // Get all possbile movements for a piece.
     this.checkersService.getPosiblesMovimientos(this.session, (data: any) => {
-      this.board = data.board;
-      this.idRoom = data.idRoom;
-      this.winner = data.winner;
-      this.turn = data.turn;
+      this.tablero = data.tablero;
+      this.idSala = data.idSala;
+      this.ganador = data.ganador;
+      this.turno = data.turno;
+
     });
 
-    // Get a play make for the bot.
-    this.checkersService.getBotPlay(this.session, (data: any) => {
-      this.board = data.board;
-      this.idRoom = data.idRoom;
-      this.winner = data.winner;
+    this.checkersService.obtenerJugadaBot(this.session, (data: any) => {
+      this.tablero = data.tablero;
+      this.idSala = data.idSala;
+      this.ganador = data.ganador;
       this.color = data.color;
-      this.numWhite = data.numWhite;
-      this.numRed = data.numRed;
-      this.turn = data.turn;
-      this.turnPlayer = 'White';
+      this.numBlancas = data.numBlancas;
+      this.numRojas = data.numRojas;
+      this.turno = data.turno;
+      this.turnoJugador = 'Blancas';
     });
 
   }
 
-  // Event trow when a windows is close.
   ngOnDestroy() {
-    // Disconnect the session.
     this.checkersService.disconnectSession(this.session,
       {
-        idRoom: this.idRoom,
-        player: this.uidPlayer,
-        level: this.level
+        idSala: this.idSala,
+        jugador: this.uidJugador,
+        nivel: this.nivel
       }
     );
   }
 
-  // Set information to service to create a board.
-  sendInfoCreateBoard(id: string) {
-    this.checkersService.sendInfoCreateBoard(this.session, {
-      idRoom: id,
-      player: this.uidPlayer,
-      type: this.type_piece,
-      level: this.level,
+  // Envia información hacia el servicio para crear el tablero
+  envioInfoCrearTablero(id: string) {
+    this.checkersService.envioInfoCrearTablero(this.session, {
+      idSala: id,
+      jugador: this.uidJugador,
+      tipo: this.type_piece,
+      nivel: this.nivel,
     });
-    if (this.gameState === true) {
-      this.checkersService.deleteAvailable().subscribe(
+    if (this.estadoJuego === true) {
+      this.checkersService.eliminarDisponible().subscribe(
         data => {
           console.log(data);
         },
         error => {
-          console.log('Error getting data!');
+          console.log('Error en la consulta');
         }
       );
     }
@@ -176,27 +167,27 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
 
   }
 
-  // Sent information to a service to get all available movements for a piece.
-  async sentInfoVerifyPossiblesMovements() {
-    if (this.turn === this.uidPlayer) {
-      this.checkersService.sendInfoPossibleMove(this.session, {
-        jugador: this.uidPlayer,
-        idSala: this.idRoom,
+  // Envia información hacia el servicio para verificar los posible movimientos de una ficha
+  async envioInfoVerficarPosiblesMovimiento() {
+    if (this.turno === this.uidJugador) {
+      this.checkersService.envioInfoPosibleMovimiento(this.session, {
+        jugador: this.uidJugador,
+        idSala: this.idSala,
         x: this.xActual,
         y: this.yActual
       });
-      this.state = 'true';
+      this.estado = 'true';
     } else {
-      console.log('It\'s not your turn');
+      console.log('no es su turno');
     }
   }
 
-  // Sent information to service to update the table with a new movement.
-  async sendInfoUpdateBoardNewMovement() {
-    if (this.turn === this.uidPlayer) {
-      this.checkersService.sendUpdateBoardNewMove(
+  // Envia información hacia el servicio para actualizar la tabla con un nuevo movimiento
+  async envioInfoActualizarTableroNuevoMovimiento() {
+    if (this.turno === this.uidJugador) {
+      this.checkersService.envioInfoActualizarTableroNuevoMovimiento(
         this.session,
-        { idSala: this.idRoom, x: this.xActual, y: this.yActual }
+        { idSala: this.idSala, x: this.xActual, y: this.yActual }
       );
     } else {
       console.log('no es su turno');
@@ -204,48 +195,52 @@ export class CheckersBoardComponent implements OnInit, OnDestroy {
   }
 
   async function(row, col) {
-    if (this.winner !== 'sigue') {
-      this.snackBar.open(this.winner, 'STATE', {
+    if (this.ganador != 'sigue') {
+      this.snackBar.open(this.ganador, 'ESTADO', {
         duration: 2000,
       });
       this.authService.Home();
-    } else {
+    }
+    else {
       if (this.xActual === row && this.yActual === col) {
-        // Get last board.
-        this.checkersService.getOlderBoard(this.idRoom).subscribe(
+        this.checkersService.getTableroAntiguo(this.idSala).subscribe(
           data => {
-            this.board = data.board;
-            this.state = 'false';
+            this.tablero = data.Tablero;
+            this.estado = 'false';
           },
           error => {
-            console.log('Error getting data!');
+            console.log('Error en la consulta');
           }
         );
       } else {
         this.xActual = row;
         this.yActual = col;
-        const pos = this.board[this.xActual][this.yActual];
-        if (this.state === 'false' && this.turn === this.uidPlayer) {
+        var pos = this.tablero[this.xActual][this.yActual];
+        // console.log('-----------');
+        // console.log(this.color);
+        // console.log(this.uidJugador);
+        // console.log(this.turno);
+        // console.log(this.estado);
+        // console.log('-----------');
+        if (this.estado === 'false' && this.turno === this.uidJugador) {
           if (this.color === 'B') {
             if (pos !== 'V' && pos !== 'R' && pos !== 'KR') {
-              await this.sentInfoVerifyPossiblesMovements();
+              await this.envioInfoVerficarPosiblesMovimiento();
             }
           } else {
             if (this.color === 'R') {
               if (pos !== 'V' && pos !== 'B' && pos !== 'KB') {
-                // Verify possible movements.
-                await this.sentInfoVerifyPossiblesMovements();
+                await this.envioInfoVerficarPosiblesMovimiento();
               }
             }
           }
-        } else if (this.state === 'true') {
-          if (pos === 'PV' && this.turn === this.uidPlayer) {
+        } else if (this.estado === 'true') {
+          if (pos === 'PV' && this.turno === this.uidJugador) {
             console.log();
-            // Update board with a new movement.
-            this.sendInfoUpdateBoardNewMovement();
+            this.envioInfoActualizarTableroNuevoMovimiento();
             this.xActual = '-1';
             this.yActual = '-1';
-            this.state = 'false';
+            this.estado = 'false';
           }
         }
       }

@@ -19,15 +19,18 @@ export class ConfigGamePlayersCheckersComponent implements OnInit, AfterViewInit
   displayedColumns = ['Sala', 'id User', 'join'];
   gameTable = new MatTableDataSource<any>();
   gameType = 'lobby';
-  gameState = false; // If is false, create a new room; if is true, join to an exist room.
+  estadoJuego = false; // Si es false, inidica creación de nueva partida, si es true, indica la unión a una partida
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(public session: SessionService,
     public authService: AuthService,
+    private router: Router,
     public dialogRef: MatDialogRef<ConfigGamePlayersCheckersComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, public checkersService: CheckersService) {
+
     this.gameType = data;
+
   }
 
   ngOnInit() {
@@ -52,7 +55,6 @@ export class ConfigGamePlayersCheckersComponent implements OnInit, AfterViewInit
     this.gameTable.paginator = this.paginator;
   }
 
-  // Show games available to join.
   showGames() {
     if (this.showRooms) {
       this.showRooms = false;
@@ -65,7 +67,6 @@ export class ConfigGamePlayersCheckersComponent implements OnInit, AfterViewInit
     this.dialogRef.close();
   }
 
-  // Configure all thing to play checkers.
   configGameCheckers() {
     if (this.newGame) {
       this.newGame = false;
@@ -74,27 +75,25 @@ export class ConfigGamePlayersCheckersComponent implements OnInit, AfterViewInit
     }
   }
 
-  // Start a new checkers game.
-  playCheckers() {
-    this.checkersService.getIdRoom().subscribe(
+  jugarCheckers() {
+    this.checkersService.getidSala().subscribe(
       data => {
-        this.checkersService.idRoom = data.idRoom;
-        this.checkersService.setGameState(this.gameState);
+        this.checkersService.idSala = data.idSala;
+        this.checkersService.setEstadoJuego(this.estadoJuego);
         this.checkersService.setPieceType(this.pieces_type);
         this.authService.goCheckers();
         this.onClose();
       },
       error => {
-        console.log('Error getting data.');
+        console.log('Error en la consulta');
       }
     );
   }
 
-  // Join to a game.
   joinGame(user) {
-    this.gameState = true;
-    this.checkersService.setGameState(this.gameState);
-    this.checkersService.setIdRoomJoinGame(user);
+    this.estadoJuego = true;
+    this.checkersService.setEstadoJuego(this.estadoJuego);
+    this.checkersService.setidSalaUnirPartida(user);
     this.dialogRef.close();
     this.authService.goCheckers();
   }

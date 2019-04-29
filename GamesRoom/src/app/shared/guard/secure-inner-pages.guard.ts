@@ -16,7 +16,6 @@ export class SecureInnerPagesGuard implements CanActivate {
     public statusService: StatusService
   ) { }
 
-  // Verify if is connect to frontend to can access to all components.
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {

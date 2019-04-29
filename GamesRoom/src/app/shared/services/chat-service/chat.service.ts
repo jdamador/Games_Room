@@ -7,18 +7,13 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class ChatService {
-
-  // Server address.
-  private url = environment.localServer;
-
-  // Socket settings.
+  private url = environment.serverHeroku;
   private socket;
-  private room = '';
+  private sala = '';
   constructor() {
     this.socket = io(this.url);
   }
 
-  // Get all messages send.
   public getMessages = () => {
     return Observable.create(observer => {
       this.socket.on('sendMessage', data => {
@@ -28,23 +23,17 @@ export class ChatService {
     });
   }
 
-  // Send information to current room.
-  public sendInfo = data => {
+  public envioInfo = data => {
     this.socket.emit('sendMessage', data);
   }
 
-  // Join to current room.
-  public joinSession = (data) => {
-    this.socket.emit('joinSesionChat', data);
+  public entrarSesion = (data) => {
+    this.socket.emit('entrarSesionChat', data);
   }
-
-  // Set a new room.
-  public setRoom(room) {
-    this.room = room;
+  public setSala(sala) {
+    this.sala = sala;
   }
-
-  // Return current room.
-  public getRoom() {
-    return this.room;
+  public getSala() {
+    return this.sala;
   }
 }

@@ -9,8 +9,6 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-
-  // Default imagene to each category where a player is place.
   images = {
     silver: '../../assets/images/silver.png',
     bronze: '../../assets/images/bronze.png',
@@ -24,29 +22,27 @@ export class ProfileComponent implements OnInit, OnDestroy {
   defeats = 0;
   draws = 0;
   users: User[];
-  intervalo: any;
-  id: string;
+  intervalo: any
+  id: string
 
   constructor(public statistic: StatisticsService,
     public authService: AuthService) { }
 
-  // When start the window get perfil data from current user.
   ngOnInit() {
     this.startTrackingLoop();
     const user = JSON.parse(localStorage.getItem('user'));
-    this.id = user['uid'];
-    this.getStatistics();
+    this.id = user['uid']
+    this.obtenerEstadistica();
   }
 
-  // Stop tracking loop when the window is closed.
   ngOnDestroy() {
     this.stopTrackingLoop();
   }
 
-  // Interval to update perfil data.
   startTrackingLoop() {
     this.intervalo = setInterval(() => {
-      this.getStatistics();
+      //run code
+      this.obtenerEstadistica()
     }, 1000);
   }
   stopTrackingLoop() {
@@ -54,14 +50,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.intervalo = null;
   }
 
-  // Get statistics for current user.
-  getStatistics() {
-    let total = 50;
+  obtenerEstadistica() {
+    var total = 50;
     this.statistic.getStatistics(this.id).subscribe(
       data => {
-        this.wins = data['wins'];
-        this.defeats = data['defeats'];
-        this.draws = data['draws'];
+        this.wins = data['ganadas'];
+        this.defeats = data['perdidas'];
+        this.draws = data['empatadas'];
         total = total + this.wins * 5;
         total = total - this.defeats * 8;
         total = total + this.draws * 2;
@@ -80,7 +75,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         }
       },
       error => {
-        console.log('Error getting data!' + error);
+        console.log('error de consulta ' + error);
       }
     );
   }

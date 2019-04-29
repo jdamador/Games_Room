@@ -7,26 +7,23 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class SaveGamesService {
-  // Server Address.
-  url = environment.localServer;
+  url = environment.serverHeroku;
   constructor(private http: HttpClient) { }
 
-  // Get all save matches.
-  getSaveGames(uid: any, name: string): Observable<any> {
+  getPartidasGuardadas(uid: any, nombre: string): Observable<any> {
     const config = {
-      player: uid,
-      name: name
+      jugador: uid,
+      nombre: nombre
     };
-    return this.http.post(`${this.url}/saveGames`, config);
+    return this.http.post(`${this.url}/partidasGuardadas`, config);
   }
 
-  // Delete some saved match.
-  deleteGame(uid, key, id): Observable<any> {
+  eliminarPartida(uid, key, id): Observable<any> {
     const config = {
-      player: uid,
-      key: key,
-      idRoom: id
+      jugador: uid,
+      clave: key,
+      idSala: id
     };
-    return this.http.post(`${this.url}/deleteJuego`, config);
+    return this.http.post(`${this.url}/eliminarJuego`, config);
   }
 }

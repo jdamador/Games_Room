@@ -11,19 +11,19 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class UserService {
-  url = environment.localServer;
+  url = environment.serverHeroku;
   constructor(public afs: AngularFirestore,
     public ngZone: NgZone,
     public authService: AuthService,
     private http: HttpClient
   ) { }
-  // Get all users.
+
   getUsers(id) {
+    console.log(id);
     return this.afs.collection('users').snapshotChanges();
   }
 
-  // Get a specific player.
   getPlayers() {
-    return this.http.get(`${this.url}/profiles`);
+    return this.http.get(`${this.url}/perfiles`);
   }
 }

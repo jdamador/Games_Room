@@ -1,79 +1,65 @@
 <div class="content">
-    <app-menu>
-        <div class="game-board">
-            <mat-grid-list cols="10">
-                <div *ngFor="let i of board; let r = index">
-                    <mat-grid-tile *ngFor="let j of i; let c = index" id="{{r}},{{c}}" (click)="function(r,c)">
-                        <img class="image" *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'V'"
-                            src="../../../assets/images/FondoNegro.png" alt="Fondo Negro">
+  <app-menu>
+    <div class="game-board">
+        <mat-grid-list cols="10">
+            <div *ngFor="let i of tablero; let r = index">
+              <mat-grid-tile
+              *ngFor="let j of i; let c = index" id="{{r}},{{c}}" (click)="function(r,c)">
+                <img class="image" *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'V'"
+                src="../../../assets/images/FondoNegro.png" alt="Fondo Negro">
 
-                        <img class="imagePossibleMove"
-                            *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'PV'"
-                            src="../../../assets/images/FondoNegro.png" alt="Fondo Negro">
+                <img class="imagePosibleMovimiento" *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'PV'"
+                src="../../../assets/images/FondoNegro.png" alt="Fondo Negro">
+  
+                <img class="image" *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'R' && type_piece == 'circle'" 
+                src="../../../assets/images/FichaRoja.png" alt="Ficha Roja">
+  
+                <img class="image" *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'B' && type_piece == 'circle'" 
+                src="../../../assets/images/FichaBlanca.png" alt="Ficha Blanca">
 
-                        <img class="image"
-                            *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'R' && type_piece == 'circle'"
-                            src="../../../assets/images/FichaRoja.png" alt="Ficha Roja">
+                <img class="image" *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'R' && type_piece == 'star'" 
+                src="../../../assets/images/EstrellaRoja.png" alt="Estrella Roja">
+  
+                <img class="image" *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'B' && type_piece == 'star'" 
+                src="../../../assets/images/EstrellaBlanca.png" alt="Estrella Blanca">
+  
+                <img class="image" *ngIf="((r%2==0 && c%2 ==0) || (r%2!=0 && c%2 !=0)) && j == 'V'" 
+                src="../../../assets/images/FondoBlanco.jpg" alt="Fondo Blanco">
 
-                        <img class="image"
-                            *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'B' && type_piece == 'circle'"
-                            src="../../../assets/images/FichaBlanca.png" alt="Ficha Blanca">
+                <img class="image" *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'KR'"
+                src="../../../assets/images/CoronaRoja.png" alt="Fondo ReinaRoja">
 
-                        <img class="image"
-                            *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'R' && type_piece == 'star'"
-                            src="../../../assets/images/EstrellaRoja.png" alt="Estrella Roja">
+                <img class="image" *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'KB'"
+                src="../../../assets/images/CoronaBlanca.png" alt="Fondo ReinaBlanca">
+              </mat-grid-tile>
+            </div>
+        </mat-grid-list>
+    </div>
+    <div class= "chat-board">
+        <app-chat-board></app-chat-board>
+    </div>
+    <div class="status-board">
+        <header class="status-header">
+            <h4>Estado</h4>
+        </header>
+        <section class="status-session">
+            <table style="border: hidden">
+                <tr>
+                    <td> <h5>Turno: </h5> </td>
+                    <td> <h5>{{turnoJugador}}</h5> </td>
+                </tr>
+                <tr>
+                    <td> <h5>Cantidad Blancas:</h5> </td>
+                    <td>  <h5>{{numBlancas}}</h5></td>
+                </tr>
+                <tr>
+                    <td> <h5>Cantidad Rojas:</h5> </td>
+                    <td>  <h5>{{numRojas}}</h5></td>
+                </tr>
+            </table>
+        </section>
+    </div>
 
-                        <img class="image"
-                            *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'B' && type_piece == 'star'"
-                            src="../../../assets/images/EstrellaBlanca.png" alt="Estrella Blanca">
-
-                        <img class="image" *ngIf="((r%2==0 && c%2 ==0) || (r%2!=0 && c%2 !=0)) && j == 'V'"
-                            src="../../../assets/images/FondoBlanco.jpg" alt="Fondo Blanco">
-
-                        <img class="image" *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'KR'"
-                            src="../../../assets/images/CoronaRoja.png" alt="Fondo ReinaRoja">
-
-                        <img class="image" *ngIf="((r%2==0 && c%2 !=0) || (r%2!=0 && c%2 ==0)) && j == 'KB'"
-                            src="../../../assets/images/CoronaBlanca.png" alt="Fondo ReinaBlanca">
-                    </mat-grid-tile>
-                </div>
-            </mat-grid-list>
-        </div>
-        <div class="chat-board">
-            <app-chat-board></app-chat-board>
-        </div>
-        <div class="status-board">
-            <header class="status-header">
-                <h4>State</h4>
-            </header>
-            <section class="status-session">
-                <table style="border: hidden">
-                    <tr>
-                        <td>
-                            <h5>Turn: </h5>
-                        </td>
-                        <td>
-                            <h5>{{turnPlayer}}</h5>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h5>Number of white pieces:</h5>
-                        </td>
-                        <td>
-                            <h5>{{numWhite}}</h5>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h5>Number of red pieces:</h5>
-                        </td>
-                        <td>
-                            <h5>{{numRed}}</h5>
-                        </td>
-                    </tr>
-                </table>
-            </section>
-        </div>
-    </app-menu>
+  </app-menu>
 </div>
+

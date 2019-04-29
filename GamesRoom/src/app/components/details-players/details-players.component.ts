@@ -2,7 +2,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { User } from 'src/app/shared/user-service/user.model';
 import { StatisticsService } from 'src/app/shared/services/statistics-service/statistics.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material'
 
 @Component({
   selector: 'app-details-players',
@@ -10,8 +10,6 @@ import { MatDialogRef } from '@angular/material';
   styleUrls: ['./details-players.component.css']
 })
 export class DetailsPlayersComponent implements OnInit {
-
-  // Default images to each clasificatory category.
   images = {
     silver: '../../assets/images/silver.png',
     bronze: '../../assets/images/bronze.png',
@@ -29,23 +27,20 @@ export class DetailsPlayersComponent implements OnInit {
   constructor(public statistic: StatisticsService,
     public authService: AuthService, public dialogRef: MatDialogRef<DetailsPlayersComponent>, ) { }
 
-  // When the window start charge statistics.
   ngOnInit() {
-    this.getStatistics();
+    this.obtenerEstadistica();
   }
 
-  // Get statistics from API.
-  getStatistics() {
-    let total = 50;
+  obtenerEstadistica() {
+    var total = 50;
     this.statistic.getStatisticsPlayers().subscribe(
       data => {
-        this.wins = data['wins'];
-        this.defeats = data['defeats'];
-        this.draws = data['draws'];
+        this.wins = data['ganadas'];
+        this.defeats = data['perdidas'];
+        this.draws = data['empatadas'];
         total = total + this.wins * 5;
         total = total - this.defeats * 8;
         total = total + this.draws * 2;
-        // Calculate what category is asigned for each player.
         if (total < 15) {
           this.resulImage = this.images.iron;
         } else if (total < 40) {
@@ -61,12 +56,11 @@ export class DetailsPlayersComponent implements OnInit {
         }
       },
       error => {
-        console.log('Error getting data!' + error);
+        console.log('error de consulta ' + error);
       }
     );
   }
 
-  // When close pop up window.
   onClose() {
     this.dialogRef.close();
   }

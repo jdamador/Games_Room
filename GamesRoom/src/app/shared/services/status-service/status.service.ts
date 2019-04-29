@@ -7,25 +7,22 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class StatusService {
-  // Server address.
-  private url = environment.localServer;
+  private url = environment.serverHeroku;
   constructor(private http: HttpClient) { }
 
-  // Set online state when some player is connected to web page.
-  stateOnline(uid: any): Observable<any> {
-    const config = {
-      player: uid,
-      state: 'online'
+  estadoOnline(uid: any): Observable<any> {
+    let config = {
+      jugador: uid,
+      estado: 'online'
     };
-    return this.http.post(`${this.url}/state/edit`, config);
+    return this.http.post(`${this.url}/estado/editar`, config);
   }
 
-  // Set disconnect state when some player left the page.
   estadoAusente(uid: any): Observable<any> {
-    const config = {
-      player: uid,
-      state: 'disconected'
+    let config = {
+      jugador: uid,
+      estado: 'ausente'
     };
-    return this.http.post(`${this.url}/state/edit`, config);
+    return this.http.post(`${this.url}/estado/editar`, config);
   }
 }
