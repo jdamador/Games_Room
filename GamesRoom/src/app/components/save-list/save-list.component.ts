@@ -23,9 +23,10 @@ export class SaveListComponent implements OnInit, AfterViewInit {
     public authService: AuthService, public checkersService: CheckersService,
     public memoryService: MemoryService) { }
 
+  // Get save list when start the window.
   ngOnInit() {
     this.startTrackingLoop();
-    this.obtenerPartida();
+    this.getGames();
 
   }
   ngAfterViewInit() {
@@ -35,8 +36,7 @@ export class SaveListComponent implements OnInit, AfterViewInit {
 
   startTrackingLoop() {
     this.intervalo = setInterval(() => {
-      // run code
-      this.obtenerPartida();
+      this.getGames();
     }, 1000);
   }
   stopTrackingLoop() {
@@ -44,54 +44,58 @@ export class SaveListComponent implements OnInit, AfterViewInit {
     this.intervalo = null;
   }
 
-  obtenerPartida() {
+  // Get save games.
+  getGames() {
     const user = JSON.parse(localStorage.getItem('user'));
-    const jugador = this.authService.userInfo().uid;
-    const nombre = user['displayName'];
-    this.gamesSaved.getPartidasGuardadas(jugador, nombre).subscribe(
+    const player = this.authService.userInfo().uid;
+    const name = user['displayName'];
+    this.gamesSaved.getSaveGames(player, name).subscribe(
       data => {
         this.dataSource = data;
       },
       error => {
-        console.log('error de consulta ' + error);
+        console.log('Error getting data! ' + error);
       }
     );
   }
-  eliminarPartida(game) {
+
+  // Delete a save game.
+  deleteGame(game) {
     const user = JSON.parse(localStorage.getItem('user'));
-    const jugador = user['uid'];
+    const player = user['uid'];
     const key = game['keyEliminar'];
     const id = game['id'];
-    this.gamesSaved.eliminarPartida(jugador, key, id).subscribe(
+    this.gamesSaved.deleteGame(player, key, id).subscribe(
       data => {
         console.log(data);
       },
       error => {
-        console.log('error de consulta ' + error);
+        console.log('Error getting data! ' + error);
       }
     );
   }
 
-  cargarPartida(game) {
+  // Charge a game save.
+  chargeGame(game) {
     console.log(game);
     const tipo = game['name'];
     if (tipo === 'Checkers') {
-      const key = game['keyEliminar'];
+      // If is a checkers game charge.
+      const key = game['keyDelete'];
       const id = game['id'];
-      const nivel = game['nivel'];
-      const unir = { 'idSala': id, 'keyEliminar': key };
-      const pieza = game['pieza'];
-      this.checkersService.setidSalaUnirPartida(unir);
-      this.checkersService.setEstadoJuego('botRecuperar');
-      this.checkersService.setLevel(nivel);
-      this.checkersService.setPieceType(pieza);
+      const level = game['level'];
+      const join = { 'idRoom': id, 'keyDelete': key };
+      const piece = game['piece'];
+      this.checkersService.setIdRoomJoinGame(join);
+      this.checkersService.setGameState('botRecover');
+      this.checkersService.setLevel(level);
+      this.checkersService.setPieceType(piece);
       this.authService.goCheckers();
     } else {
+      // If is a memory game charge it.
       this.memoryService.setGameObtained(game['id']);
       this.memoryService.boardType = 'IA';
       this.authService.goMemory();
     }
-
   }
-
 }

@@ -4,8 +4,6 @@ import {
   MatTableDataSource,
   MatPaginator
 } from '@angular/material';
-import { MAT_DIALOG_DATA } from '@angular/material';
-import { Inject } from '@angular/core';
 import { NewSession } from 'src/app/interfaces/table/table.module';
 import { SessionService } from 'src/app/shared/services/sessionservice/session.service';
 import { AuthService } from 'src/app/shared/services/auth.service';

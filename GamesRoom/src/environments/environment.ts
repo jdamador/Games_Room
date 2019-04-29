@@ -1,3 +1,4 @@
+// Global variables.
 export const environment = {
   production: false,
   firebase: {

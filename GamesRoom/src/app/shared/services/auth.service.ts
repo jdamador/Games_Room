@@ -16,7 +16,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-  private url = environment.serverHeroku;
+  private url = environment.localServer;
   userData: any; // Save logged in user data
   statisticsData: any;
 
@@ -28,8 +28,7 @@ export class AuthService {
     private http: HttpClient,
     public statusService: StatusService
   ) {
-    /* Saving user data in localstorage when
-    logged in and setting up null when logged out */
+    /* Saving user data in localstorage when logged in and setting up null when logged out */
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.userData = user;
@@ -53,11 +52,11 @@ export class AuthService {
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user !== null && user.emailVerified !== false) {
-      this.statusService.estadoOnline(user['uid']).subscribe(
+      this.statusService.stateOnline(user['uid']).subscribe(
         data => {
         },
         error => {
-          console.log('error de consultas ' + error);
+          console.log('Get fail' + error);
         }
       );
       return true;
@@ -143,7 +142,7 @@ export class AuthService {
     );
   }
   callCreateStatistics(config: any): Observable<any> {
-    return this.http.post(`${this.url}/estadisticas/agregar`, config);
+    return this.http.post(`${this.url}/statistics/add`, config);
   }
 
   // Home
@@ -166,16 +165,22 @@ export class AuthService {
     return this.router.navigate(['viewPlayers']);
   }
 
+  // Get user registered
   getPeople() {
     return this.afAuth.auth;
   }
+
+  // Get all information from current user.
   userInfo() {
     return JSON.parse(localStorage.getItem('user'));
   }
 
+  // Navigate to checkers board.
   goCheckers() {
     return this.router.navigate(['checkers']);
   }
+
+  // Navigate to memory board.
   goMemory() {
     return this.router.navigate([`/memory/`, '']);
   }

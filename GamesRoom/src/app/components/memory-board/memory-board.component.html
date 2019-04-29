@@ -1,11 +1,6 @@
 <div class="content">
   <app-menu>
-    <div
-      *ngIf="!onGoingGame"
-      class="waiting"
-      fxLayoutAlign="center center"
-      fxLayout="column"
-    >
+    <div *ngIf="!onGoingGame" class="waiting" fxLayoutAlign="center center" fxLayout="column">
       <mat-spinner></mat-spinner>
       <h1>Waiting for Opponent....</h1>
     </div>
@@ -13,17 +8,11 @@
     <div *ngIf="onGoingGame" class="container">
       <div class="cards_table">
         <span *ngFor="let card of gameProgress.board; index as i">
-          <img
-            class="img-card"
-            src="{{ card.visible ? card.url : images_inact }}"
-            (click)="card_selected(i)"
-          />
+          <img class="img-card" src="{{ card.visible ? card.url : images_inact }}" (click)="card_selected(i)" />
         </span>
       </div>
       <div class="chat-board">
-        <app-chat-board
-          *ngIf="memoryService.boardType !== 'IA'"
-        ></app-chat-board>
+        <app-chat-board *ngIf="memoryService.boardType !== 'IA'"></app-chat-board>
         <header class="status-header">
           <h4>Estado</h4>
         </header>

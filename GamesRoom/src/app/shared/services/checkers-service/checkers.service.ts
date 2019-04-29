@@ -9,12 +9,12 @@ import { environment } from 'src/environments/environment';
 })
 export class CheckersService {
 
-  private url = environment.serverHeroku;
+  private url = environment.localServer;
   pieceType: string;
-  estadoJuego: any;
-  idSala: string;
-  keyEliminar: string;
-  nivelJuego: number;
+  gameState: any;
+  idRoom: string;
+  keyDelete: string;
+  gameLevel: number;
 
   constructor(private http: HttpClient) {
 
@@ -25,111 +25,110 @@ export class CheckersService {
     return socket;
   }
 
-  // Envia la información al API para que crear el nuevo tablero
-  // Recibe un nivel dado para el juego de bot
-  setLevel(nivel: number) {
-    this.nivelJuego = nivel;
+  // Send information to API to create a new board.
+  // Receive a level for bot game.
+  setLevel(level: number) {
+    this.gameLevel = level;
   }
 
-  // obtiene el nivel de la partida
+  // Get match level.
   getLevel() {
-    return this.nivelJuego;
+    return this.gameLevel;
   }
 
-  // Recibe la información del tipo de pieza con que se va a jugar
+  // Receive the information about kind of piece to play.
   setPieceType(pieceType: string) {
     this.pieceType = pieceType;
   }
 
-  // Envia la información del tipo de ficha al tablero
+  // Send information about kind of piece to board.
   getPieceType() {
     return this.pieceType;
   }
 
-  // Recibe la información del tipo de piexa con que se va a jugar
-  setidSalaUnirPartida(user) {
-    this.keyEliminar = user.keyEliminar;
-    this.idSala = user.idSala;
+  // Receive the information about which piece will be use to play.
+  setIdRoomJoinGame(user) {
+    this.keyDelete = user.keyDelete;
+    this.idRoom = user.idRoom;
   }
 
-  // Envia la información del tipo de ficha al tablero
-  getidSalaUnirPartida() {
-    return this.idSala;
+  // Send kind of piece to board.
+  getIdRoomJoinGame() {
+    return this.idRoom;
   }
 
-  // Recibe la información del tipo de piexa con que se va a jugar
-  setEstadoJuego(estadoJuego: any) {
-    this.estadoJuego = estadoJuego;
+  setGameState(gameState: any) {
+    this.gameState = gameState;
   }
 
-  // Envia la información del tipo de ficha al tablero
-  getEstadoJuego() {
-    return this.estadoJuego;
+  getGameState() {
+    return this.gameState;
   }
 
-  // Envia la información al API para que crear el nuevo tablero
-  public envioInfoCrearTablero = (socket: any, data) => {
-    socket.emit('crearTableroDama', data);
+  // Send information to API to create a board.
+  public sendInfoCreateBoard = (socket: any, data) => {
+    socket.emit('createBoardDama', data);
   }
 
-  // Funcion que recibe del API el nuevo tablero
-  public getTablero(socket: any, data) {
-    socket.on('crearTableroDama', data);
+  // Function that recieve from API a new board.
+  public getBoard(socket: any, data) {
+    socket.on('createBoardDama', data);
   }
 
-  // Envia la información al API para verificar los posible movimientos de una ficha
-  public envioInfoPosibleMovimiento = (socket: any, data) => {
-    socket.emit('validaMovimientoDama', data);
+  // Send information to API to validate moves.
+  public sendInfoPossibleMove = (socket: any, data) => {
+    socket.emit('validateMoveDama', data);
   }
 
-  // Obtiene los posibles movimientos a partir de la informacion procesada por el API
+  // Get possibles movements from API validations.
   public getPosiblesMovimientos(socket: any, data) {
-    socket.on('validaMovimientoDama', data);
+    socket.on('validateMovementDama', data);
   }
 
-  // Envia la información al API para verificar los posible movimientos de una ficha
-  public envioInfoActualizarTableroNuevoMovimiento = (socket: any, data) => {
-    socket.emit('actualizarTablaDama', data);
+  // Send information to validate possibles movements.
+  public sendUpdateBoardNewMove = (socket: any, data) => {
+    socket.emit('updateTableDama', data);
   }
 
-  // Obtiene los posibles movimientos a partir de la informacion procesada por el API
-  public getTableroNuevoMovimiento(socket: any, data) {
-    socket.on('actualizarTablaDama', data);
+  // Get possibles movements from API validations.
+  public getBoardNewMovement(socket: any, data) {
+    socket.on('updateTableDama', data);
   }
 
-  // envia al bot a hacer un movimiento
-  public envioBotHacerJugada = (socket: any, data) => {
-    socket.emit('obtenerJugadaDamaBot', data);
+  // Set bot make a movement.
+  public sendBotMakePlay = (socket: any, data) => {
+    socket.emit('getPlayDamaBot', data);
   }
 
-  // obtiene el cambio realizado cuando el bot jugo
-  public obtenerJugadaBot(socket: any, data) {
-    socket.on('obtenerJugadaDamaBot', data);
+  // Get changes that is make when the bot play.
+  public getBotPlay(socket: any, data) {
+    socket.on('getPlayDamaBot', data);
   }
 
   public disconnectSession(socket: any, data) {
-    socket.emit('cerrarSesionDama', data);
+    socket.emit('closeSessionDama', data);
   }
 
   getSesiones() {
-    return this.http.get(`${this.url}/partidasDisponiblesDamas`);
+    return this.http.get(`${this.url}/gamesAvailableDamas`);
   }
 
-  getidSala(): Observable<any> {
-    return this.http.get(`${this.url}/claveUnica`);
+  getIdRoom(): Observable<any> {
+    return this.http.get(`${this.url}/uniqueKey`);
   }
 
-  eliminarDisponible(): Observable<any> {
+  // Delete availables games when are join two players.
+  deleteAvailable(): Observable<any> {
     const config = {
-      'id': this.keyEliminar
+      'id': this.keyDelete
     };
-    return this.http.post(`${this.url}/eliminarPartidaDama`, config);
+    return this.http.post(`${this.url}/deleteGameDama`, config);
   }
-
-  getTableroAntiguo(id: any): Observable<any> {
+  // Get before board.
+  getOlderBoard(id: any): Observable<any> {
     const config = {
-      'idSala': id
+      'idRoom': id
     };
-    return this.http.post(`${this.url}/tableroPartidaDama`, config);
+    return this.http.post(`${this.url}/boardGameDama`, config);
   }
 }

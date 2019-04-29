@@ -6,6 +6,7 @@ mat-card {
   float: left;
   position: relative;
 }
+
 .checkers {
   margin-left: 5%;
 }
@@ -13,4 +14,3 @@ mat-card {
 img {
   max-height: 90%;
 }
-

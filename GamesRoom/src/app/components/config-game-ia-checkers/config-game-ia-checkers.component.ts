@@ -24,9 +24,9 @@ export class ConfigGameIaCheckersComponent implements OnInit {
   onClose() {
     this.dialogRef.close();
   }
-
-  jugarCheckers() {
-    this.checkersService.setEstadoJuego('bot');
+  // Open a new checkers game.
+  playCheckers() {
+    this.checkersService.setGameState('bot');
     this.checkersService.setLevel(this.checkers_levels);
     this.checkersService.setPieceType(this.pieces_type);
     this.authService.goCheckers();

@@ -9,38 +9,41 @@ import { CheckersService } from 'src/app/shared/services/checkers-service/checke
   styleUrls: ['./chat-board.component.css']
 })
 export class ChatBoardComponent implements OnInit {
-  currentRoom = 'sala';
+  currentRoom = 'room';
   message: string;
   messages = [];
   newMessage: string;
   author = 'roy';
-  idSala = '';
+  idRoom = '';
 
   constructor(private chatService: ChatService, private auth: AuthService) {
-    // FIXME: get id room from checkers component.
   }
 
   ngOnInit() {
-    this.idSala = this.chatService.getSala();
+    // Get default data from services.
+    this.idRoom = this.chatService.getRoom();
     this.author = this.auth.userInfo().displayName;
     // this.idSala = this.checkersService.idSala;
     const user = JSON.parse(localStorage.getItem('user'));
-    this.inicioSesion();
+    // Enter to room.
+    this.singIn();
     this.chatService.getMessages().subscribe(data => {
       this.messages.push({ Author: data.Author, Text: data.Text });
     });
   }
 
-  envio() {
-    this.chatService.envioInfo({
-      idSala: this.idSala,
+  // Send a message to chat between two players.
+  send() {
+    this.chatService.sendInfo({
+      idRoom: this.idRoom,
       Author: this.author,
       Text: this.newMessage
     });
     this.newMessage = '';
   }
 
-  inicioSesion() {
-    this.chatService.entrarSesion({ idSala: this.idSala });
+  // Join to char room.
+  singIn() {
+    this.chatService.joinSession({ idRoom: this.idRoom });
   }
 }

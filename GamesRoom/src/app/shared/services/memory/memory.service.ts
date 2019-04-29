@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class MemoryService {
   // Url to connect with node js server (Use game functions).
-  private url = environment.serverHeroku;
+  private url = environment.localServer;
   private boardSize = 10;
   public boardType = '';
   private gameProcess = null;
@@ -65,19 +65,28 @@ export class MemoryService {
   public gameOver(socket: any, gameOverFunction) {
     socket.on('game-over', gameOverFunction);
   }
+
+  // Set number of hits.
   public setBoardSize(size) {
     this.boardSize = size;
   }
+
+  // Set game type "IA or player vs player"
   public setGameType(type) {
     this.boardType = type;
   }
+
   // Alert to save a game.
   public saveGame(socket: any, gameUpdate: any) {
     return socket.emit('saveGame', gameUpdate);
   }
+
+  // Function that is called when some player left the match.
   public saveGameLeft(socket: any, gameUpdate: any) {
     return socket.emit('saveGameLeft', gameUpdate);
   }
+
+  // Set save gameId.
   public setGameObtained(gameProcess) {
     this.gameProcess = gameProcess;
   }

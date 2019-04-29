@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
 
+// Angular material imports.
 import {
+  MatCardModule,
   MatButtonModule,
   MatToolbarModule,
   MatSidenavModule,
@@ -39,35 +40,31 @@ import { MemoryBoardComponent } from './components/memory-board/memory-board.com
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ChatBoardComponent } from './components/chat-board/chat-board.component';
+import { ConfigGamePlayersCheckersComponent } from './components/config-game-players-checkers/config-game-players-checkers.component';
+import { ConfigGameIaCheckersComponent } from './components/config-game-ia-checkers/config-game-ia-checkers.component';
+import { ConfigGamePlayersMemoryComponent } from './components/config-game-players-memory/config-game-players.component';
+import { SessionService } from './shared/services/sessionservice/session.service';
+import { ViewPlayersComponent } from './components/view-players/view-players.component';
+import { DetailsPlayersComponent } from './components/details-players/details-players.component';
+import { ConfigGameIAComponent } from './components/config-game-ia/config-game-ia.component';
 
 // Firebase services + enviorment module
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
-
+import { HttpClientModule } from '@angular/common/http';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 // Auth service
 import { AuthService } from './shared/services/auth.service';
 import { UserService } from './shared/user-service/user.service';
-import { from } from 'rxjs';
 import { LayoutModule } from '@angular/cdk/layout';
-import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { ChatService } from './shared/services/chat-service/chat.service';
-import { CheckersService } from './shared/services/checkers-service/checkers.service';
-
-import { ConfigGamePlayersCheckersComponent } from './components/config-game-players-checkers/config-game-players-checkers.component';
-import { ConfigGameIaCheckersComponent } from './components/config-game-ia-checkers/config-game-ia-checkers.component';
-import { HttpClientModule } from '@angular/common/http';
-import { HttpModule } from '@angular/http';
 import { MemoryService } from './shared/services/memory/memory.service';
-// TODO: change when someone is going to do tests.
-const config: SocketIoConfig = { url: environment.serverHeroku, options: {} };
 
-import { ConfigGamePlayersMemoryComponent } from './components/config-game-players-memory/config-game-players.component';
-import { SessionService } from './shared/services/sessionservice/session.service';
-import { ViewPlayersComponent } from './components/view-players/view-players.component';
-import { DetailsPlayersComponent } from './components/details-players/details-players.component';
-import { ConfigGameIAComponent } from './components/config-game-ia/config-game-ia.component';
+const config: SocketIoConfig = { url: environment.localServer, options: {} };
+
+
 @NgModule({
   declarations: [
     AppComponent,

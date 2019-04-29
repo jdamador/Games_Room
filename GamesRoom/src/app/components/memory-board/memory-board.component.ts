@@ -60,10 +60,10 @@ export class MemoryBoardComponent implements OnInit, OnDestroy {
       this.onGoingGame = true;
       this.gameProgress = gameStatus;
       this.board = this.gameProgress.board;
-      this.chatService.setSala(this.gameProgress.roomId);
+      this.chatService.setRoom(this.gameProgress.roomId);
     });
     this.memoryService.disconnect(this.session, (opponentLeft: string) => {
-      this.snackBar.open(`¡Un jugador ha abandonado la partida!`, null, {
+      this.snackBar.open(`A player left the match!`, null, {
         duration: 3000
       });
       this.saveLeftPlayer();
@@ -71,16 +71,16 @@ export class MemoryBoardComponent implements OnInit, OnDestroy {
     // Validate when the game was complete and show a message for each player.
     this.memoryService.gameOver(this.session, (gameOver: any) => {
       if (gameOver === '*') {
-        this.snackBar.open('¡Has empatado la partida!', null, {
+        this.snackBar.open('You\re win the match', null, {
           duration: 3000
         });
       } else
         if (gameOver === this.user.name) {
-          this.snackBar.open(`¡Felicitaciones ${this.user.name}, has ganado la partida!`, null, {
+          this.snackBar.open(`Congratulations ${this.user.name}, you won the match!`, null, {
             duration: 3000
           });
         } else {
-          this.snackBar.open(`Lo sentimos ${this.user.name}, has perdido la partida!`, null, {
+          this.snackBar.open(`Sorry ${this.user.name}, you lost the game!`, null, {
             duration: 3000
           });
         }

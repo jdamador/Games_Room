@@ -5,7 +5,7 @@ import { Observable, of as observableOf, merge } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { SaveGamesService } from 'src/app/shared/services/save-games-service/save-games.service';
 
-// TODO: Replace this with your own data model type
+// Replace this with your own data model type
 export interface SaveListItem {
   id: string;
   nivel: string;
@@ -16,7 +16,7 @@ export interface SaveListItem {
 
 }
 
-// TODO: replace this with real data from your application
+// Replace this with real data from your application
 const EXAMPLE_DATA: SaveListItem[] = [
   { id: '1', nivel: '0', name: 'Hydrogen', 'keyEliminar': '4', player1: 'Daniel', player2: 'Royland' },
 ];
